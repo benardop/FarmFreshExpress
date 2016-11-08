@@ -5,17 +5,17 @@ package FarmFresh.business;
  */
 public class LineItem {
     //PRIVATE INSTANCE VARIABLES
-    private Product item;
+    private Product product;
     private int quantity;
 
     //PUBLIC METHODS: SETTERS AND GETTERS
 
-    public void setItem(Product item) {
-        this.item = item;
+    public void setProduct(Product item) {
+        this.product = product;
     }
 
-    public Product getItem() {
-        return item;
+    public Product getProduct() {
+        return product;
     }
 
     public void setQuantity(int quantity) {
@@ -28,7 +28,7 @@ public class LineItem {
 
     //PUBLIC METHODS:  SPECIAL FUNCTIONALITY
     public double getTotal(){
-        return item.getPrice() * quantity; //TODO code this
+        return product.getPrice() * quantity;
     }
 
     public String getTotalCurrencyFormat(){
