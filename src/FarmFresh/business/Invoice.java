@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Mom and Dad on 11/4/2016.
  */
 public class Invoice {
-    // PRIVATE MEMBER VARIABLES
+    // PRIVATE INSTANCE VARIABLES
     private User user;
     private List<LineItem> lineItemList;
     private Date invoiceDate;

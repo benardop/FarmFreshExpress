@@ -4,7 +4,7 @@ package FarmFresh.business;
  * Created by Mom and Dad on 11/4/2016.
  */
 public class Product {
-    //PRIVATE MEMBER VARIABLES
+    //PRIVATE INSTANCE VARIABLES
     private String code;
     private String description;
     private double price;

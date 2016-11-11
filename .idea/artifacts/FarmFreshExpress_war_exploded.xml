@@ -7,6 +7,15 @@
         <element id="directory" name="classes">
           <element id="module-output" name="FarmFreshExpress" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$USER_HOME$/Downloads/jxl-2.6.12.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-3.15.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-scratchpad-3.15.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-ooxml-schemas-3.15.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-ooxml-3.15.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-excelant-3.15.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.10-FINAL-20140208/poi-3.10-FINAL/poi-3.10-FINAL-20140208.jar" />
+        </element>
       </element>
     </root>
   </artifact>

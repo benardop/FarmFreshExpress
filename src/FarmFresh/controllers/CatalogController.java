@@ -20,12 +20,7 @@ public class CatalogController extends HttpServlet {
 
         String requestURI = request.getRequestURI();
         String url;
-
-        if (requestURI.endsWith("/listen")){
-            url = listen(request, response);
-        }else{
-            url = showProduct(request, response);
-        }
+        url = showProduct(request, response);
 
         getServletContext()
                 .getRequestDispatcher(url)
@@ -39,63 +34,42 @@ public class CatalogController extends HttpServlet {
         String requestURI = request.getRequestURI();
         String url = "/catalog";
         if (requestURI.endsWith("/register")){
-//            url = userRegister(request, response);
+            url = registerUser(request, response);
         }
+
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
-
     }
-// Pending doubts
+
+    // Pending doubts
+    // Listen() was not called - no need to make sure we have a user object connected to request.session
+    // Ar request to show the product was directly requested in the URL
     private String showProduct(HttpServletRequest request, HttpServletResponse response){
-        String productCode = request.getPathInfo();
-        if (productCode != null){   //Should never be null
-            productCode = productCode.substring(1);
-//            Product product = ProductDB.selectProduct(productCode);
-//            HttpSession session = request.getSession();
-//            session.setAttribute("product", product);
+        String productCode = request.getPathInfo();  //what might an example url look like?
+        //getPathInfo - takes the path info after the servlet path, but before the query string
+        //servlet path is known because of the mapping the the xml file - correct?
+        // ex)  FFE.com/cart/display --- known servlet is cart/  display is extra path information...
 
+        if (productCode != null){   //Should never be null
+            productCode = productCode.substring(1);//skip first character returned from PathInfo it's a '/' - correct?
+//            Product product = ProductDB.selectProduct(productCode);
+            HttpSession session = request.getSession();
+//            session.setAttribute("product", product);
         }
-        return "/catalog" + productCode + "/index.jsp";
+        //what if product code was null?  Are we just assuming it will always be populated?
+
+        return "/catalog" + productCode + "/index.jsp";  //Will this URL be different than the URL passed as the last
+                                                         //line in the method above? How are the pages displayed diff?
     }
 
-    private String listen(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        // if the user object doesn't exist, check for the e'mail cookie
-        if (user == null) {
-            Cookie[] cookies = request.getCookies();
-            String emailAddress = CookieUtil.getCookieValue(cookies, "emailCookie");
-
-            //if email cookie doesn't exist, go to registration page
-            if (emailAddress == null || emailAddress.equals("")) {
-                return "/catalog/register.jsp";
-            } else {
-//                user = UserDB.selectUser(emailAddress);
-                //If the user doesn't exist in the database, go to registration page
-                if (user == null) {
-                    return "/catalog/register.jsp";
-                }
-
-                session.setAttribute("user", user);
-            }
-
-
-        }
-
-        Product product = (Product)session.getAttribute("product");
-        return "/catalog" + product + "index.jsp";
-
-    }// end method
-
+    //Users are unique based on their e'mail - that their unique attribute?
     private String registerUser(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
 
-        User user = null;  // remove after uncommenting
 //        User user;
 //        if (UserDB.emailExists(email)){
 //            user = UserDB.selectUser(email);
@@ -111,7 +85,7 @@ public class CatalogController extends HttpServlet {
 //            UserDB.add(user);
 //        }
 
-        session.setAttribute("user", user);
+//        session.setAttribute("user", user);
         Cookie emailCookie = new Cookie("emailCookie", email);
         emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
         emailCookie.setPath("/");  //root which is FarmFreshExpress
