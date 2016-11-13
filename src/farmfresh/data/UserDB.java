@@ -1,6 +1,6 @@
-package FarmFresh.data;
+package farmfresh.data;
 
-import FarmFresh.business.User;
+import farmfresh.business.User;
 
 /**
  * Created by Mom and Dad on 11/6/2016.

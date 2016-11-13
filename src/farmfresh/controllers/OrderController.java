@@ -1,10 +1,8 @@
-package FarmFresh.controllers;
+package farmfresh.controllers;
 
-import FarmFresh.business.*;
-import FarmFresh.data.UserDB;
-import FarmFresh.util.CookieUtil;
-import FarmFresh.util.MailUtil;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+import farmfresh.business.*;
+import farmfresh.data.UserDB;
+import farmfresh.util.CookieUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;

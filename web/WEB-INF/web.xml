@@ -3,4 +3,108 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <display-name>Farm Fresh Express</display-name>
+    <description>Farm Fresh Express - Farm Fresh Goods straight to your door.</description>
+
+    <!--  Define Context Initialization Parameters -->
+    <context-param>
+        <param-name>custServEmail</param-name>
+        <param-value>amy.freelance.dev@gmail.com</param-value>
+    </context-param>
+
+    <!-- Servlets Definitions(alphabetical order) -->
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>farmfresh.controllers.AdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogController</servlet-name>
+        <servlet-class>farmfresh.controllers.CatalogController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>farmfresh.controllers.OrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>farmfresh.controllers.UserController</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mapppings  -->
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/adminController/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatalogController</servlet-name>
+        <url-pattern>/catalogController/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/orderController/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/userController/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Define Servlet Context Listener -->
+    <listener>
+        <listener-class>farmfresh.util.FarmFreshContextListener</listener-class>
+    </listener>
+
+    <!-- Define the Welcome Files  - first page you will see entering the app -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- Enable Custom Error Pages -->
+    <error-page>
+        <error-code>404</error-code>
+        <!-- location>error_404.jsp</location -->
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <!--location>/error_java.jsp</location -->
+    </error-page>
+    
+    <!-- Define two security roles -->
+    <security-role>
+        <description>customer service employees</description>
+        <role-name>service</role-name>
+    </security-role>
+    <security-role>
+        <description>programmers</description>
+        <role-name>programmer</role-name>
+    </security-role>
+    <security-constraint>
+        <web-resource-collection>
+
+            <!-- restrict access to the urls in the admin directory -->
+            <web-resource-name>Admin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+
+        <!-- authorize the service and the programmer roles -->
+        <auth-constraint>
+            <role-name>service</role-name>
+            <role-name>programmer</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- use FORM-based authentication to provide access to application  -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <!--form-login-page>/login.jsp</form-login-page-->
+            <!--form-error-page>/login_error.jsp</form-error-page-->
+        </form-login-config>
+    </login-config>
+
+    <!-- use cookies (not URL encoding) to track session -->
+    <session-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
 </web-app>

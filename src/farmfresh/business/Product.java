@@ -1,4 +1,4 @@
-package FarmFresh.business;
+package farmfresh.business;
 
 /**
  * Created by Mom and Dad on 11/4/2016.

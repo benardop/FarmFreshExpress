@@ -1,9 +1,6 @@
-package FarmFresh.controllers;
+package farmfresh.controllers;
 
-import FarmFresh.business.Product;
-import FarmFresh.business.User;
-import FarmFresh.data.UserDB;
-import FarmFresh.util.CookieUtil;
+import farmfresh.business.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;

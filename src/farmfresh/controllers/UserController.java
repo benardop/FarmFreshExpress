@@ -1,7 +1,6 @@
-package FarmFresh.controllers;
+package farmfresh.controllers;
 
-import FarmFresh.business.User;
-import FarmFresh.data.UserDB;
+import farmfresh.business.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;

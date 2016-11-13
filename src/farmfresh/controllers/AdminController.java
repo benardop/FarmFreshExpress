@@ -1,8 +1,7 @@
-package FarmFresh.controllers;
+package farmfresh.controllers;
 
-import FarmFresh.business.Invoice;
-import FarmFresh.data.InvoiceDB;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import farmfresh.business.Invoice;
+import jxl.Workbook;
 //import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import javax.servlet.ServletException;
@@ -107,13 +106,13 @@ public class AdminController extends HttpServlet {
         String endDate = request.getParameter("endDate");
 
         //TODO - which workbook???
-        HSSFWorkbook workbook;
+        Workbook workbook;
         if (reportName.equalsIgnoreCase("userEmail")){
 //            workbook = ReportDB.getUserEmail();
         }else if (reportName.equalsIgnoreCase("downloadDetail")){
 //            workbook = ReportDB.getDownloadDetail(startDate, endDate);
         }else{
-            workbook = new HSSFWorkbook();
+          //  workbook = new HSSFWorkbook();
         }
         response.setHeader("content-disposition",
                 "attachment; filename=" + reportName + ".xsl:");

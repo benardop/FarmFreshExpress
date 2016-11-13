@@ -1,4 +1,4 @@
-package FarmFresh.util;
+package farmfresh.util;
 
 import javax.servlet.http.*;
 

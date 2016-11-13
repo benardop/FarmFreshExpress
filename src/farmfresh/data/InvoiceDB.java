@@ -1,4 +1,4 @@
-package FarmFresh.data;
+package farmfresh.data;
 
 /**
  * Created by Mom and Dad on 11/11/2016.
