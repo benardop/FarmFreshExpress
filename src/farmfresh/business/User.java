@@ -8,7 +8,8 @@ package farmfresh.business;
 public class User {
 
     // INSTANCE VARIABLES
-    private String firstName;   //Amazon uses one field for name?  what do you think?
+    private Long userId;
+    private String firstName;
     private String lastName;
     private String email;
     private String companyName;
@@ -22,7 +23,28 @@ public class User {
     private String creditCardNumber;
     private String creditCardExpirationDate;
 
+    // CONSTRUCTORS
+    public User(){
+         firstName = "";
+         lastName = "";
+         email = "";
+         companyName = "";
+         address1 = "";
+         address2 = "";
+         city = "";
+         state = "";
+         zip = "";
+         country = "";
+         creditCardType = "";
+         creditCardNumber = "";
+         creditCardExpirationDate = "";
+    }
+
     // PUBLIC METHODS:  SETTERS AND GETTERS
+    public void setUserId(Long userId) { this.userId = userId; }
+
+    public Long getUserId() { return userId; }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -67,9 +89,13 @@ public class User {
         this.address2 = address2;
     }
 
+    public String getAddress2() {
+        return address2;
+    }
+
     public String getCity() {
         return city;
-    }
+    }  //TODO fix flip flopped methods
 
     public void setCity(String city) {
         this.city = city;

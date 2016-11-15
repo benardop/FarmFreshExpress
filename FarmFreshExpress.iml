@@ -32,7 +32,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-3.10-FINAL-20140208/poi-3.10-FINAL/poi-3.10-FINAL-20140208.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-3.15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/connection-pool-2.3.5.jar/connection-pool-2.3.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
