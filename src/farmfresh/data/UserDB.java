@@ -107,6 +107,33 @@ public class UserDB {
         }
     }
 
+    public static User selectUser(Long userId) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT * FROM User "
+                + "WHERE UserID = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, userId);
+            rs = ps.executeQuery();
+            User user = null;
+            if (rs.next()) {
+                user = buildUser(rs);
+            }
+            return user;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        } finally {
+            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }
+
     public static User selectUser(String email) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -121,21 +148,7 @@ public class UserDB {
             rs = ps.executeQuery();
             User user = null;
             if (rs.next()) {
-                user = new User();
-                user.setUserId(rs.getLong("UserID"));
-                user.setFirstName(rs.getString("FirstName"));
-                user.setLastName(rs.getString("LastName"));
-                user.setEmail(rs.getString("Email"));
-                user.setCompanyName(rs.getString("CompanyName"));
-                user.setAddress1(rs.getString("Address1"));
-                user.setAddress2(rs.getString("Address2"));
-                user.setCity(rs.getString("City"));
-                user.setState(rs.getString("State"));
-                user.setZip(rs.getString("Zip"));
-                user.setCountry(rs.getString("Country"));
-                user.setCreditCardType(rs.getString("CreditCardType"));
-                user.setCreditCardNumber(rs.getString("CreditCardNumber"));
-                user.setCreditCardExpirationDate(rs.getString("CreditCardExpirationDate"));
+                user = buildUser(rs);
             }
             return user;
         } catch (SQLException e) {
@@ -145,6 +158,31 @@ public class UserDB {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
+        }
+    }
+
+    public static User buildUser(ResultSet rs) throws SQLException{
+
+        try {
+            User user = new User();
+            user.setUserId(rs.getLong("UserID"));
+            user.setFirstName(rs.getString("FirstName"));
+            user.setLastName(rs.getString("LastName"));
+            user.setEmail(rs.getString("Email"));
+            user.setCompanyName(rs.getString("CompanyName"));
+            user.setAddress1(rs.getString("Address1"));
+            user.setAddress2(rs.getString("Address2"));
+            user.setCity(rs.getString("City"));
+            user.setState(rs.getString("State"));
+            user.setZip(rs.getString("Zip"));
+            user.setCountry(rs.getString("Country"));
+            user.setCreditCardType(rs.getString("CreditCardType"));
+            user.setCreditCardNumber(rs.getString("CreditCardNumber"));
+            user.setCreditCardExpirationDate(rs.getString("CreditCardExpirationDate"));
+            return user;
+        }catch (SQLException e){
+            System.err.println(e);
+            throw e;
         }
     }
 

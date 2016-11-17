@@ -2,6 +2,8 @@ package farmfresh.controllers;
 
 import farmfresh.business.Invoice;
 //import jxl.Workbook;
+import farmfresh.data.InvoiceDB;
+import farmfresh.data.ReportDB;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -26,7 +28,7 @@ public class AdminController extends HttpServlet {
         if (requestURI.endsWith("/displayInvoice")){
             url = displayInvoice(request, response);
         }else if(requestURI.endsWith("/displayInvoices")){
-//            url = displayInvoices(request, response);
+            url = displayInvoices(request, response);
         }
 
         getServletContext()
@@ -42,7 +44,7 @@ public class AdminController extends HttpServlet {
         String url= "/admin";
 
         if (requestURI.endsWith("/displayInvoices")){
-//            url = displayInvoices(request, response);
+            url = displayInvoices(request, response);
         }else if(requestURI.endsWith("/processInvoice")){
             url = processInvoice(request, response);
         }else if(requestURI.endsWith("/displayReport")){
@@ -56,37 +58,38 @@ public class AdminController extends HttpServlet {
 
     private String displayInvoice(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
-        String invoiceNumberString = request.getParameter("invoiceNumber");
-        int invoiceNumber = Integer.parseInt(invoiceNumberString);
-
-        List<Invoice> unprocessedInvoices = (List<Invoice>)session.getAttribute("unprocessedInvoices");
-        Invoice invoice = null;
-        for (Invoice unprocessedInvoice : unprocessedInvoices) {
-            invoice = unprocessedInvoice;
-            if (invoice.getInvoiceNumber() == invoiceNumber){
-                break;
-            }
-        }
-        session.setAttribute("invoice", invoice);
+        //TODO - DO WE USE INVOICE NUMBER TO FIND SPECIFIC INVOICE?
+//        String invoiceNumberString = request.getParameter("invoiceNumber");
+//        int invoiceNumber = Integer.parseInt(invoiceNumberString);
+//
+//        List<Invoice> unprocessedInvoices = (List<Invoice>)session.getAttribute("unprocessedInvoices");
+//        Invoice invoice = null;
+//        for (Invoice unprocessedInvoice : unprocessedInvoices) {
+//            invoice = unprocessedInvoice;
+//            if (invoice.getInvoiceNumber() == invoiceNumber){
+//                break;
+//            }
+//        }
+//        session.setAttribute("invoice", invoice);
         return "/admin/invoice.jsp";
     }
 
-//    private String displayInvoices(HttpServletRequest request, HttpServletResponse response){
-//        List<Invoice> unprocessedInvoices = InvoiceDB.selectUnprocessedInvoices();
-//        String url;
-//
-//        if (unprocessedInvoices != null){
-//            if (unprocessedInvoices.size() <=0){
-//                unprocessedInvoices = null;
-//            }
-//        }
-//
-//        HttpSession session = request.getSession();
-//        session.setAttribute("unprocessedInvoices", unprocessedInvoices);
-//
-//        url = "/admin/invoices.jsp";
-//        return url;
-//    }
+    private String displayInvoices(HttpServletRequest request, HttpServletResponse response){
+        List<Invoice> unprocessedInvoices = InvoiceDB.selectUnprocessedInvoices();
+        String url;
+
+        if (unprocessedInvoices != null){
+            if (unprocessedInvoices.size() <=0){
+                unprocessedInvoices = null;
+            }
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("unprocessedInvoices", unprocessedInvoices);
+
+        url = "/admin/invoices.jsp";
+        return url;
+    }
 
     private String processInvoice(HttpServletRequest request,
                                   HttpServletResponse response) throws IOException{
@@ -94,7 +97,9 @@ public class AdminController extends HttpServlet {
         HttpSession session = request.getSession();
         Invoice invoice = (Invoice)session.getAttribute("invoice");
 
-//        InvoiceDB.update(invoice);
+        //TODO what is the proper way to do this --- only update IsProcessed Flag to 'y' --- correct?
+        //InvoiceDB.update(invoice);
+        //InvoiceDB.markAsProcessed(invoice);
 
         return "/adminController/displayInvoices";
     }
@@ -102,23 +107,23 @@ public class AdminController extends HttpServlet {
     private void displayReports(HttpServletRequest request,
                                   HttpServletResponse response) throws IOException{
 
-        String reportName = request.getParameter("reportName");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-
-        //TODO - which workbook???
-        Workbook workbook;
-        if (reportName.equalsIgnoreCase("userEmail")){
+//        String reportName = request.getParameter("reportName");
+//        String startDate = request.getParameter("startDate");
+//        String endDate = request.getParameter("endDate");
+//
+//        //TODO - which workbook???
+//        Workbook workbook;
+//        if (reportName.equalsIgnoreCase("userEmail")){
 //            workbook = ReportDB.getUserEmail();
-        }else if (reportName.equalsIgnoreCase("downloadDetail")){
+//        }else if (reportName.equalsIgnoreCase("downloadDetail")){
 //            workbook = ReportDB.getDownloadDetail(startDate, endDate);
-        }else{
-            workbook = new HSSFWorkbook();
-        }
-        response.setHeader("content-disposition",
-                "attachment; filename=" + reportName + ".xsl:");
-        try(OutputStream out = response.getOutputStream() ){
+//        }else{
+//            workbook = new HSSFWorkbook();
+//        }
+//        response.setHeader("content-disposition",
+//                "attachment; filename=" + reportName + ".xsl:");
+//        try(OutputStream out = response.getOutputStream() ){
 //            workbook.write(out);
-        }
+//        }
     }
 }

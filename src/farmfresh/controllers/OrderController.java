@@ -1,8 +1,11 @@
 package farmfresh.controllers;
 
 import farmfresh.business.*;
+import farmfresh.data.InvoiceDB;
+import farmfresh.data.ProductDB;
 import farmfresh.data.UserDB;
 import farmfresh.util.CookieUtil;
+import farmfresh.util.MailUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -75,14 +78,14 @@ public class OrderController extends HttpServlet {
             cart = new Cart();
 
         String productCode = request.getParameter("productCode");
-//        Product product = ProductDB.selectProduct(productCode);
-//
-//        if (product != null){
-//            LineItem lineItem = new LineItem();
-//            lineItem.setProduct(product);
-//            cart.addLineItem(lineItem);  //the quantity of the line item is not set at this time?  is it set to one?
-//                                          // what if you are
-//        }                                //adding another apple --- but you already have 3 apples in your cart?
+        Product product = ProductDB.selectProduct(productCode);
+
+        if (product != null){
+            LineItem lineItem = new LineItem();
+            lineItem.setProduct(product);
+            cart.addLineItem(lineItem);  //the quantity of the line item is not set at this time?  is it set to one?
+                                          // what if you are
+        }                                //adding another apple --- but you already have 3 apples in your cart?
 
         session.setAttribute("cart", cart);
 
@@ -106,18 +109,18 @@ public class OrderController extends HttpServlet {
             cartQuantity = 1;
         }
 
-//        Product product = ProductDB.selectProduct(productCode);
-//        if (product != null && cart != null){
-//            LineItem lineItem = new LineItem();
-//            lineItem.setProduct(product);
-//            lineItem.setQuantity(cartQuantity);
-//
-//            if (cartQuantity > 0)
-//                cart.addLineItem(lineItem);
-//            else
-//                cart.removeLineItem(lineItem);
-//
-//        }
+        Product product = ProductDB.selectProduct(productCode);
+        if (product != null && cart != null){
+            LineItem lineItem = new LineItem();
+            lineItem.setProduct(product);
+            lineItem.setQuantity(cartQuantity);
+
+            if (cartQuantity > 0)
+                cart.addLineItem(lineItem);
+            else
+                cart.removeLineItem(lineItem);
+
+        }
 
         //BEN - shouldn't I push my updated cart to the session?
         //why is there not an else --- to complain about a product not existing or cart not existing?
@@ -129,12 +132,12 @@ public class OrderController extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart =(Cart)session.getAttribute("cart");
         String productCode = request.getParameter("productCode");
-//        Product product = ProductDB.selectProduct(productCode);
-//        if (product != null && cart != null){
-//                LineItem lineItem = new LineItem();
-//                lineItem.setProduct(product);
-//                cart.removeLineItem(lineItem);
-//       }
+        Product product = ProductDB.selectProduct(productCode);
+        if (product != null && cart != null){
+                LineItem lineItem = new LineItem();
+                lineItem.setProduct(product);
+                cart.removeLineItem(lineItem);
+       }
         return defaultURL;  //defaultURL = "/cart/cart.jsp"
     }
 
@@ -202,38 +205,38 @@ public class OrderController extends HttpServlet {
             user = new User();
         }
 
-//        if(UserDB.emailExists(email)) {
-//            user = UserDB.selectUser(email);
-//            user.setFirstName(firstName);
-//            user.setLastName(lastName);
-//            user.setEmail(email);
-//            user.setCompanyName(companyName);
-//            user.setAddress1(address1);
-//            user.setAddress2(address2);
-//            user.setCity(city);
-//            user.setState(state);
-//            user.setZip(zip);
-//            user.setCountry(country);
-//            user.setCreditCardType(creditCardType);
-//            user.setCreditCardNumber(creditCardNumber);
-//            user.setCreditCardExpirationDate(creditCardExpirationDate);
-//            UserDB.update(user);
-//        }else {
-//            user.setFirstName(firstName);
-//            user.setLastName(lastName);
-//            user.setEmail(email);
-//            user.setCompanyName(companyName);
-//            user.setAddress1(address1);
-//            user.setAddress2(address2);
-//            user.setCity(city);
-//            user.setState(state);
-//            user.setZip(zip);
-//            user.setCountry(country);
-//            user.setCreditCardType(creditCardType);
-//            user.setCreditCardNumber(creditCardNumber);
-//            user.setCreditCardExpirationDate(creditCardExpirationDate);
-//            UserDB.insert(user);
-//        }
+        if(UserDB.emailExists(email)) {
+            user = UserDB.selectUser(email);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setCompanyName(companyName);
+            user.setAddress1(address1);
+            user.setAddress2(address2);
+            user.setCity(city);
+            user.setState(state);
+            user.setZip(zip);
+            user.setCountry(country);
+            user.setCreditCardType(creditCardType);
+            user.setCreditCardNumber(creditCardNumber);
+            user.setCreditCardExpirationDate(creditCardExpirationDate);
+            UserDB.update(user);
+        }else {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setCompanyName(companyName);
+            user.setAddress1(address1);
+            user.setAddress2(address2);
+            user.setCity(city);
+            user.setState(state);
+            user.setZip(zip);
+            user.setCountry(country);
+            user.setCreditCardType(creditCardType);
+            user.setCreditCardNumber(creditCardNumber);
+            user.setCreditCardExpirationDate(creditCardExpirationDate);
+            UserDB.insert(user);
+        }
 
         session.setAttribute("user", user);
 
@@ -287,16 +290,16 @@ public class OrderController extends HttpServlet {
         user.setCreditCardExpirationDate(creditCardExpMonth + "/" + creditCardExpYear );
 
        // if the user exists, update it.
-//        if(UserDB.emailExists(user.getEmail())) {
-//            UserDB.update(user);
-//        }else { // otherwise, write a new record for the user
-//            UserDB.insert(user);
-//        }
+        if(UserDB.emailExists(user.getEmail())) {
+            UserDB.update(user);
+        }else { // otherwise, write a new record for the user
+            UserDB.insert(user);
+        }
 
         invoice.setUser(user);
 
         // write a new invoice record to the DB
-//        InvoiceDB.insert(invoice);
+        InvoiceDB.insert(invoice);
 
         //set the email cookie in the user's browser
         Cookie emailCookie = new Cookie("emailCookie", user.getEmail());
@@ -318,6 +321,7 @@ public class OrderController extends HttpServlet {
 
         boolean isBodyHTML = false;
 
+//      TODO finish MailUtil
 //        try{
 //            MailUtil.sendMail(to, from, subject, body, isBodyHTML);
 //        }catch (MessagingException e){

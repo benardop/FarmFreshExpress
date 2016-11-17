@@ -5,18 +5,23 @@ package farmfresh.business;
  */
 public class Product {
     //PRIVATE INSTANCE VARIABLES
-    private String code;
+    private long productId;
+    private String productCode;
     private String description;
     private double price;
 
     //PUBLIC METHODS:  SETTERS AND GETTERS
-    public String getCode() {
-        return code;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setProductId(long productId) { this.productId = productId; }
+
+    public String getProductCode() {
+        return productCode;
     }
+
+    public void setProductCode(String code) { this.productCode = productCode;}
 
     public String getDescription() {
         return description;

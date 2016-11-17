@@ -1,6 +1,9 @@
 package farmfresh.controllers;
 
 import farmfresh.business.Product;
+import farmfresh.business.User;
+import farmfresh.data.ProductDB;
+import farmfresh.data.UserDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -50,9 +53,9 @@ public class CatalogController extends HttpServlet {
 
         if (productCode != null){   //Should never be null
             productCode = productCode.substring(1);//skip first character returned from PathInfo it's a '/' - correct?
-//            Product product = ProductDB.selectProduct(productCode);
+            Product product = ProductDB.selectProduct(productCode);
             HttpSession session = request.getSession();
-//            session.setAttribute("product", product);
+            session.setAttribute("product", product);
         }
         //what if product code was null?  Are we just assuming it will always be populated?
 
@@ -67,22 +70,22 @@ public class CatalogController extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
 
-//        User user;
-//        if (UserDB.emailExists(email)){
-//            user = UserDB.selectUser(email);
-//            user.setFirstName(firstName);
-//            user.setLastName(lastName);
-//            user.setEmail(email);
-//            UserDB.update(user);
-//        }else{
-//            user = new User();
-//            user.setFirstName(firstName);
-//            user.setLastName(lastName);
-//            user.setEmail(email);
-//            UserDB.add(user);
-//        }
+        User user;
+        if (UserDB.emailExists(email)){
+            user = UserDB.selectUser(email);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            UserDB.update(user);
+        }else{
+            user = new User();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            UserDB.insert(user);
+        }
 
-//        session.setAttribute("user", user);
+        session.setAttribute("user", user);
         Cookie emailCookie = new Cookie("emailCookie", email);
         emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
         emailCookie.setPath("/");  //root which is FarmFreshExpress

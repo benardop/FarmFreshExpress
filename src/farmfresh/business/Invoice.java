@@ -10,7 +10,6 @@ public class Invoice {
     private User user;
     private List<LineItem> lineItemList;
     private Date invoiceDate;
-    private int invoiceNumber;
 
     //PUBLIC METHODS:  SETTERS AND GETTERS
     public void setUser(User user) {
@@ -37,21 +36,13 @@ public class Invoice {
         return invoiceDate;
     }
 
-    public void setInvoiceNumber(int invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
-
-    public int getInvoiceNumber() {
-        return invoiceNumber;
-    }
-
     //PUBLIC METHODS:  SPECIALTY FUNCTIONALITY
     public double getInvoiceTotal(){
-        double total = 0;
+        double invoiceTotal = 0;
         for (LineItem lineItem: lineItemList) {
-            total += lineItem.getTotal();
+            invoiceTotal += lineItem.getTotal();
         }
-        return total;  //TODO Needs to be coded
+        return invoiceTotal;
     }
 
     public String getInvoiceTotalCurrencyFormat(){
