@@ -51,7 +51,9 @@ public class CatalogController extends HttpServlet {
         //servlet path is known because of the mapping the the xml file - correct?
         // ex)  FFE.com/cart/display --- known servlet is cart/  display is extra path information...
 
-        if (productCode != null){   //Should never be null
+
+        //Should never be null
+        if (productCode != null){
             productCode = productCode.substring(1);//skip first character returned from PathInfo it's a '/' - correct?
             Product product = ProductDB.selectProduct(productCode);
             HttpSession session = request.getSession();

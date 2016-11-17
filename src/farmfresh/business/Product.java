@@ -1,9 +1,11 @@
 package farmfresh.business;
 
+import java.io.Serializable;
+
 /**
  * Created by Mom and Dad on 11/4/2016.
  */
-public class Product {
+public class Product implements Serializable{
     //PRIVATE INSTANCE VARIABLES
     private long productId;
     private String productCode;
@@ -39,9 +41,9 @@ public class Product {
         this.price = price;
     }
 
-    //PUBLIC METHODS:  SPECIAL FUNCTIONALITY
+    //PUBLIC METHODS:  SPECIAL FUNCTIONALITY  //TODO  complete these later
     public String getPriceCurrencyFormat(){
-        return "currencyFormat";  //TODO  complete this code
+        return "currencyFormat";
     }
 
     public String getImageURL(){

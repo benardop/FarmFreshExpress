@@ -58,19 +58,18 @@ public class AdminController extends HttpServlet {
 
     private String displayInvoice(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
-        //TODO - DO WE USE INVOICE NUMBER TO FIND SPECIFIC INVOICE?
-//        String invoiceNumberString = request.getParameter("invoiceNumber");
-//        int invoiceNumber = Integer.parseInt(invoiceNumberString);
-//
-//        List<Invoice> unprocessedInvoices = (List<Invoice>)session.getAttribute("unprocessedInvoices");
-//        Invoice invoice = null;
-//        for (Invoice unprocessedInvoice : unprocessedInvoices) {
-//            invoice = unprocessedInvoice;
-//            if (invoice.getInvoiceNumber() == invoiceNumber){
-//                break;
-//            }
-//        }
-//        session.setAttribute("invoice", invoice);
+        String invoiceNumberString = request.getParameter("invoiceNumber");
+        int invoiceNumber = Integer.parseInt(invoiceNumberString);
+
+        List<Invoice> unprocessedInvoices = (List<Invoice>)session.getAttribute("unprocessedInvoices");
+        Invoice invoice = null;
+        for (Invoice unprocessedInvoice : unprocessedInvoices) {
+            invoice = unprocessedInvoice;
+            if (invoice.getInvoiceNumber() == invoiceNumber){
+                break;
+            }
+        }
+        session.setAttribute("invoice", invoice);
         return "/admin/invoice.jsp";
     }
 
@@ -97,9 +96,7 @@ public class AdminController extends HttpServlet {
         HttpSession session = request.getSession();
         Invoice invoice = (Invoice)session.getAttribute("invoice");
 
-        //TODO what is the proper way to do this --- only update IsProcessed Flag to 'y' --- correct?
-        //InvoiceDB.update(invoice);
-        //InvoiceDB.markAsProcessed(invoice);
+        InvoiceDB.update(invoice);
 
         return "/adminController/displayInvoices";
     }

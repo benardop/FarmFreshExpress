@@ -61,26 +61,19 @@ public class InvoiceDB {
     }
 
     public static void update(Invoice invoice) {
-        ConnectionPool pool = ConnectionPool.getInstance();  //TODO fix this
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "UPDATE Invoice SET "
-                + "TotalAmount = ?, "
-                + "IsProcessed = ?,  "
-                + "WHERE UserID = ?, InvoiceDate = ?";
+        String query = "UPDATE Invoice SET"
+                     + " IsProcessed = 'y'  "
+                     + "WHERE InvoiceID = ?";
 
         try{
             ps = connection.prepareStatement(query);
-            ps.setDouble(1, invoice.getInvoiceTotal());
-            ps.setString(2, "y");
-            ps.setLong(2, invoice.getUser().getUserId());
-            //ps.setDate(3, invoice.getInvoiceDate());
-
+            ps.setLong(1, invoice.getInvoiceNumber());
             ps.executeUpdate();
-
-            //TODO  HOW DO YOU UPDATE PRODUCT ITEMS
 
         }catch(SQLException e){
             System.err.println(e);
@@ -115,7 +108,7 @@ public class InvoiceDB {
                 invoice.setUser(user);
                 List<LineItem> lineItems = LineItemDB.selectLineItems(rs.getLong("InvoiceID"));
                 invoice.setInvoiceDate(rs.getDate("InvoiceDate"));
-                //TODO total???
+                invoice.setInvoiceNumber(rs.getLong("InvoiceID"));
 
                 unprocessedInvoices.add(invoice);
             }
@@ -132,10 +125,10 @@ public class InvoiceDB {
     }
 
 
-// NOT USED ---- YET --- KEEPING JUST IN CASE!
+// NOT USED ---- YET --- KEEPING JUST IN CASE I WANT THEM LATER!
 //    public static Product selectProduct(String productCode) {
 //
-//        ConnectionPool pool = ConnectionPool.getInstance();  //TODO fix this
+//        ConnectionPool pool = ConnectionPool.getInstance();
 //        Connection connection = pool.getConnection();
 //        PreparedStatement ps = null;
 //        ResultSet rs = null;
@@ -163,13 +156,13 @@ public class InvoiceDB {
 //        }finally{
 //            DBUtil.closeResultSet(rs);
 //            DBUtil.closePreparedStatement(ps);
-//            //pool.freeConnection(connection);  //TODO  later
+//            //pool.freeConnection(connection);
 //        }
-//        return null;  //TODO Remove after uncommenting
+//        return null;  //Remove after uncommenting
 //    }
 //
 //    public static List<Product> selectAllProducts(){
-//        ConnectionPool pool = ConnectionPool.getInstance();  //TODO fix this
+//        ConnectionPool pool = ConnectionPool.getInstance();
 //        Connection connection = pool.getConnection();
 //        PreparedStatement ps = null;
 //        ResultSet rs = null;
@@ -197,9 +190,9 @@ public class InvoiceDB {
 //        }finally{
 //            DBUtil.closeResultSet(rs);
 //            DBUtil.closePreparedStatement(ps);
-//            //pool.freeConnection(connection);  //TODO  later
+//            //pool.freeConnection(connection);
 //        }
-//        return false;  //TODO remove this line...
+//        return false;  // remove this line...
 //    }
 
 }
