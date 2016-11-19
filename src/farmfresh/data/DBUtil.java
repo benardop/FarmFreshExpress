@@ -45,8 +45,4 @@ public class DBUtil {
               System.err.println(e);
           }
       }
-
-
-
-
 }

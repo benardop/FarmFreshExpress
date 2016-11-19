@@ -12,7 +12,12 @@ public class Product implements Serializable{
     private String description;
     private double price;
 
-    //PUBLIC METHODS:  SETTERS AND GETTERS
+    //CONSTRUCTOR
+    public Product(){
+        //All variables automatically set to default values  //TODO is this correct?
+    }
+
+    //PUBLIC METHODS:  GETTERS AND SETTERS
     public long getProductId() {
         return productId;
     }

@@ -1,5 +1,6 @@
 package farmfresh.controllers;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import farmfresh.business.*;
 import farmfresh.data.InvoiceDB;
 import farmfresh.data.ProductDB;
@@ -83,9 +84,8 @@ public class OrderController extends HttpServlet {
         if (product != null){
             LineItem lineItem = new LineItem();
             lineItem.setProduct(product);
-            cart.addLineItem(lineItem);  //the quantity of the line item is not set at this time?  is it set to one?
-                                          // what if you are
-        }                                //adding another apple --- but you already have 3 apples in your cart?
+            cart.addLineItem(lineItem);  //TODO the quantity of the line item is not set to 1 at this time?
+        }
 
         session.setAttribute("cart", cart);
 
@@ -124,6 +124,7 @@ public class OrderController extends HttpServlet {
 
         //BEN - shouldn't I push my updated cart to the session?
         //why is there not an else --- to complain about a product not existing or cart not existing?
+
         return defaultURL;  //defaultURL = "/cart/cart.jsp"
     }
 
@@ -143,16 +144,16 @@ public class OrderController extends HttpServlet {
 
     private String checkUser(HttpServletRequest request, HttpServletResponse response) {
 
-        //Check to see if there is a user attached to the session
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        // if user exists and has a populated Address1 field - skip the user page
+        // if user exists and has a populated Address1 field - skip the user input page
+        // and display Invoice right away...
         String url = "/cart/user.jsp";
         if (user != null && !user.getAddress1().equals("")) {
             url = "/order/displayInvoice";
         } else {
-            //Check for email Cookie - if the email cookie exists - pull the user from the DB
+            //If the email cookie exists - pull the user from the DB
             Cookie[] cookies = request.getCookies();
             String email = CookieUtil.getCookieValue(cookies, "emailCookie"); //why not from params
 
@@ -162,7 +163,8 @@ public class OrderController extends HttpServlet {
                 url = "/cart/user.jsp";
             } else {
                 user = UserDB.selectUser(email);
-                //if user exists and user address1  is populated
+
+                //if user exists on the DB and user address1  is populated
                 if (user != null && !user.getAddress1().equals("")) {
                     url = "/order/displayInvoice";
                 }
@@ -245,36 +247,23 @@ public class OrderController extends HttpServlet {
 
     private String displayInvoice(HttpServletRequest request, HttpServletResponse response){
 
-        //retrieve the user and cart from the session
         HttpSession session = request.getSession();
         User user =(User)session.getAttribute("user");
         Cart cart =(Cart)session.getAttribute("cart");
 
-        //create date
         Date today = new Date();
 
-        //create new invoice and attach user, cart and date to invoice
         Invoice invoice = new Invoice();
         invoice.setUser(user);
         invoice.setLineItemList(cart.getLineItems());
         invoice.setInvoiceDate(today);
 
-        //attach invoice to session
         session.setAttribute("invoice", invoice);
         return "/cart/invoice.jsp";
     }
 
-    //checking out
+    //Check Out Processing
     private String completeOrder(HttpServletRequest request, HttpServletResponse response){
-        // Get session obj and get invoice from session
-        // Initialize the cardType, CardNum, CardExpMonth and Year using param
-        // Create a user object and assign to invoice - call Invoice.getUser method.
-        // Set the user creditcard info
-        // if a record for the user exists based on email - update it
-        // else write a new record for the user
-        // set email cookie in the user's browser
-        // set cart to null - we are done with it
-        // send an email confirming the order
 
         HttpSession session = request.getSession();
         Invoice invoice =(Invoice)session.getAttribute("invoice");
@@ -289,16 +278,13 @@ public class OrderController extends HttpServlet {
         user.setCreditCardNumber(creditCardNumber);
         user.setCreditCardExpirationDate(creditCardExpMonth + "/" + creditCardExpYear );
 
-       // if the user exists, update it.
         if(UserDB.emailExists(user.getEmail())) {
             UserDB.update(user);
-        }else { // otherwise, write a new record for the user
+        }else {
             UserDB.insert(user);
         }
 
         invoice.setUser(user);
-
-        // write a new invoice record to the DB
         InvoiceDB.insert(invoice);
 
         //set the email cookie in the user's browser

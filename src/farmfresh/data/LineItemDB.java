@@ -38,6 +38,41 @@ public class LineItemDB {
         }
     }
 
+    public static List<LineItem> selectLineItems(long invoiceID){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT * FROM LineItem WHERE InvoiceID = ?";
+
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, invoiceID);
+            rs = ps.executeQuery();
+
+            List<LineItem> lineItems = new ArrayList<LineItem>();
+
+            while (rs.next()){
+                LineItem lineItem = new LineItem();
+                Product product =  ProductDB.selectProduct(rs.getString("ProductCode"));
+                lineItem.setProduct(product);
+                lineItem.setQuantity(rs.getInt("Quantity"));
+                lineItems.add(lineItem);
+            }
+            return lineItems;
+
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        }finally{
+            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+
+    }
+
     // NOT USED - BUT KEEPING LOGIC ANYWAY
 //    public static void update(long invoiceId, LineItem lineItem) {
 //        ConnectionPool pool = ConnectionPool.getInstance();
@@ -87,40 +122,5 @@ public class LineItemDB {
 //            pool.freeConnection(connection);
 //        }
 //    }
-
-    public static List<LineItem> selectLineItems(long invoiceID){
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        String query = "SELECT * FROM LineItem WHERE InvoiceId = ?";
-
-        try {
-            ps = connection.prepareStatement(query);
-            ps.setLong(1, invoiceID);
-            rs = ps.executeQuery();
-
-            List<LineItem> lineItems = new ArrayList<LineItem>();
-
-            while (rs.next()){
-                LineItem lineItem = new LineItem();
-                Product product =  ProductDB.selectProduct(rs.getString("ProductCode"));
-                lineItem.setProduct(product);
-                lineItem.setQuantity(rs.getInt("Quantity"));
-                lineItems.add(lineItem);
-            }
-            return lineItems;
-
-        } catch (SQLException e) {
-            System.err.println(e);
-            return null;
-        }finally{
-            DBUtil.closeResultSet(rs);
-            DBUtil.closePreparedStatement(ps);
-            pool.freeConnection(connection);
-        }
-
-    }
 
 }

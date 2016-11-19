@@ -9,6 +9,11 @@ public class Cart {
     //PRIVATE INSTANCE VARIABLES
     private List<LineItem> lineItems = new ArrayList<LineItem>(); //Empty List Created
 
+     //CONSTRUCTOR
+     public Cart(){
+         //All variables automatically set to default values
+     }
+
     //PUBLIC METHODS:  GETTERS AND SETTERS
     public List<LineItem> getLineItems() {
          return lineItems;
@@ -17,7 +22,6 @@ public class Cart {
     public void setLineItems(List<LineItem> lineItems) {
         this.lineItems = lineItems;
     }
-
 
     //PUBLIC METHODS:  SPECIAL FUNCTIONALITY
     public void addLineItem(LineItem lineItem){

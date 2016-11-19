@@ -8,23 +8,28 @@ public class LineItem {
     private Product product;
     private int quantity;
 
-    //PUBLIC METHODS: SETTERS AND GETTERS
+    //CONSTRUCTOR
+    public LineItem(){
+        //All variables automatically set to default values  //TODO - is this correct?
+    }
+
+    //PUBLIC METHODS: GETTERS AND SETTERS
+    public Product getProduct() {
+        return product;
+    }
 
     public void setProduct(Product item) {
         this.product = product;
     }
 
-    public Product getProduct() {
-        return product;
+    public int getQuantity() {
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
 
     //PUBLIC METHODS:  SPECIAL FUNCTIONALITY
     public double getTotal(){
@@ -34,4 +39,5 @@ public class LineItem {
     public String getTotalCurrencyFormat(){
         return "currencyFormat";
     }
+
 }

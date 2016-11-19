@@ -13,7 +13,7 @@ public class Invoice {
     private long invoiceNumber;
     private boolean isProcessed;
 
-    //CONSTRUCTORS
+    //CONSTRUCTOR
     public Invoice(){
         //All variables automatically set to default values
     }

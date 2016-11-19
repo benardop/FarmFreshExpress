@@ -1,9 +1,9 @@
 package farmfresh.controllers;
 
 import farmfresh.business.Invoice;
-//import jxl.Workbook;
 import farmfresh.data.InvoiceDB;
 import farmfresh.data.ReportDB;
+
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -104,23 +104,22 @@ public class AdminController extends HttpServlet {
     private void displayReports(HttpServletRequest request,
                                   HttpServletResponse response) throws IOException{
 
-//        String reportName = request.getParameter("reportName");
-//        String startDate = request.getParameter("startDate");
-//        String endDate = request.getParameter("endDate");
-//
-//        //TODO - which workbook???
-//        Workbook workbook;
-//        if (reportName.equalsIgnoreCase("userEmail")){
-//            workbook = ReportDB.getUserEmail();
-//        }else if (reportName.equalsIgnoreCase("downloadDetail")){
+        String reportName = request.getParameter("reportName");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+
+        Workbook workbook;
+        if (reportName.equalsIgnoreCase("userEmail")){
+            workbook = ReportDB.getUserEmail();
+//        }else if (reportName.equalsIgnoreCase("downloadDetail")){  //TODO at a later time
 //            workbook = ReportDB.getDownloadDetail(startDate, endDate);
-//        }else{
-//            workbook = new HSSFWorkbook();
-//        }
-//        response.setHeader("content-disposition",
-//                "attachment; filename=" + reportName + ".xsl:");
-//        try(OutputStream out = response.getOutputStream() ){
-//            workbook.write(out);
-//        }
+        }else{
+            workbook = new HSSFWorkbook();
+        }
+        response.setHeader("content-disposition",
+                "attachment; filename=" + reportName + ".xsl:");
+        try(OutputStream out = response.getOutputStream() ){
+            workbook.write(out);
+        }
     }
 }

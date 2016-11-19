@@ -23,8 +23,9 @@ public class User {
     private String creditCardNumber;
     private String creditCardExpirationDate;
 
-    // CONSTRUCTORS
+    // CONSTRUCTOR
     public User(){
+         userId = 0L;
          firstName = "";
          lastName = "";
          email = "";
@@ -40,89 +41,87 @@ public class User {
          creditCardExpirationDate = "";
     }
 
-    // PUBLIC METHODS:  SETTERS AND GETTERS
-    public void setUserId(Long userId) { this.userId = userId; }
-
+    // PUBLIC METHODS:  GETTERS AND SETTERS
     public Long getUserId() { return userId; }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public void setUserId(Long userId) { this.userId = userId; }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
 
     public String getAddress1() {
         return address1;
     }
 
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setAddress1(String address1) {
+        this.address1 = address1;
     }
 
     public String getAddress2() {
         return address2;
     }
 
-    public String getCity() {
-        return city;
-    }  //TODO fix flip flopped methods
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
 
     public void setCity(String city) {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
+    public String getCity() {
+        return city;
     }
 
     public void setState(String state) {
         this.state = state;
     }
 
-    public String getZip() {
-        return zip;
+    public String getState() {
+        return state;
     }
 
     public void setZip(String zip) {
         this.zip = zip;
     }
 
-    public String getCountry() {
-        return country;
+    public String getZip() {
+        return zip;
     }
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public String getCreditCardType() {

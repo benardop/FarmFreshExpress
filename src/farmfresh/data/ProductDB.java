@@ -2,10 +2,7 @@ package farmfresh.data;
 
 import farmfresh.business.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +27,7 @@ public class ProductDB {
 
             while (rs.next()) {
                 Product product = new Product();
+                product.setProductId(rs.getLong("ProductId"));
                 product.setProductCode(rs.getString("ProductCode"));
                 product.setDescription(rs.getString("Description"));
                 product.setPrice(rs.getDouble("Price"));
@@ -65,7 +63,7 @@ public class ProductDB {
 
             if (rs.next()) {
                 Product product = new Product();
-                product.setProductId(rs.getLong("ProductID"));
+                product.setProductId(rs.getLong("ProductId"));
                 product.setProductCode(rs.getString("ProductCode"));
                 product.setDescription(rs.getString("Description"));
                 product.setPrice(rs.getDouble("Price"));
@@ -85,27 +83,26 @@ public class ProductDB {
     }
 
 
-    // METHODS I PROGRAMMED - I DON'T NEED THEM NOW - BUT I MAY WANT THEM LATER...
-    public static void insert(Product product) {
-        ConnectionPool pool = ConnectionPool.getInstance();  //TODO fix this
-        Connection connection = pool.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        String query
-                = "INSERT INTO Products(ProductID, Description, Price) "
-                + "VALUES (?, ?, ?)";
-
-        try {
-            ps = connection.prepareStatement(query);
-            ps.setString(1, product.getProductCode());
-            ps.setString(2, product.getDescription());
-            ps.setString(3, Double.toString(product.getPrice()));
-
-            ps.executeUpdate();
-
-            //TODO will product have a Product ID field like User ID?
-//            //Get the ID from the last insert statement
+// METHODS I PROGRAMMED - I DON'T NEED THEM NOW - BUT I MAY WANT THEM LATER...
+//    public static void insert(Product product) {
+//        ConnectionPool pool = ConnectionPool.getInstance();
+//        Connection connection = pool.getConnection();
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        String query
+//                = "INSERT INTO Product(ProductID, Description, Price) "
+//                + "VALUES (?, ?, ?)";
+//
+//        try {
+//            ps = connection.prepareStatement(query);
+//            ps.setString(1, product.getProductCode());
+//            ps.setString(2, product.getDescription());
+//            ps.setString(3, Double.toString(product.getPrice()));
+//
+//            ps.executeUpdate();
+//
+//              //Get the ID from the last insert statement
 //            String identityQuery = "SELECT @@IDENTITY AS IDENTITY";
 //            Statement identityStatement = connection.createStatement();
 //            ResultSet identityResultSet = identityStatement.executeQuery(identityQuery);
@@ -117,51 +114,51 @@ public class ProductDB {
 //            identityStatement.close();
 //
 //            // set user id in the user object
-//            product.setProductId(Long.toString(productId));
-
-        } catch (SQLException e) {
-            System.err.println(e);
-
-        } finally {
-            DBUtil.closeResultSet(rs);
-            DBUtil.closePreparedStatement(ps);
-            //pool.freeConnection(connection);  //TODO  later
-
-        }
-
-    }
-
-    public static void update(Product product) {
-        ConnectionPool pool = ConnectionPool.getInstance();  //TODO fix this
-        Connection connection = pool.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        String query = "UPDATE Products SET "
-                + "product_code = ?, "
-                + "description = ?,  "
-                + "price = ? "
-                + "WHERE product_code = ?";
-
-        try {
-            ps = connection.prepareStatement(query);
-            ps.setString(1, product.getProductCode());
-            ps.setString(2, product.getDescription());
-            ps.setString(3, Double.toString(product.getPrice()));
-            ps.setString(4, product.getProductCode());
-
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println(e);
-
-        } finally {
-            DBUtil.closeResultSet(rs);
-            DBUtil.closePreparedStatement(ps);
-            //pool.freeConnection(connection);  //TODO  later
-
-        }
-
-    }
+//            product.setProductId(productId);
+//
+//        } catch (SQLException e) {
+//            System.err.println(e);
+//
+//        } finally {
+//            DBUtil.closeResultSet(rs);
+//            DBUtil.closePreparedStatement(ps);
+//            pool.freeConnection(connection);
+//
+//        }
+//
+//    }
+//
+//    public static void update(Product product) {
+//        ConnectionPool pool = ConnectionPool.getInstance();
+//        Connection connection = pool.getConnection();
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        String query = "UPDATE Products SET "
+//                + "product_code = ?, "
+//                + "description = ?,  "
+//                + "price = ? "
+//                + "WHERE product_code = ?";
+//
+//        try {
+//            ps = connection.prepareStatement(query);
+//            ps.setString(1, product.getProductCode());
+//            ps.setString(2, product.getDescription());
+//            ps.setString(3, Double.toString(product.getPrice()));
+//            ps.setString(4, product.getProductCode());
+//
+//            ps.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            System.err.println(e);
+//
+//        } finally {
+//            DBUtil.closeResultSet(rs);
+//            DBUtil.closePreparedStatement(ps);
+//            pool.freeConnection(connection);
+//
+//        }
+//
+//    }
 
 }

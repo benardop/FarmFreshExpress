@@ -20,6 +20,7 @@ public class CatalogController extends HttpServlet {
 
         String requestURI = request.getRequestURI();
         String url;
+        //TODO --- are we missing a call to showProducts to return all available products?
         url = showProduct(request, response);
 
         getServletContext()
@@ -42,11 +43,8 @@ public class CatalogController extends HttpServlet {
                 .forward(request, response);
     }
 
-    // Pending doubts
-    // Listen() was not called - no need to make sure we have a user object connected to request.session
-    // Ar request to show the product was directly requested in the URL
     private String showProduct(HttpServletRequest request, HttpServletResponse response){
-        String productCode = request.getPathInfo();  //what might an example url look like?
+        String productCode = request.getPathInfo();
         //getPathInfo - takes the path info after the servlet path, but before the query string
         //servlet path is known because of the mapping the the xml file - correct?
         // ex)  FFE.com/cart/display --- known servlet is cart/  display is extra path information...
@@ -59,13 +57,10 @@ public class CatalogController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("product", product);
         }
-        //what if product code was null?  Are we just assuming it will always be populated?
 
-        return "/catalog" + productCode + "/index.jsp";  //Will this URL be different than the URL passed as the last
-                                                         //line in the method above? How are the pages displayed diff?
+        return "/catalog" + productCode + "/index.jsp";
     }
 
-    //Users are unique based on their e'mail - that their unique attribute?
     private String registerUser(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         String firstName = request.getParameter("firstName");
@@ -97,6 +92,5 @@ public class CatalogController extends HttpServlet {
         String url = "/catalog" + product + "index.jsp";
         return url;
     }
-
 
 }
