@@ -1,0 +1,16 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: benard
+  Date: 11/20/2016
+  Time: 7:23 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<aside id="sidebarA">
+  <nav>
+    <ul>
+      <li><a href="<c:url value='/' />">Home</a></li>
+      <li><a href="<c:url value='/admin' />">Admin Menu</a></li>
+    </ul>
+  </nav>
+</aside>

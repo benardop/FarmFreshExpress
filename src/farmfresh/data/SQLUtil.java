@@ -1,4 +1,4 @@
-package farmfresh.util;
+package farmfresh.data;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

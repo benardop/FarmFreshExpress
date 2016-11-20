@@ -16,6 +16,8 @@
           <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.15-20160924/poi-3.15/poi-excelant-3.15.jar" />
           <element id="file-copy" path="$USER_HOME$/Downloads/poi-bin-3.10-FINAL-20140208/poi-3.10-FINAL/poi-3.10-FINAL-20140208.jar" />
           <element id="file-copy" path="$USER_HOME$/Downloads/connection-pool-2.3.5.jar/connection-pool-2.3.5.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/javax.mail.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/jstl-1.2.jar" />
         </element>
       </element>
     </root>
