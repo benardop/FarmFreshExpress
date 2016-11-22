@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/musicStore">
+<Context path="/farmFreshExpress">
     <!-- the music database that contains the Farm Fresh data -->
     <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"

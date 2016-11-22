@@ -20,7 +20,7 @@
 
   <h1>Enter your name and contact information</h1>
 
- <%-- <form action="<c:url value='/order/processUser' />" method=post>
+  <form action="<c:url value='/order/processUser' />" method=post>
     <p id="required">Required <span class="required">*</span></p>
 
     <label>First Name</label>
@@ -66,7 +66,7 @@
 
     <label>&nbsp;</label>
     <input type="submit" value="Continue">
-  </form>--%>
+  </form>
 
 </section>
 

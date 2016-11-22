@@ -20,6 +20,10 @@
           <element id="file-copy" path="$USER_HOME$/Downloads/jstl-1.2.jar" />
         </element>
       </element>
+      <element id="directory" name="Resources">
+        <element id="dir-copy" path="$PROJECT_DIR$/web/images" />
+        <element id="dir-copy" path="$PROJECT_DIR$/web/styles" />
+      </element>
     </root>
   </artifact>
 </component>

@@ -21,7 +21,7 @@
 <body>
 
 <header>
-  <%--<img src="<c:url value='/images/logo.jpg'/>"--%>
+  <img src="<c:url value='/images/logo.jpg'/>"
        alt="Farm Fresh Express Logo" width="58">
   <h1>Farm Fresh Express</h1>
   <h2>Quality Farm Produce Served Up Fresh!</h2>
@@ -30,9 +30,9 @@
   <ul>
     <li><a href="<c:url value='/admin'/>">
       Admin</a></li>
-    <%--<li><a href="<c:url value='/user/deleteCookies'/>">
+    <li><a href="<c:url value='/user/deleteCookies'/>">
       Delete Cookies</a></li>
-    <li><a href="<c:url value='/order/showCart'/>">--%>
+    <li><a href="<c:url value='/order/showCart'/>">
       Show Cart</a></li>
   </ul>
 </nav>

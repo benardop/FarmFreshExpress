@@ -37,15 +37,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CatalogController</servlet-name>
-        <url-pattern>/catalogController/*</url-pattern>
+        <url-pattern>/catalog/product/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
-        <url-pattern>/orderController/*</url-pattern>
+        <url-pattern>/order/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/userController/*</url-pattern>
+        <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
 
     <!-- Define Servlet Context Listener -->
@@ -61,12 +61,12 @@
 
     <!-- Enable Custom Error Pages -->
     <error-page>
-        <error-code>404</error-code>
-        <!-- location>error_404.jsp</location -->
-    </error-page>
+    <error-code>404</error-code>
+    <location>/error_404.jsp</location>
+</error-page>
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
-        <!--location>/error_java.jsp</location -->
+        <location>/error_java.jsp</location>
     </error-page>
     
     <!-- Define two security roles -->
@@ -98,8 +98,8 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <!--form-login-page>/login.jsp</form-login-page-->
-            <!--form-error-page>/login_error.jsp</form-error-page-->
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/login_error.jsp</form-error-page>
         </form-login-config>
     </login-config>
 

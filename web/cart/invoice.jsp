@@ -54,14 +54,14 @@
     </tr>
   </table>
 
-  <%--<form action="<c:url value='/order/displayUser' />" method="post" id="float_left">
+  <form action="<c:url value='/order/displayUser' />" method="post" id="float_left">
     <input type="submit" value="Edit Address">
   </form>
 
   <form action="<c:url value='/order/displayCreditCard' />" method="post">
     <input type="submit" value="Continue">
   </form>
---%>
+
 </section>
 
 <!-- end middle column -->

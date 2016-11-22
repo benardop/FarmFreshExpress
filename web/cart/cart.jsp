@@ -30,19 +30,19 @@
         <c:forEach var="item" items="${cart.items}">
           <tr class="cart_row">
             <td>
-              <%--<form action="<c:url value='/order/updateItem'/>" method="post">
+              <form action="<c:url value='/order/updateItem'/>" method="post">
                 <input type="hidden" name="productCode"
                        value="<c:out value='${item.product.code}'/>">
                 <input type=text name="quantity"
                        value="<c:out value='${item.quantity}'/>" id="quantity">
                 <input type="submit" value="Update">
-              </form>--%>
+              </form>
             </td>
             <td>${item.product.description}</td>
             <td>${item.product.priceCurrencyFormat}</td>
             <td>${item.totalCurrencyFormat}</td>
             <td>
-              <%--<form action="<c:url value='/order/removeItem'/>" method="post">--%>
+              <form action="<c:url value='/order/removeItem'/>" method="post">
                 <input type="hidden" name="productCode"
                        value="<c:out value='${item.product.code}'/>">
                 <input type="submit" value="Remove">
@@ -68,7 +68,7 @@
 
   <c:if test="${emptyCart == null}">
     <!-- Connection is NOT SECURE.  For testing only. -->
-    <%--form action="<c:url value='/order/checkUser'/>" method="post" --%>
+    form action="<c:url value='/order/checkUser'/>" method="post"
       <input type="submit" value="Checkout">
     </form>
     <!-- Connection is SECURE.  Before you can use it, you need to configure

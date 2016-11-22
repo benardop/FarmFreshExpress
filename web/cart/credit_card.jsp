@@ -18,7 +18,7 @@
 
   <h1>Enter your credit card information</h1>
 
-  <%--<form action="<c:url value='/order/completeOrder' />" method="post">
+  <form action="<c:url value='/order/completeOrder' />" method="post">
     <table>
       <tr>
         <td><b>Credit card type</b></td>
@@ -64,7 +64,7 @@
         <td><input type="submit" value="Submit Order"></td>
       </tr>
     </table>
-  </form>--%>
+  </form>
 
 </section>
 
