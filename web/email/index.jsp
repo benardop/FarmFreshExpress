@@ -14,7 +14,7 @@
 
   <p><i>${message}</i></p>
 
-  <%--<form action="<c:url value='/user/subscribeToEmail'/>" method="post">
+  <form action="<c:url value='/user/subscribeToEmail'/>" method="post">
     <label>Email</label>
     <input type="email" name="email" required><br>
     <label>First Name</label>
@@ -24,7 +24,6 @@
     <label>&nbsp;</label>
     <input type="submit" value="Join Now" id="submit">
   </form>
---%>
 </section>
 
 <jsp:include page="/includes/column_right_news.jsp" />

@@ -12,9 +12,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Fresh Corn Records</title>
-  <%--<link rel="shortcut icon" href="<c:url value='/images/favicon.ico'/>">
-  <link rel="stylesheet" href="<c:url value='/styles/main.css'/> ">--%>
+  <title>Farm Fresh Express</title>
+  <link rel="shortcut icon" href="<c:url value='/images/logo.jpg'/>">
+  <link rel="stylesheet" href="<c:url value='/styles/farmfresh.css'/> ">
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
 
