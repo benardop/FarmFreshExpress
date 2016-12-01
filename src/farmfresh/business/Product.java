@@ -1,6 +1,7 @@
 package farmfresh.business;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 
 /**
  * Created by Mom and Dad on 11/4/2016.
@@ -14,7 +15,6 @@ public class Product implements Serializable{
 
     //CONSTRUCTOR
     public Product(){
-        //All variables automatically set to default values  //TODO is this correct?
     }
 
     //PUBLIC METHODS:  GETTERS AND SETTERS
@@ -46,17 +46,19 @@ public class Product implements Serializable{
         this.price = price;
     }
 
-    //PUBLIC METHODS:  SPECIAL FUNCTIONALITY  //TODO  complete these later
+
     public String getPriceCurrencyFormat(){
-        return "currencyFormat";
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        return currency.format(price);
     }
 
     public String getImageURL(){
-        return "imageURL";
+        String imageURL = "/FarmFreshExpress/images/" + productCode + "fresh-apple.jpg";
+        return imageURL;
     }
 
     public String getProductType(){
-        return "productType";
+        return "produce";
     }
 
 }

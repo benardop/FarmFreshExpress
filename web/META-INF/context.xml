@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/farmFreshExpress">
     <!-- the music database that contains the Farm Fresh data -->
-    <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
+    <Resource name="jdbc/farmFreshDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/farmfresh?autoReconnect=true"
               username="root" password="sesame"
@@ -10,15 +10,15 @@
               maxActive="100" maxIdle="30" maxWait="10000" />
 
     <!-- the farmfresh database that contains admin usernames and passwords -->
-    <Resource name="jdbc/farmfreshDB" type="javax.sql.DataSource" auth="Container"
+    <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/farmfresh?autoReconnect=true"
+              url="jdbc:mysql://localhost:3306/farmadmin?autoReconnect=true"
               username="root" password="sesame"
               logAbandoned="true"
               removeAbandoned="true" removeAbandonedTimeout="60"
               maxActive="100" maxIdle="30" maxWait="10000" />
 
-    <Realm dataSourceName="jdbc/farmfreshDB" localDataSource="true"
+    <Realm dataSourceName="jdbc/farmDB" localDataSource="true"
            className="org.apache.catalina.realm.DataSourceRealm"
            userTable="UserPass" userRoleTable="UserRole"
            userNameCol="Username" roleNameCol="Rolename" userCredCol="Password"
