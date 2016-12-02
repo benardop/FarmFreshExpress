@@ -4,7 +4,7 @@
     <Resource name="jdbc/farmFreshDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/farmfresh?autoReconnect=true"
-              username="root" password="sesame"
+              username="root" password="sql#6312SQL"
               logAbandoned="true"
               removeAbandoned="true" removeAbandonedTimeout="60"
               maxActive="100" maxIdle="30" maxWait="10000" />
@@ -13,7 +13,7 @@
     <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/farmadmin?autoReconnect=true"
-              username="root" password="sesame"
+              username="root" password="sql#6312SQL"
               logAbandoned="true"
               removeAbandoned="true" removeAbandonedTimeout="60"
               maxActive="100" maxIdle="30" maxWait="10000" />

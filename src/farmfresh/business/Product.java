@@ -58,7 +58,7 @@ public class Product implements Serializable{
     }
 
     public String getProductType(){
-        return "produce";
+        return "Produce";
     }
 
 }
