@@ -28,7 +28,7 @@ public class Product implements Serializable{
         return productCode;
     }
 
-    public void setProductCode(String code) { this.productCode = productCode;}
+    public void setProductCode(String productCode) { this.productCode = productCode;}
 
     public String getDescription() {
         return description;

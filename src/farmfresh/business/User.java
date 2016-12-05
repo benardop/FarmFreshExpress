@@ -2,6 +2,8 @@ package farmfresh.business;
 
 //BEN --- login functionality?
 
+import java.util.Date;
+
 /**
  * Created by Mom and Dad on 11/4/2016.
  */
@@ -25,20 +27,20 @@ public class User {
 
     // CONSTRUCTOR
     public User(){
-         userId = 0L;
-         firstName = "";
-         lastName = "";
-         email = "";
-         companyName = "";
-         address1 = "";
-         address2 = "";
-         city = "";
-         state = "";
-         zip = "";
-         country = "";
-         creditCardType = "";
-         creditCardNumber = "";
-         creditCardExpirationDate = "";
+//         userId = 0L;
+//         firstName = "";
+//         lastName = "";
+//         email = "";
+//         companyName = "";
+//         address1 = "";
+//         address2 = "";
+//         city = "";
+//         state = "";
+//         zip = "";
+//         country = "";
+//         creditCardType = "";
+//         creditCardNumber = "";
+//         creditCardExpirationDate = "";
     }
 
     // PUBLIC METHODS:  GETTERS AND SETTERS

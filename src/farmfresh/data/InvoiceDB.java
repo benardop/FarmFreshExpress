@@ -43,7 +43,7 @@ public class InvoiceDB {
             identityStatement.close();
 
             //write line items to the line items table
-            List<LineItem> lineItems = invoice.getLineItemList();
+            List<LineItem> lineItems = invoice.getLineItems();
             for (LineItem item: lineItems){
                 LineItemDB.insert(invoiceId, item);
             }
@@ -107,6 +107,7 @@ public class InvoiceDB {
                 User user = UserDB.selectUser(userId);
                 invoice.setUser(user);
                 List<LineItem> lineItems = LineItemDB.selectLineItems(rs.getLong("InvoiceID"));
+                invoice.setLineItems(lineItems);
                 invoice.setInvoiceDate(rs.getDate("InvoiceDate"));
                 invoice.setInvoiceNumber(rs.getLong("InvoiceID"));
 

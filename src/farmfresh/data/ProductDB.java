@@ -27,7 +27,7 @@ public class ProductDB {
 
             while (rs.next()) {
                 Product product = new Product();
-                product.setProductId(rs.getLong("ProductId"));
+                product.setProductId(rs.getLong("ProductID"));
                 product.setProductCode(rs.getString("ProductCode"));
                 product.setDescription(rs.getString("Description"));
                 product.setPrice(rs.getDouble("Price"));
@@ -46,7 +46,7 @@ public class ProductDB {
 
     }
 
-    public static Product selectProduct(String productCode) {
+    public static Product selectProduct(String productID) {
 
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -54,16 +54,16 @@ public class ProductDB {
         ResultSet rs = null;
 
         String query = "SELECT * FROM Product "
-                + "WHERE ProductCode = ?";
+                + "WHERE ProductID = ?";
 
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, productCode);
+            ps.setString(1, productID);
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 Product product = new Product();
-                product.setProductId(rs.getLong("ProductId"));
+                product.setProductId(rs.getLong("ProductID"));
                 product.setProductCode(rs.getString("ProductCode"));
                 product.setDescription(rs.getString("Description"));
                 product.setPrice(rs.getDouble("Price"));

@@ -1,5 +1,7 @@
 package farmfresh.business;
 
+import java.text.NumberFormat;
+
 /**
  * Created by Mom and Dad on 11/4/2016.
  */
@@ -18,7 +20,7 @@ public class LineItem {
         return product;
     }
 
-    public void setProduct(Product item) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
@@ -37,7 +39,8 @@ public class LineItem {
     }
 
     public String getTotalCurrencyFormat(){
-        return "currencyFormat";
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        return currency.format(getTotal());
     }
 
 }

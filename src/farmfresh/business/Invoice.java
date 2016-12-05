@@ -1,5 +1,7 @@
 package farmfresh.business;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -8,7 +10,7 @@ import java.util.*;
 public class Invoice {
     // PRIVATE INSTANCE VARIABLES
     private User user;
-    private List<LineItem> lineItemList;
+    private List<LineItem> lineItems;
     private Date invoiceDate;
     private long invoiceNumber;
     private boolean isProcessed;
@@ -27,12 +29,12 @@ public class Invoice {
         this.user = user;
     }
 
-    public List<LineItem> getLineItemList() {
-        return lineItemList;
+    public List<LineItem> getLineItems() {
+        return lineItems;
     }
 
-    public void setLineItemList(List<LineItem> lineItemList) {
-        this.lineItemList = lineItemList;
+    public void setLineItems(List<LineItem> lineItems) {
+        this.lineItems = lineItems;
     }
 
     public Date getInvoiceDate() {
@@ -60,14 +62,20 @@ public class Invoice {
     //PUBLIC METHODS:  SPECIALTY FUNCTIONALITY
     public double getInvoiceTotal(){
         double invoiceTotal = 0;
-        for (LineItem lineItem: lineItemList) {
+        for (LineItem lineItem: lineItems) {
             invoiceTotal += lineItem.getTotal();
         }
         return invoiceTotal;
     }
 
     public String getInvoiceTotalCurrencyFormat(){
-        return "Currency Format";  //TODO Needs to be coded
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        return currency.format(getInvoiceTotal());
+    }
+
+    public String getInvoiceDateDefaultFormat(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy' 'HH:mm:ss");
+        return dateFormat.format(getInvoiceDate());
     }
 
 }

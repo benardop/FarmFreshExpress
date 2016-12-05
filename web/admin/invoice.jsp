@@ -33,6 +33,7 @@
       <td><b>Price</b></td>
     </tr>
 
+
     <c:forEach var="item" items="${invoice.lineItems}">
       <tr>
         <td>${item.quantity}</td>

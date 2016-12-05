@@ -55,7 +55,7 @@ public class LineItemDB {
 
             while (rs.next()){
                 LineItem lineItem = new LineItem();
-                Product product =  ProductDB.selectProduct(rs.getString("ProductCode"));
+                Product product =  ProductDB.selectProduct(rs.getString("ProductID"));
                 lineItem.setProduct(product);
                 lineItem.setQuantity(rs.getInt("Quantity"));
                 lineItems.add(lineItem);

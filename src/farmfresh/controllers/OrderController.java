@@ -255,7 +255,7 @@ public class OrderController extends HttpServlet {
 
         Invoice invoice = new Invoice();
         invoice.setUser(user);
-        invoice.setLineItemList(cart.getLineItems());
+        invoice.setLineItems(cart.getLineItems());
         invoice.setInvoiceDate(today);
 
         session.setAttribute("invoice", invoice);

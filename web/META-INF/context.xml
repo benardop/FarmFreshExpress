@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/farmFreshExpress">
-    <!-- the music database that contains the Farm Fresh data -->
+    <!-- the farmfresh database that contains the Farm Fresh Express data -->
     <Resource name="jdbc/farmFreshDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/farmfresh?autoReconnect=true"
@@ -9,7 +9,7 @@
               removeAbandoned="true" removeAbandonedTimeout="60"
               maxActive="100" maxIdle="30" maxWait="10000" />
 
-    <!-- the farmfresh database that contains admin usernames and passwords -->
+    <!-- the farmadmin database that contains admin usernames and passwords -->
     <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/farmadmin?autoReconnect=true"
