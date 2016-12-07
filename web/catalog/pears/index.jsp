@@ -15,11 +15,13 @@
 <section>
   <h1>The Farm Fresh Express Catalog</h1>
 
-  <h2>Fresh Organic Fruits</h2>
-  <p><a href="product/BR001">Brocolli</a></p>
+  <h2>Fresh Organic Apples</h2>
+  <p><a href="product/apples">Apple Varieties</a></p>
 
-  <h2>Fresh Organic Fruits</h2>
-  <p><a href="product/apples">apples</a></p>
+  <h2 class="top_margin">Bananas</h2>
+  <p><a href="product/bananas">Banana Varieties</a></p>
+
+
 </section>
 
 <!-- end the middle column -->

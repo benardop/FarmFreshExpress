@@ -20,7 +20,8 @@ public class ReportDB {
     public static Workbook getUserEmail(){
         HSSFWorkbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("User Email Report");  // Header
-        Row row = sheet.getRow(0);
+        Row row = sheet.createRow(0);
+//        Row row = sheet.getRow(0);
         row.createCell(0).setCellValue("The User Email Report");  //Title
 
         // Create the header row
@@ -54,11 +55,11 @@ public class ReportDB {
             while (rs.next()){
                 row = sheet.createRow(i);
                 row.createCell(0).setCellValue(rs.getString("LastName"));
-                row.createCell(1).setCellValue(rs.getString("First Name"));
+                row.createCell(1).setCellValue(rs.getString("FirstName"));
                 row.createCell(2).setCellValue(rs.getString("Email"));
-                row.createCell(3).setCellValue(rs.getString("Company Name"));
-                row.createCell(4).setCellValue(rs.getString("Address 1"));
-                row.createCell(5).setCellValue(rs.getString("Address 2"));
+                row.createCell(3).setCellValue(rs.getString("CompanyName"));
+                row.createCell(4).setCellValue(rs.getString("Address1"));
+                row.createCell(5).setCellValue(rs.getString("Address2"));
                 row.createCell(6).setCellValue(rs.getString("City"));
                 row.createCell(7).setCellValue(rs.getString("State"));
                 row.createCell(8).setCellValue(rs.getString("Zip"));
@@ -77,9 +78,6 @@ public class ReportDB {
             DBUtil.closeStatement(statement);
             pool.freeConnection(connection);
         }
-
-
-        //return workbook;
     }
 
 //    public static Workbook getDownloadDetail(String startDate, String endDate){

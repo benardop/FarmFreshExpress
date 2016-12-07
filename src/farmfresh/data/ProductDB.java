@@ -46,7 +46,43 @@ public class ProductDB {
 
     }
 
-    public static Product selectProduct(String productID) {
+//    public static Product selectProduct(String productID) {
+//
+//        ConnectionPool pool = ConnectionPool.getInstance();
+//        Connection connection = pool.getConnection();
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        String query = "SELECT * FROM Product "
+//                + "WHERE ProductID = ?";
+//
+//        try {
+//            ps = connection.prepareStatement(query);
+//            ps.setString(1, productID);
+//            rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                Product product = new Product();
+//                product.setProductId(rs.getLong("ProductID"));
+//                product.setProductCode(rs.getString("ProductCode"));
+//                product.setDescription(rs.getString("Description"));
+//                product.setPrice(rs.getDouble("Price"));
+//                return product;
+//            } else {
+//                return null;
+//            }
+//
+//        } catch (SQLException e) {
+//            System.err.println(e);
+//            return null;
+//        } finally {
+//            DBUtil.closeResultSet(rs);
+//            DBUtil.closePreparedStatement(ps);
+//            pool.freeConnection(connection);
+//        }
+//    }
+
+    public static Product selectProduct(String productCode) {
 
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -54,11 +90,11 @@ public class ProductDB {
         ResultSet rs = null;
 
         String query = "SELECT * FROM Product "
-                + "WHERE ProductID = ?";
+                + "WHERE ProductCode = ?";
 
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, productID);
+            ps.setString(1, productCode);
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -81,7 +117,6 @@ public class ProductDB {
             pool.freeConnection(connection);
         }
     }
-
 
 // METHODS I PROGRAMMED - I DON'T NEED THEM NOW - BUT I MAY WANT THEM LATER...
 //    public static void insert(Product product) {

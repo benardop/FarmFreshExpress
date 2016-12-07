@@ -58,7 +58,7 @@ public class CatalogController extends HttpServlet {
             session.setAttribute("product", product);
         }
 
-        return "/catalog" + productCode + "/index.jsp";
+        return "/catalog/" + productCode + "/index.jsp";
     }
 
     private String registerUser(HttpServletRequest request, HttpServletResponse response){

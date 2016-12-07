@@ -53,7 +53,7 @@ public class Product implements Serializable{
     }
 
     public String getImageURL(){
-        String imageURL = "/FarmFreshExpress/images/" + productCode + "fresh-apple.jpg";
+        String imageURL = "/images/" + productCode + "_cover.jpg";
         return imageURL;
     }
 

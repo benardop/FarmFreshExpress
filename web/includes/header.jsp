@@ -21,10 +21,10 @@
 <body>
 
 <header>
-  <img src="<c:url value='/images/logo.jpg'/>"
-       alt="Farm Fresh Express Logo" width="58">
+  <img src="<c:url value='/images/locally_grown.jpg'/>"
+       alt="Farm Fresh Express Logo" width="70" height="70">
   <h1>Farm Fresh Express</h1>
-  <h2>Quality Farm Produce Served Up Fresh!</h2>
+  <h2>FRESH PRODUCTS from LOCAL FARMERS served up FAST!</h2>
 </header>
 <nav id="nav_bar">
   <ul>
