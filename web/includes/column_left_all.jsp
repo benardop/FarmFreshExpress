@@ -10,7 +10,7 @@
   <nav>
     <ul>
       <li><a href="<c:url value='/' />">
-        Home</a></li>
+        column_left_all Home</a></li>
       <li><a href="<c:url value='/catalog' />">
         Browse Catalog</a></li>
       <li><a href="<c:url value='/email' />">

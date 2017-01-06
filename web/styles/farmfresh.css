@@ -25,6 +25,7 @@ section, aside {
 
 h1 { font-size: 175%; }
 h2 { font-size: 125%; }
+h3 { font-size: 100%; }
 
 a { font-weight: bold; }
 a:link { color: green; }
@@ -45,15 +46,20 @@ em { font-weight: bold; }
 /* the styles for the header */
 header {
     padding-bottom: 2em;
-    border-bottom: 2px solid #ef9c00;
+    /*border-bottom: 2px solid #ef9c00;*/
+    border-bottom: ridge;
 }
 header h1 {
-    color: #ef9c00;
+    /*color: #ef9c00;*/
+    /*color: darkgreen;*/
+    color:  black;
     margin-left: 120px;
     margin-bottom: 0.25em;
+
 }
 header h2 {
-    color: green;
+    /*color: forestgreen;*/
+    color: black;
     font-style: italic;
     margin-left: 120px;
 }
@@ -66,7 +72,8 @@ header img {
     clear: left;
     margin: 0;
     padding: 0;
-    border-bottom: 2px solid #ef9c00;
+    /*border-bottom: 2px solid #ef9c00;*/
+    border-bottom:  2px solid black;
     text-align: right;
 }
 #nav_bar ul {

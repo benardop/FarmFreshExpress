@@ -9,9 +9,14 @@ import java.text.NumberFormat;
 public class Product implements Serializable{
     //PRIVATE INSTANCE VARIABLES
     private long productId;
+    private long productTypeId;
+    private String productTypeName;
     private String productCode;
+    private String name;
     private String description;
+    private String imageId;
     private double price;
+    private boolean inSeason;
 
     //CONSTRUCTOR
     public Product(){
@@ -22,13 +27,41 @@ public class Product implements Serializable{
         return productId;
     }
 
-    public void setProductId(long productId) { this.productId = productId; }
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getProductTypeId() {
+        return productTypeId;
+    }
+
+    public void setProductTypeId(long productTypeId) {
+        this.productTypeId = productTypeId;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
+
+    public String getProductType() {
+        return productTypeName;
+    }
 
     public String getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(String productCode) { this.productCode = productCode;}
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;
@@ -36,6 +69,14 @@ public class Product implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public double getPrice() {
@@ -46,6 +87,13 @@ public class Product implements Serializable{
         this.price = price;
     }
 
+    public boolean isInSeason() {
+        return inSeason;
+    }
+
+    public void setInSeason(boolean inSeason) {
+        this.inSeason = inSeason;
+    }
 
     public String getPriceCurrencyFormat(){
         NumberFormat currency = NumberFormat.getCurrencyInstance();
@@ -53,12 +101,8 @@ public class Product implements Serializable{
     }
 
     public String getImageURL(){
-        String imageURL = "/images/" + productCode + "_cover.jpg";
+        String imageURL = "/images/" + imageId;
         return imageURL;
-    }
-
-    public String getProductType(){
-        return "Produce";
     }
 
 }

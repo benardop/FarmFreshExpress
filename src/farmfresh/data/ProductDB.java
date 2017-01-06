@@ -11,16 +11,29 @@ import java.util.List;
  */
 public class ProductDB {
 
-    public static List<Product> selectAllProducts() {
+    public static List<Product> selectAllProducts(String productTypeID) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM Product";
+        String query =  "SELECT Product.ProductID," +
+                " Product.ProductTypeID," +
+                " Product.ProductCode," +
+                " Product.Name," +
+                " Product.Description," +
+                " Product.ImageID," +
+                " Product.Price," +
+                " Product.InSeason," +
+                " ProductType.ProductTypeName" +
+                " FROM ProductType, Product" +
+                " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
+                " AND Product.ProductTypeId = ?;";
+
 
         try {
             ps = connection.prepareStatement(query);
+            ps.setString(1, productTypeID);
             rs = ps.executeQuery();
 
             List<Product> products = new ArrayList<Product>();
@@ -28,9 +41,14 @@ public class ProductDB {
             while (rs.next()) {
                 Product product = new Product();
                 product.setProductId(rs.getLong("ProductID"));
+                product.setProductTypeId(rs.getLong("ProductTypeID"));
                 product.setProductCode(rs.getString("ProductCode"));
+                product.setName(rs.getString("Name"));
                 product.setDescription(rs.getString("Description"));
+                product.setImageId(rs.getString("ImageID"));
                 product.setPrice(rs.getDouble("Price"));
+                product.setInSeason(rs.getBoolean("InSeason"));
+                product.setProductTypeName(rs.getString("ProductTypeName"));
                 products.add(product);
             }
             return products;
@@ -82,19 +100,20 @@ public class ProductDB {
 //        }
 //    }
 
-    public static Product selectProduct(String productCode) {
+    public static Product selectProduct(String productId) {
 
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+
         String query = "SELECT * FROM Product "
-                + "WHERE ProductCode = ?";
+                + "WHERE ProductID = ?";
 
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, productCode);
+            ps.setString(1, productId);
             rs = ps.executeQuery();
 
             if (rs.next()) {

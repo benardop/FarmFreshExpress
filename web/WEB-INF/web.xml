@@ -37,7 +37,8 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CatalogController</servlet-name>
-        <url-pattern>/catalog/product/*</url-pattern>
+        <url-pattern>/catalog/*</url-pattern>
+        <!--<url-pattern>/catalog/product/*</url-pattern> ALR modified-->
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>

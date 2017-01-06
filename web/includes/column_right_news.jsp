@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <aside id="sidebarB">
   <h1>New Arrivals</h1>
-  <img src="<c:url value='/images/sweet-banana.jpg' />" width="80"
+  <img src="<c:url value='/images/bananas.jpg' />" width="80"
        alt="sweet organic banana banner">
   <h2><a href="catalog/product/bananas" class="no_underline">
     Delicious sweet organic bananas

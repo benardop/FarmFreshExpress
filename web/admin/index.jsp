@@ -16,6 +16,9 @@
   <h1>Admin Menu</h1>
 
   <!-- these Form tags don't force a secure connection -->
+  <form action="displayInvoices" method="post">
+    <input type="submit" value="View Unprocessed Invoices from invoice detail window">
+  </form>
   <form action="<c:url value='/adminController/displayInvoices'/>" method="post">
     <input type="submit" value="Process Invoices" class="left_margin">
   </form>

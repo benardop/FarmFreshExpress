@@ -29,18 +29,17 @@
     <tr><td colspan="3"><hr></td></tr>
     <tr>
       <td><b>Qty</b></td>
-      <td><b>Description</b></td>
+      <td><b>Name</b></td>
       <td><b>Price</b></td>
     </tr>
 
-
-    <c:forEach var="item" items="${invoice.lineItems}">
-      <tr>
-        <td>${item.quantity}</td>
-        <td>${item.product.description}</td>
-        <td>${item.totalCurrencyFormat}</td>
-      </tr>
-    </c:forEach>
+      <c:forEach var="item" items="${invoice.lineItems}">
+          <tr>
+              <td>${item.quantity}</td>
+              <td>${item.product.name}</td>
+              <td>${item.totalCurrencyFormat}</td>
+          </tr>
+      </c:forEach>
 
     <tr><td colspan="3"><hr></td></tr>
     <tr>

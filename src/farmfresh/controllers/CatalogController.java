@@ -1,13 +1,16 @@
 package farmfresh.controllers;
 
 import farmfresh.business.Product;
+import farmfresh.business.ProductType;
 import farmfresh.business.User;
 import farmfresh.data.ProductDB;
+import farmfresh.data.ProductTypeDB;
 import farmfresh.data.UserDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Mom and Dad on 11/9/2016.
@@ -19,9 +22,15 @@ public class CatalogController extends HttpServlet {
                       HttpServletResponse response)throws IOException, ServletException{
 
         String requestURI = request.getRequestURI();
-        String url;
-        //TODO --- are we missing a call to showProducts to return all available products?
-        url = showProduct(request, response);
+        String url = "/catalog";
+
+        if (requestURI.endsWith("/displayProductTypes")){
+            url = displayProductTypes(request, response);
+        }else if (requestURI.endsWith("/displayProducts")) {
+            url = displayProducts(request, response);
+        }else if (requestURI.endsWith("/displayProduct")) {
+            url = displayProduct(request, response);
+        }
 
         getServletContext()
                 .getRequestDispatcher(url)
@@ -43,22 +52,51 @@ public class CatalogController extends HttpServlet {
                 .forward(request, response);
     }
 
-    private String showProduct(HttpServletRequest request, HttpServletResponse response){
-        String productCode = request.getPathInfo();
-        //getPathInfo - takes the path info after the servlet path, but before the query string
-        //servlet path is known because of the mapping the the xml file - correct?
+    private String displayProductTypes(HttpServletRequest request, HttpServletResponse response){
+
+            List<ProductType> productTypes = ProductTypeDB.selectProductTypes();
+            HttpSession session = request.getSession();
+            session.setAttribute("productTypes", productTypes);
+
+        return "/catalog/displayProducts.jsp";
+    }
+
+    private String displayProducts(HttpServletRequest request, HttpServletResponse response) {
+
+        // New Logic
+        String productTypeId = request.getParameter("ProductTypeID");
+
+        // getPathInfo - takes the path info after the servlet path, but before the query string
+        // servlet path is known because of the mapping the the xml file - correct?
         // ex)  FFE.com/cart/display --- known servlet is cart/  display is extra path information...
-
-
         //Should never be null
-        if (productCode != null){
-            productCode = productCode.substring(1);//skip first character returned from PathInfo it's a '/' - correct?
-            Product product = ProductDB.selectProduct(productCode);
+//        String productType = request.getPathInfo();
+        if (productTypeId != null) {
+//            productType = productType.substring(1); //skip first character returned from PathInfo - it's a '/'
+            List<Product> products = ProductDB.selectAllProducts(productTypeId);
+            HttpSession session = request.getSession();
+            session.setAttribute("products", products);
+        }
+        return "/catalog/products.jsp";
+    }
+
+    private String displayProduct(HttpServletRequest request, HttpServletResponse response){
+
+        // New Logic
+        String productId = request.getParameter("ProductID");
+
+        // Old Logic
+        String productCode = request.getPathInfo();
+
+        if (productId != null){
+            // Old Logic - productCode = productCode.substring(1);
+            Product product = ProductDB.selectProduct(productId);
             HttpSession session = request.getSession();
             session.setAttribute("product", product);
         }
 
-        return "/catalog/" + productCode + "/index.jsp";
+//        return "/catalog/" + productCode + "/index.jsp";
+        return "/catalog/product.jsp";
     }
 
     private String registerUser(HttpServletRequest request, HttpServletResponse response){

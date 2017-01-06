@@ -12,7 +12,7 @@ public class Invoice {
     private User user;
     private List<LineItem> lineItems;
     private Date invoiceDate;
-    private long invoiceNumber;
+    private long invoiceNumber;     // Stored as invoiceID in Invoice DB Table
     private boolean isProcessed;
 
     //CONSTRUCTOR

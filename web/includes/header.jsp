@@ -13,7 +13,7 @@
 <head>
   <meta charset="utf-8">
   <title>Farm Fresh Express</title>
-  <link rel="shortcut icon" href="<c:url value='/images/logo.jpg'/>">
+  <link rel="shortcut icon" href="<c:url value='/images/locally_grown.jpg'/>">
   <link rel="stylesheet" href="<c:url value='/styles/farmfresh.css'/> ">
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
@@ -23,16 +23,26 @@
 <header>
   <img src="<c:url value='/images/locally_grown.jpg'/>"
        alt="Farm Fresh Express Logo" width="70" height="70">
-  <h1>Farm Fresh Express</h1>
-  <h2>FRESH PRODUCTS from LOCAL FARMERS served up FAST!</h2>
+  <h1>Welcome to Farm Fresh Express!</h1>
+  <h2>FARM FRESH GOODS from LOCAL MARKETS served up FAST!</h2>
 </header>
 <nav id="nav_bar">
   <ul>
-    <li><a href="<c:url value='/admin'/>">
+    <li><a href="<c:url value='/' />">
+      Home</a></li>
+    <li><a href="<c:url value='/catalog' />">
+      Browse Products</a></li>
+    <li><a href="<c:url value='/email' />">
+      Join Email List</a></li>
+    <li><a href="<c:url value='/customer_service' />">
+      Customer Service</a></li>
+    <li><a href="<c:url value='/admin' />">
       Admin</a></li>
-    <li><a href="<c:url value='/user/deleteCookies'/>">
+    <li><a href="<c:url value='/user/deleteCookies' />">
       Delete Cookies</a></li>
-    <li><a href="<c:url value='/order/showCart'/>">
-      Show Cart</a></li>
+    <%--<li><a href="<c:url value='/admin' />">--%>
+      <%--Sign In</a></li>--%>
+    <%--<li><a href="<c:url value='/order/showCart' />">--%>
+      <%--Show Cart</a></li>--%>
   </ul>
 </nav>
