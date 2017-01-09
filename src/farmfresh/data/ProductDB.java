@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ProductDB {
 
-    public static List<Product> selectAllProducts(String productTypeID) {
+    public static List<Product> selectAllProducts(String productTypeId) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
@@ -28,12 +28,12 @@ public class ProductDB {
                 " ProductType.ProductTypeName" +
                 " FROM ProductType, Product" +
                 " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
-                " AND Product.ProductTypeId = ?;";
+                " AND Product.ProductTypeID = ?;";
 
 
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, productTypeID);
+            ps.setString(1, productTypeId);
             rs = ps.executeQuery();
 
             List<Product> products = new ArrayList<Product>();
@@ -108,8 +108,18 @@ public class ProductDB {
         ResultSet rs = null;
 
 
-        String query = "SELECT * FROM Product "
-                + "WHERE ProductID = ?";
+        String query =  "SELECT Product.ProductID," +
+                        " Product.ProductTypeID," +
+                        " Product.ProductCode," +
+                        " Product.Name," +
+                        " Product.Description," +
+                        " Product.ImageID," +
+                        " Product.Price," +
+                        " Product.InSeason," +
+                        " ProductType.ProductTypeName" +
+                        " FROM ProductType, Product" +
+                        " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
+                        " AND Product.ProductID = ?;";
 
         try {
             ps = connection.prepareStatement(query);
@@ -119,9 +129,14 @@ public class ProductDB {
             if (rs.next()) {
                 Product product = new Product();
                 product.setProductId(rs.getLong("ProductID"));
+                product.setProductTypeId(rs.getLong("ProductTypeID"));
                 product.setProductCode(rs.getString("ProductCode"));
+                product.setName(rs.getString("Name"));
                 product.setDescription(rs.getString("Description"));
+                product.setImageId(rs.getString("ImageID"));
                 product.setPrice(rs.getDouble("Price"));
+                product.setInSeason(rs.getBoolean("InSeason"));
+                product.setProductTypeName(rs.getString("ProductTypeName"));
                 return product;
             } else {
                 return null;

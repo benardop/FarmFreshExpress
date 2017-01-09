@@ -24,9 +24,7 @@ public class CatalogController extends HttpServlet {
         String requestURI = request.getRequestURI();
         String url = "/catalog";
 
-        if (requestURI.endsWith("/displayProductTypes")){
-            url = displayProductTypes(request, response);
-        }else if (requestURI.endsWith("/displayProducts")) {
+        if (requestURI.endsWith("/displayProducts")) {
             url = displayProducts(request, response);
         }else if (requestURI.endsWith("/displayProduct")) {
             url = displayProduct(request, response);
@@ -52,15 +50,6 @@ public class CatalogController extends HttpServlet {
                 .forward(request, response);
     }
 
-    private String displayProductTypes(HttpServletRequest request, HttpServletResponse response){
-
-            List<ProductType> productTypes = ProductTypeDB.selectProductTypes();
-            HttpSession session = request.getSession();
-            session.setAttribute("productTypes", productTypes);
-
-        return "/catalog/displayProducts.jsp";
-    }
-
     private String displayProducts(HttpServletRequest request, HttpServletResponse response) {
 
         // New Logic
@@ -82,14 +71,9 @@ public class CatalogController extends HttpServlet {
 
     private String displayProduct(HttpServletRequest request, HttpServletResponse response){
 
-        // New Logic
         String productId = request.getParameter("ProductID");
 
-        // Old Logic
-        String productCode = request.getPathInfo();
-
         if (productId != null){
-            // Old Logic - productCode = productCode.substring(1);
             Product product = ProductDB.selectProduct(productId);
             HttpSession session = request.getSession();
             session.setAttribute("product", product);

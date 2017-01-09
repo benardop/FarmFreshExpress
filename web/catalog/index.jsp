@@ -8,16 +8,47 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_home.jsp" />
 
-<!-- start the middle column -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- If necessary, this page could be generated from the database. -->
+<!-- begin middle column -->
+<section id="catalog">
 
-<section>
-  <h1>Your are Here: Farm Fresh Express Catalog - Index.jsp file</h1>
+  <p>  Made it to Products.jsp</p>
+
+  <%--<h1>${productType}</h1>--%>
+
+  <%--<c:if test="${products == null}">--%>
+  <%--<p>There are no ${productType} to process.</p>--%>
+  <%--</c:if>--%>
+
+
+  <%--<c:if test="${products != null}">--%>
+  <%--<table>--%>
+  <%--<tr>--%>
+  <%--<td></td>--%>
+  <%--<td><b>Name</b></td>--%>
+  <%--<td><b>Price</b></td>--%>
+  <%--</tr>--%>
+
+  <%--<c:forEach var="product" items="${products}">--%>
+  <%--<tr>--%>
+  <%--<td>--%>
+  <%--<a href="displayProduct?productCode=${product.productCode}">Click to View</a>--%>
+  <%--</td>--%>
+  <%--<td>${product.name} </td>--%>
+  <%--<td>${product.price}</td>--%>
+  <%--</tr>--%>
+  <%--</c:forEach>--%>
+
+  <%--</table>--%>
+  <%--</c:if>--%>
+
+  <form action="<c:url value='/admin'/>" method="post">
+    <input type=submit value="Go Back to Menu">
+  </form>
 
 </section>
 
-<!-- end the middle column -->
+<!-- end middle column -->
 
-<%--<jsp:include page="/includes/column_right_news.jsp" flush="true" />--%>
 <jsp:include page="/includes/footer.jsp" />
