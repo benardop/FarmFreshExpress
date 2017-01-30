@@ -36,4 +36,22 @@ public class Cart {
         return lineItems.size();
     }
 
+    public LineItem getLineItem(long productId){
+            for (LineItem lineItem: lineItems) {
+                if (lineItem.getProductId() == productId) {
+                    return lineItem;
+                }
+            }
+        return null;
+    }
+
+     public boolean isEmpty(){
+
+         int numLineItems = lineItems.size();
+         if (numLineItems > 0)
+             return false;
+         else
+             return true;
+     }
+
 }

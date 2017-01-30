@@ -85,7 +85,7 @@
 
             <!-- restrict access to the urls in the admin directory -->
             <web-resource-name>Admin</web-resource-name>
-            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/adminController/*</url-pattern>
         </web-resource-collection>
 
         <!-- authorize the service and the programmer roles -->

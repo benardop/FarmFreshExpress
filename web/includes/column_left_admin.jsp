@@ -9,8 +9,9 @@
 <aside id="sidebarA">
   <nav>
     <ul>
-      <li><a href="<c:url value='/' />">Home</a></li>
-      <li><a href="<c:url value='/admin' />">Admin Menu</a></li>
+      <li><a href="<c:url value='/' />">HOME</a></li>
+      <li><a href="<c:url value='/adminController/displayInvoices/' />">Display Invoices</a></li>
+      <li><a href="<c:url value='/admin/reports.jsp' />">Reports</a></li>
     </ul>
   </nav>
 </aside>

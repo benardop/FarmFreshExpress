@@ -23,7 +23,7 @@ public class AdminController extends HttpServlet {
                       HttpServletResponse response)throws IOException, ServletException {
 
         String requestURI = request.getRequestURI();
-        String url = "/admin";
+        String url = "/adminController/displayInvoices";
 
         if (requestURI.endsWith("/displayInvoice")){
             url = displayInvoice(request, response);
@@ -41,7 +41,7 @@ public class AdminController extends HttpServlet {
                        HttpServletResponse response)throws IOException, ServletException{
 
         String requestURI = request.getRequestURI();
-        String url= "/admin";
+        String url= "/adminController/displayInvoices";
 
         if (requestURI.endsWith("/displayInvoices")){
             url = displayInvoices(request, response);

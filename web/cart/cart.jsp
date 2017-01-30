@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_all.jsp" />
+<jsp:include page="/includes/column_left_home.jsp" />
 
 <!-- begin middle column -->
 
@@ -15,58 +15,64 @@
 
   <h1>Your cart</h1>
   <c:choose>
-    <c:when test="${emptyCart != null}">
+    <c:when test="${cart.isEmpty()}">
       <p>Your cart is empty.</p>
     </c:when>
     <c:otherwise>
       <table>
         <tr>
-          <th>Qty</th>
-          <th>Description</th>
+          <th></th>
+          <th>Item</th>
           <th>Price</th>
+          <th>Qty</th>
           <th>Amount</th>
           <th>&nbsp;</th>
         </tr>
-        <c:forEach var="item" items="${cart.items}">
+        <c:forEach var="item" items="${cart.lineItems}">
           <tr class="cart_row">
+            <td><img src="${item.product.imageURL}"
+                   alt="Unable to display Image"
+                   width="50"
+                   height="50"/>
+            </td>
+            <td>${item.product.name}</td>
+            <td>${item.product.priceCurrencyFormat}</td>
             <td>
               <form action="<c:url value='/order/updateItem'/>" method="post">
-                <input type="hidden" name="productCode"
-                       value="<c:out value='${item.product.code}'/>">
-                <input type=text name="quantity"
-                       value="<c:out value='${item.quantity}'/>" id="quantity">
+                <input type="hidden" name="productId"
+                       value="<c:out value='${item.product.productId}'/>">
+                <input type=text name="updateQuantity"
+                       value="<c:out value='${item.quantity}'/>" id="updateQuantity">
                 <input type="submit" value="Update">
               </form>
             </td>
-            <td>${item.product.description}</td>
-            <td>${item.product.priceCurrencyFormat}</td>
-            <td>${item.totalCurrencyFormat}</td>
+            <%--<td>${item.totalCurrencyFormat}</td>--%>
             <td>
               <form action="<c:url value='/order/removeItem'/>" method="post">
-                <input type="hidden" name="productCode"
-                       value="<c:out value='${item.product.code}'/>">
+                <input type="hidden" name="productId"
+                       value="<c:out value='${item.product.productId}'/>">
                 <input type="submit" value="Remove">
               </form>
             </td>
           </tr>
         </c:forEach>
-        <tr>
-          <td colspan="2">
-            <p><b>To change the quantity for an item</b>, enter the new quantity
-              and click on the Update button.</p>
-            <p><b>To remove an item</b>, click on the Remove button.</p>
-          </td>
-          <td colspan="3">&nbsp;</td>
-        </tr>
+        <%--<tr>--%>
+          <%--<td colspan="2">--%>
+            <%--<p><b>To change the quantity for an item</b>, enter the new quantity--%>
+              <%--and click on the Update button.</p>--%>
+            <%--<p><b>To remove an item</b>, click on the Remove button.</p>--%>
+          <%--</td>--%>
+          <%--<td colspan="3">&nbsp;</td>--%>
+        <%--</tr>--%>
       </table>
     </c:otherwise>
   </c:choose>
 
-  <form action="<c:url value='/catalog'/>" method="get" id="float_left">
-    <input type="submit" value="Continue Shopping">
-  </form>
+  <%--<form action="<c:url value='/'/>" method="get" id="float_left">--%>
+    <%--<input type="submit" value="Continue Shopping">--%>
+  <%--</form>--%>
 
-  <c:if test="${emptyCart == null}">
+  <c:if test="${!cart.isEmpty()}">
     <!-- Connection is NOT SECURE.  For testing only. -->
     <form action="<c:url value='/order/checkUser'/>" method="post">
       <input type="submit" value="Checkout">
@@ -75,7 +81,7 @@
     a secure connection on your system, comment
     out the previous form, and remove the comments from the following form. -->
     <!--
-    <form action="${absolutePathSecure}/order/checkUser" method="post">
+    <%--<form action="${absolutePathSecure}/order/checkUser" method="post">--%>
     <input type="submit" value="Checkout">
     </form>
     -->

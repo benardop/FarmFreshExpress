@@ -19,6 +19,7 @@ import java.util.Date;
 public class OrderController extends HttpServlet {
 
     private static final String defaultURL = "/cart/cart.jsp";
+//        private static final String defaultURL = "/";
 
     @Override
     public void doPost(HttpServletRequest request,
@@ -77,46 +78,55 @@ public class OrderController extends HttpServlet {
         if (cart == null)
             cart = new Cart();
 
-        String productCode = request.getParameter("productCode");
-        Product product = ProductDB.selectProduct(productCode);
+        String productId = request.getParameter("productId");
+        String quantityString = request.getParameter("productQuantity");
+        int quantityInt = Integer.parseInt(quantityString);
+        LineItem lineItem = cart.getLineItem(Long.parseLong(productId));
 
-        if (product != null){
-            LineItem lineItem = new LineItem();
-            lineItem.setProduct(product);
-            cart.addLineItem(lineItem);  //TODO the quantity of the line item is not set to 1 at this time?
+        // If a lineItem exists for that product - increase its quantity
+        // else add a new lineItem for that product
+        if (lineItem != null){
+            lineItem.increaseQuantity(quantityInt);
+        } else {
+            Product product = ProductDB.selectProduct(productId);
+
+            if (product != null) {
+                lineItem = new LineItem();
+                lineItem.setProduct(product);
+                lineItem.setQuantity(quantityInt);
+                cart.addLineItem(lineItem);  //TODO the quantity of the line item is not set to 1 at this time?
+            }
         }
-
         session.setAttribute("cart", cart);
-
         return defaultURL;  //defaultURL = "/cart/cart.jsp"
     }
 
     private String updateItem(HttpServletRequest request, HttpServletResponse response){
 
-        String productCode = request.getParameter("productCode");
-        String productQuantity = request.getParameter("productQuantity");
+        String productId = request.getParameter("productId");
+        String quantity = request.getParameter("updateQuantity");
 
         HttpSession session = request.getSession();
         Cart cart =(Cart)session.getAttribute("cart");
 
-        int cartQuantity;
+        int quantityInt;
         try{
-            cartQuantity = Integer.parseInt(productQuantity);
-            if (cartQuantity < 0)
-                cartQuantity = 1;
+            quantityInt = Integer.parseInt(quantity);
+            if (quantityInt < 0)
+                quantityInt = 0;
         }catch (NumberFormatException ex){
-            cartQuantity = 1;
+            quantityInt = 0;
         }
 
-        Product product = ProductDB.selectProduct(productCode);
-        if (product != null && cart != null){
-            LineItem lineItem = new LineItem();
-            lineItem.setProduct(product);
-            lineItem.setQuantity(cartQuantity);
+//        Product product = ProductDB.selectProduct(productId);  why???
+//        if (product != null && cart != null){
+        if (cart != null) {
+            LineItem lineItem = cart.getLineItem(Long.parseLong(productId));
+//            lineItem.setProduct(product);
+            if (lineItem != null)
+                lineItem.setQuantity(quantityInt);
 
-            if (cartQuantity > 0)
-                cart.addLineItem(lineItem);
-            else
+            if (quantityInt == 0)
                 cart.removeLineItem(lineItem);
 
         }
@@ -131,11 +141,9 @@ public class OrderController extends HttpServlet {
 
         HttpSession session = request.getSession();
         Cart cart =(Cart)session.getAttribute("cart");
-        String productCode = request.getParameter("productCode");
-        Product product = ProductDB.selectProduct(productCode);
-        if (product != null && cart != null){
-                LineItem lineItem = new LineItem();
-                lineItem.setProduct(product);
+        String productId = request.getParameter("productId");
+        LineItem lineItem = cart.getLineItem(Long.parseLong(productId));
+        if (lineItem != null){
                 cart.removeLineItem(lineItem);
        }
         return defaultURL;  //defaultURL = "/cart/cart.jsp"

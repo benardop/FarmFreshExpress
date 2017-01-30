@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: benard
@@ -13,12 +14,19 @@
   <%--<jsp:include page="/includes/product_table.jsp" />--%>
   <img src="${product.imageURL}"
        alt="Unable to display Image"
-       width="400"
-       height="400"
+       width="250"
+       height="250"
   />
-  <p>${product.name}</p>
-  <p>${product.priceCurrencyFormat}</p>
-  <p>${product.description}</p>
+  <h2>${product.name}</h2>
+  <h3>${product.priceCurrencyFormat}</h3>
+  <h4>${product.description}</h4>
+
+    <form action="<c:url value='/order/addItem'/>" method="post">
+        <input type="hidden" name="productId"
+               value="<c:out value='${product.productId}'/>">
+      <input id="quantity" type="number" name="productQuantity" value="1" class="tc item-quantity">
+      <input type=submit value="Add to Cart">
+    </form>
 </section>
 
 <!-- end the middle column -->

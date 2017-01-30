@@ -24,6 +24,13 @@ public class LineItem {
         this.product = product;
     }
 
+    public long getProductId(){
+        if (product == null)
+            return 0;
+        else
+            return product.getProductId();
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -32,6 +39,7 @@ public class LineItem {
         this.quantity = quantity;
     }
 
+    public void increaseQuantity(int nbr) {this.quantity += nbr;}
 
     //PUBLIC METHODS:  SPECIAL FUNCTIONALITY
     public double getTotal(){

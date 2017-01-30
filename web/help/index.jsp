@@ -6,16 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_cust_serv.jsp" />
+<jsp:include page="/includes/column_left_home.jsp" />
 
 <!-- start the middle column -->
 
 <section>
   <h1>Customer Service</h1>
   <p>
-    We want to back our fresh produce up with the best possible service.
-    Whether you have a question about what fresh produce we offer, need a printed
-    catalog, or need help with an order, just let us know. We'll do everything
+    We want to back our quality products up with the best possible service.
+    Whether you have a question about what fresh produce we offer,
+    or need help with an order, just let us know. We'll do everything
     we can to make it easy and enjoyable for you to do business with us.
   </p>
   <p>
@@ -32,5 +32,5 @@
 
 <!-- end the middle column -->
 
-<jsp:include page="/includes/column_right_news.jsp" />
+<%--<jsp:include page="/includes/column_right_news.jsp" />--%>
 <jsp:include page="/includes/footer.jsp" />

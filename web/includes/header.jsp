@@ -24,22 +24,24 @@
   <img src="<c:url value='/images/locally_grown.jpg'/>"
        alt="Farm Fresh Express Logo" width="70" height="70">
   <h1>Welcome to Farm Fresh Express!</h1>
-  <h2>FARM FRESH GOODS from LOCAL MARKETS served up FAST!</h2>
+  <h2>FARM FRESH GOODS served up FAST!</h2>
+  <%--<h2>FARM FRESH GOODS from LOCAL MARKETS served up FAST!</h2>--%>
 </header>
 <nav id="nav_bar">
   <ul>
     <li><a href="<c:url value='/' />">
-      Home</a></li>
-    <li><a href="<c:url value='/catalog' />">
-      Browse Products</a></li>
-    <li><a href="<c:url value='/email' />">
-      Join Email List</a></li>
-    <li><a href="<c:url value='/customer_service' />">
-      Customer Service</a></li>
-    <li><a href="<c:url value='/admin' />">
-      Admin</a></li>
-    <li><a href="<c:url value='/user/deleteCookies' />">
-      Delete Cookies</a></li>
+      SHOP</a></li>
+
+    <li><a href="<c:url value='/connect' />">
+      CONNECT</a></li>
+    <li><a href="<c:url value='/help' />">
+      GET HELP</a></li>
+    <li><a href="<c:url value='/cart/cart.jsp' />">
+      SHOW CART</a></li>
+    <li><a href="<c:url value='/adminController/displayInvoices/' />">
+      ADMIN</a></li>
+    <%--<li><a href="<c:url value='/user/deleteCookies' />">--%>
+      <%--DELETE COOKIES</a></li>--%>
     <%--<li><a href="<c:url value='/admin' />">--%>
       <%--Sign In</a></li>--%>
     <%--<li><a href="<c:url value='/order/showCart' />">--%>

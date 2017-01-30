@@ -22,7 +22,7 @@ public class CatalogController extends HttpServlet {
                       HttpServletResponse response)throws IOException, ServletException{
 
         String requestURI = request.getRequestURI();
-        String url = "/catalog";
+        String url = "/";
 
         if (requestURI.endsWith("/displayProducts")) {
             url = displayProducts(request, response);
@@ -40,7 +40,7 @@ public class CatalogController extends HttpServlet {
                       HttpServletResponse response)throws IOException, ServletException{
 
         String requestURI = request.getRequestURI();
-        String url = "/catalog";
+        String url = "/";
         if (requestURI.endsWith("/register")){
             url = registerUser(request, response);
         }
@@ -53,7 +53,10 @@ public class CatalogController extends HttpServlet {
     private String displayProducts(HttpServletRequest request, HttpServletResponse response) {
 
         // New Logic
-        String productTypeId = request.getParameter("ProductTypeID");
+        String productTypeId = request.getParameter("productTypeId");
+        String productTypeName = request.getParameter("productTypeName");
+        HttpSession session = request.getSession();
+        session.setAttribute("productTypeName", productTypeName);
 
         // getPathInfo - takes the path info after the servlet path, but before the query string
         // servlet path is known because of the mapping the the xml file - correct?
@@ -63,7 +66,6 @@ public class CatalogController extends HttpServlet {
         if (productTypeId != null) {
 //            productType = productType.substring(1); //skip first character returned from PathInfo - it's a '/'
             List<Product> products = ProductDB.selectAllProducts(productTypeId);
-            HttpSession session = request.getSession();
             session.setAttribute("products", products);
         }
         return "/catalog/products.jsp";
@@ -71,7 +73,7 @@ public class CatalogController extends HttpServlet {
 
     private String displayProduct(HttpServletRequest request, HttpServletResponse response){
 
-        String productId = request.getParameter("ProductID");
+        String productId = request.getParameter("productId");
 
         if (productId != null){
             Product product = ProductDB.selectProduct(productId);

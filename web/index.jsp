@@ -15,9 +15,9 @@
 <section>
   <img src="<c:url value='/images/farm_fresh_logo.jpg'/>"
        alt="Farm Fresh Express Logo" width="700" height="350">
-  <h2>What's in Season this Winter?</h2>
-  <p>Arugula, Cabbage, Collard Greens, Free Range Hens, Green Onions,
-  Honey, Kale, Spinach, Sweet Potatoes, and more...</p>
+  <%--<h2>What's in Season this Winter?</h2>--%>
+  <%--<p>Arugula, Cabbage, Collard Greens, Free Range Hens, Green Onions,--%>
+  <%--Honey, Kale, Spinach, Sweet Potatoes, and more...</p>--%>
   <%--<p>Thanks for visiting. Make yourself at home. Feel free to browse through--%>
     <%--our Fresh Produce catalog.Our catalog contains some great fesh organic fresh farm produce , and we--%>
     <%--hope you like it as much as we do.</p>--%>
