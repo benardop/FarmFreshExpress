@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: benard
@@ -9,9 +8,10 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_home.jsp" />
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- start the middle column -->
 <section>
-  <%--<jsp:include page="/includes/product_table.jsp" />--%>
   <img src="${product.imageURL}"
        alt="Unable to display Image"
        width="250"
@@ -24,12 +24,11 @@
     <form action="<c:url value='/order/addItem'/>" method="post">
         <input type="hidden" name="productId"
                value="<c:out value='${product.productId}'/>">
-      <input id="quantity" type="number" name="productQuantity" value="1" class="tc item-quantity">
+      <input id="quantity" type="number" name="productQuantity" value="1" min=0 class="tc item-quantity">
       <input type=submit value="Add to Cart">
     </form>
 </section>
 
 <!-- end the middle column -->
 
-<%--<jsp:include page="/includes/column_right_buttons.jsp" />--%>
 <jsp:include page="/includes/footer.jsp" />

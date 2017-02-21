@@ -22,7 +22,6 @@
   <p>Requested URI: ${pageContext.errorData.requestURI}</p>
 
 </section>
-
 <!-- end the middle column -->
 
 <jsp:include page="/includes/footer.jsp" />

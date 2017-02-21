@@ -5,77 +5,74 @@
   Time: 3:19 PM
   To change this template use File | Settings | File Templates.
 --%>
-<jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_home.jsp" />
+<jsp:include page="/includes/header.jsp"/>
+<jsp:include page="/includes/column_left_home.jsp"/>
 
 <!-- begin middle column -->
-
 <section class="cart">
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-  <h1>Your cart</h1>
-  <c:choose>
-    <c:when test="${cart.isEmpty()}">
-      <p>Your cart is empty.</p>
-    </c:when>
-    <c:otherwise>
-      <table>
-        <tr>
-          <th></th>
-          <th>Item</th>
-          <th>Price</th>
-          <th>Qty</th>
-          <th>Amount</th>
-          <th>&nbsp;</th>
-        </tr>
-        <c:forEach var="item" items="${cart.lineItems}">
-          <tr class="cart_row">
-            <td><img src="${item.product.imageURL}"
-                   alt="Unable to display Image"
-                   width="50"
-                   height="50"/>
-            </td>
-            <td>${item.product.name}</td>
-            <td>${item.product.priceCurrencyFormat}</td>
-            <td>
-              <form action="<c:url value='/order/updateItem'/>" method="post">
-                <input type="hidden" name="productId"
-                       value="<c:out value='${item.product.productId}'/>">
-                <input type=text name="updateQuantity"
-                       value="<c:out value='${item.quantity}'/>" id="updateQuantity">
-                <input type="submit" value="Update">
-              </form>
-            </td>
-            <%--<td>${item.totalCurrencyFormat}</td>--%>
-            <td>
-              <form action="<c:url value='/order/removeItem'/>" method="post">
-                <input type="hidden" name="productId"
-                       value="<c:out value='${item.product.productId}'/>">
-                <input type="submit" value="Remove">
-              </form>
-            </td>
-          </tr>
-        </c:forEach>
-        <%--<tr>--%>
-          <%--<td colspan="2">--%>
-            <%--<p><b>To change the quantity for an item</b>, enter the new quantity--%>
-              <%--and click on the Update button.</p>--%>
-            <%--<p><b>To remove an item</b>, click on the Remove button.</p>--%>
-          <%--</td>--%>
-          <%--<td colspan="3">&nbsp;</td>--%>
-        <%--</tr>--%>
-      </table>
-    </c:otherwise>
-  </c:choose>
 
-  <%--<form action="<c:url value='/'/>" method="get" id="float_left">--%>
-    <%--<input type="submit" value="Continue Shopping">--%>
-  <%--</form>--%>
+    <c:choose>
+        <c:when test="${cart == null or cart.isEmpty()}">
+            <h1>Your cart </h1>
+            <h3>Your cart is empty.</h3>
+        </c:when>
+        <c:otherwise>
+            <h1>Your cart </h1>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <c:forEach var="item" items="${cart.lineItems}">
+                    <tr class="cart_row">
+                        <td><img src="${item.product.imageURL}"
+                                 alt="Unable to display Image"
+                                 width="50"
+                                 height="50"/>
+                        </td>
+                        <td>${item.product.name}</td>
+                        <td>${item.product.priceCurrencyFormat}</td>
+                        <td>
+                            <form action="<c:url value='/order/updateItem'/>" method="post">
+                                <input type="hidden" name="productId"
+                                       value="<c:out value='${item.product.productId}'/>">
+                                <input type="number" name="updateQuantity" value="<c:out value='${item.quantity}'/>"
+                                       min=0 onblur="this.form.submit()" id="updateQuantity" class="tc item-quantity">
+                                <%--<button>Update</button>--%>
+                                <%--<input type="submit" value="Update">--%>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="<c:url value='/order/removeItem'/>" method="post">
+                                <input type="hidden" name="productId"
+                                       value="<c:out value='${item.product.productId}'/>">
+                                <input type="submit" value="Remove">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                <c:if test="${cart != null and !cart.isEmpty()}">
+                <tr>
+                    <td></td>
+                    <th>Total (${cart.cartQuantity} items):</th>
+                    <th>${cart.cartTotalCurrencyFormat}</th>
+                </tr>
+                </c:if>
+            </table>
+        </c:otherwise>
+    </c:choose>
+    <br />
+    <br />
 
-  <c:if test="${!cart.isEmpty()}">
-    <!-- Connection is NOT SECURE.  For testing only. -->
+    <!-- Connection is NOT SECURE. For testing only. -->
+<c:if test="${cart != null and !cart.isEmpty()}">
     <form action="<c:url value='/order/checkUser'/>" method="post">
-      <input type="submit" value="Checkout">
+        <input type="submit" value="Checkout">
     </form>
     <!-- Connection is SECURE.  Before you can use it, you need to configure
     a secure connection on your system, comment
@@ -85,9 +82,9 @@
     <input type="submit" value="Checkout">
     </form>
     -->
-  </c:if>
+</c:if>
 </section>
 
 <!-- end middle column -->
 
-<jsp:include page="/includes/footer.jsp" />
+<jsp:include page="/includes/footer.jsp"/>

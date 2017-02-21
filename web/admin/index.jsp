@@ -13,39 +13,39 @@
 
 <section id="admin">
 
-  <h1>Invoices to be processed:</h1>
+  <h1> THIS CODE IS NEVER USED</h1>
 
-  <c:if test="${unprocessedInvoices == null}">
-    <p>There are no invoices to process.</p>
-  </c:if>
-
-
-  <c:if test="${unprocessedInvoices != null}">
-    <table>
-
-      <tr>
-        <td></td>
-        <td><b>Customer Name</b></td>
-        <td><b>Invoice Date</b></td>
-      </tr>
+  <%--<c:if test="${unprocessedInvoices == null}">--%>
+    <%--<p>There are no invoices to process.</p>--%>
+  <%--</c:if>--%>
 
 
-      <c:forEach var="invoice" items="${unprocessedInvoices}">
-        <tr>
-          <td>
-            <a href="displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>
-          </td>
-          <td>${invoice.user.firstName} ${invoice.user.lastName}</td>
-          <td>${invoice.invoiceDateDefaultFormat}</td>
-        </tr>
-      </c:forEach>
+  <%--<c:if test="${unprocessedInvoices != null}">--%>
+    <%--<table>--%>
 
-    </table>
-  </c:if>
+      <%--<tr>--%>
+        <%--<td></td>--%>
+        <%--<td><b>Customer Name</b></td>--%>
+        <%--<td><b>Invoice Date</b></td>--%>
+      <%--</tr>--%>
 
-  <form action="<c:url value='/admin'/>" method="post">
-    <input type=submit value="Go Back to Menu">
-  </form>
+
+      <%--<c:forEach var="invoice" items="${unprocessedInvoices}">--%>
+        <%--<tr>--%>
+          <%--<td>--%>
+            <%--<a href="displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>--%>
+          <%--</td>--%>
+          <%--<td>${invoice.user.firstName} ${invoice.user.lastName}</td>--%>
+          <%--<td>${invoice.invoiceDateDefaultFormat}</td>--%>
+        <%--</tr>--%>
+      <%--</c:forEach>--%>
+
+    <%--</table>--%>
+  <%--</c:if>--%>
+
+  <%--<form action="<c:url value='/admin'/>" method="post">--%>
+    <%--<input type=submit value="Go Back to Menu">--%>
+  <%--</form>--%>
 
 </section>
 

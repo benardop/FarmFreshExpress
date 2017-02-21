@@ -27,5 +27,4 @@
 
 <!-- end the middle column -->
 
-<%--<jsp:include page="/includes/column_right_news.jsp" />--%>
 <jsp:include page="/includes/footer.jsp" />

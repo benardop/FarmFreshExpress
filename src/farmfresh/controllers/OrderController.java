@@ -19,7 +19,7 @@ import java.util.Date;
 public class OrderController extends HttpServlet {
 
     private static final String defaultURL = "/cart/cart.jsp";
-//        private static final String defaultURL = "/";
+//        private static final String defaultURL = "";
 
     @Override
     public void doPost(HttpServletRequest request,
@@ -98,7 +98,8 @@ public class OrderController extends HttpServlet {
             }
         }
         session.setAttribute("cart", cart);
-        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+//        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+        return "/catalog/products.jsp";
     }
 
     private String updateItem(HttpServletRequest request, HttpServletResponse response){
@@ -134,7 +135,8 @@ public class OrderController extends HttpServlet {
         //BEN - shouldn't I push my updated cart to the session?
         //why is there not an else --- to complain about a product not existing or cart not existing?
 
-        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+//        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+        return "/cart/cart.jsp";
     }
 
     private String removeItem(HttpServletRequest request, HttpServletResponse response){
@@ -146,7 +148,8 @@ public class OrderController extends HttpServlet {
         if (lineItem != null){
                 cart.removeLineItem(lineItem);
        }
-        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+//        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+        return "/cart/cart.jsp";
     }
 
     private String checkUser(HttpServletRequest request, HttpServletResponse response) {

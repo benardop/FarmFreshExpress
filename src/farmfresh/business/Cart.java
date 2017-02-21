@@ -1,5 +1,6 @@
 package farmfresh.business;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,5 +54,28 @@ public class Cart {
          else
              return true;
      }
+
+     public double getCartTotal(){
+         double cartTotal = 0;
+         for (LineItem lineItem: lineItems) {
+             cartTotal += lineItem.getTotal();
+         }
+         return cartTotal;
+     }
+
+     public int getCartQuantity(){
+         int cartQuantity = 0;
+         for (LineItem lineItem: lineItems) {
+             cartQuantity += lineItem.getQuantity();
+         }
+         return cartQuantity;
+     }
+
+     public String getCartTotalCurrencyFormat(){
+         NumberFormat currency = NumberFormat.getCurrencyInstance();
+         return currency.format(getCartTotal());
+     }
+
+
 
 }

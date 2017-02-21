@@ -10,7 +10,7 @@
 <aside id="sidebarB">
   <form method="post" action="<c:url value='/order/addItem'/>">
     <input type="hidden" name="productCode" value="${product.code}">
-    <input type="image" src="<c:url value='/images/addtocart.gif'/>"
+    <input type="image" src="<c:url value='/images/addToCart.jpg'/>"
            width="113" alt="Add to Cart">
   </form>
   <a href="<c:url value='/catalog/product/${product.code}/listen' />">
