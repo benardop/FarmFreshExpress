@@ -11,20 +11,23 @@ import java.io.IOException;
  * Created by Mom and Dad on 11/6/2016.
  */
 public class UserController extends HttpServlet {
+
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws IOException, ServletException{
 
         String requestURI = request.getRequestURI();
         String url = "";
+
         if (requestURI.endsWith("/deleteCookies")){
             url = deleteCookies(request, response);
         }
+
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
 
-    }
+    }// End - doGet()
 
     @Override
     public void doPost(HttpServletRequest request,
@@ -32,15 +35,18 @@ public class UserController extends HttpServlet {
 
          String requestURI = request.getRequestURI();
          String url = "";
-         if (requestURI.endsWith("/eNewsLetterSignUp")){
-             url = eNewsLetterSignUp(request, response);
+
+         if (requestURI.endsWith("/subscribeToNewsletter")){
+             url = subscribeToNewsletter(request, response);
+         }else if (requestURI.endsWith("/unsubscribeFromNewsletter")) {
+             url = unsubscribeFromNewsletter(request, response);
          }
 
         getServletContext()
            .getRequestDispatcher(url)
            .forward(request,response);
 
-     }
+     }// End - doPost()
 
     private String deleteCookies(HttpServletRequest request, HttpServletResponse response){
 
@@ -53,50 +59,52 @@ public class UserController extends HttpServlet {
 
         return "/delete_cookies.jsp";
 
-    }
+    }//  End deleteCookies()
 
-    private String eNewsLetterSignUp(HttpServletRequest request, HttpServletResponse response){
+    private String subscribeToNewsletter(HttpServletRequest request, HttpServletResponse response){
         String email = request.getParameter("email");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-//        String address1 = request.getParameter("address1");
-//        String address2 = request.getParameter("address2");
-//        String city = request.getParameter("city");
-//        String state = request.getParameter("state");
-//        String zip = request.getParameter("zip");
-//        String creditCardType = request.getParameter("creditCardType");
-//        String creditCardNumber = request.getParameter("creditCardNumber");
-//        String creditCardExpirationDate = request.getParameter("creditCardExpirationDate");
-
-
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-//        user.setAddress1(address1);
-//        user.setAddress2(address2);
-//        user.setCity(city);
-//        user.setState(state);
-//        user.setZip(zip);
-//        user.setCreditCardType(creditCardType);
-//        user.setCreditCardNumber(creditCardNumber);
-//        user.setCreditCardExpirationDate(creditCardExpirationDate);
-        request.setAttribute("user",user);  //TODO - BEN?  why in request and not response
 
         String url;
         String message;
 
        if (UserDB.emailExists(email)) {
-            message = "Email " + email + " is already signed up.<br>"
-                    + "Glad you have joined us!";
-            request.setAttribute("message", message);
-            url = "/connect/index.jsp";
+           UserDB.subscribeToNewsletter(email);
         }else{
-            UserDB.insert(user);
-            message = "";  //setting it to "" is equivalent to calling RemoveAttribute("message");
-            request.setAttribute("message", message);
-            url = "/connect/thanks.jsp";
+           User user = new User();
+           user.setEmail(email);
+           user.setSubscribedToNewsletter(true);
+           request.setAttribute("user",user);
+           UserDB.insert(user);
         }
+
+        message = "Glad you have joined us!<br>"
+                + email + " is now subscribed to our eNewsLetter.";
+        request.setAttribute("message", message);
+        url = "/connect/thanks.jsp";
         return url;
-    }
-}
+
+    }// End - eNewsletterSubscribe()
+
+    private String unsubscribeFromNewsletter(HttpServletRequest request, HttpServletResponse response){
+        String email = request.getParameter("email");
+
+        String url;
+        String message;
+
+        if (UserDB.emailExists(email)) {
+            UserDB.unsubscribeFromNewsletter(email);
+        }
+
+//        else{
+//            message = "Email " + email + " is not signed up to get our eNewsLetter.";
+//        }
+        message = "Sorry to see you go!<br>"
+                + email + " has been unsubscribed.";
+        request.setAttribute("message", message);
+        url = "/connect/thanks.jsp";
+        return url;
+
+    }// End - eNewsletterUnsubscribe()
+
+}// End - UserController class
+

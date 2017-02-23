@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_home.jsp" />
+<jsp:include page="/includes/column_left_all.jsp" />
 
 <!-- start the middle column -->
 
@@ -29,8 +29,6 @@
   <h2>Email:</h2>
   <p><a href="mailto:custserv@farmfresh.com">custserv@farmfresh.com</a></p>
 </section>
-
 <!-- end the middle column -->
 
-<%--<jsp:include page="/includes/column_right_news.jsp" />--%>
 <jsp:include page="/includes/footer.jsp" />

@@ -25,29 +25,28 @@
          alt="Farm Fresh Express Logo" width="70" height="70">
     <h1>Welcome to Farm Fresh Express!</h1>
     <h2>FARM FRESH GOODS served up FAST!</h2>
-    <%--<h2>FARM FRESH GOODS from LOCAL MARKETS served up FAST!</h2>--%>
 </header>
 <nav id="nav_bar">
     <ul>
         <li><a href="<c:url value='/' />">
-            SHOP</a></li>
+            HOME</a></li>
         <li><a href="<c:url value='/connect' />">
-            CONNECT</a></li>
+            eNEWSLETTER</a></li>
         <li><a href="<c:url value='/help' />">
             GET HELP</a></li>
-        <c:if test="${cart == null}">
-            <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
-        </c:if>
-        <c:if test="${cart != null}">
-            <li><a href="<c:url value='/cart/cart.jsp' />"> CART: ${cart.cartQuantity} </a></li>
-        </c:if>
+        <li><a href="<c:url value='/admin' />">
+            SIGN IN</a></li>
         <li><a href="<c:url value='/adminController/displayInvoices/' />">
             ADMIN</a></li>
-        <%--<li><a href="<c:url value='/user/deleteCookies' />">--%>
-        <%--DELETE COOKIES</a></li>--%>
-        <%--<li><a href="<c:url value='/admin' />">--%>
-        <%--Sign In</a></li>--%>
-        <%--<li><a href="<c:url value='/order/showCart' />">--%>
-        <%--Show Cart</a></li>--%>
+        <li><a href="<c:url value='/user/deleteCookies' />">
+        DELETE COOKIES</a></li>
+        <c:choose>
+            <c:when test="${cart == null}">
+                <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
+            </c:when>
+            <c:otherwise>
+                <li><a href="<c:url value='/cart/cart.jsp' />"> CART: ${cart.cartQuantity} </a></li>
+            </c:otherwise>
+        </c:choose>
     </ul>
 </nav>

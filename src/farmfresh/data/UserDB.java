@@ -14,15 +14,15 @@ public class UserDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
+//        ResultSet rs = null;
 
         String query
                 = "INSERT INTO User (FirstName, LastName, Email, CompanyName, "
                 + "Address1, Address2, City, State, Zip, Country, "
-                + "CreditCardType, CreditCardNumber, CreditCardExpirationDate) "
+                + "CreditCardType, CreditCardNumber, CreditCardExpirationDate, SubscribedToNewsletter) "
                 + "VALUES (?, ?, ?, ?, "
                 + "?, ?, ?, ?, ?, ?, "
-                + "?, ?, ?)";
+                + "?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getFirstName());
@@ -38,6 +38,7 @@ public class UserDB {
             ps.setString(11, user.getCreditCardType());
             ps.setString(12, user.getCreditCardNumber());
             ps.setString(13, user.getCreditCardExpirationDate());
+            ps.setBoolean(14, user.isSubscribedToNewsletter());
 
             ps.executeUpdate();
 
@@ -55,7 +56,7 @@ public class UserDB {
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-            DBUtil.closeResultSet(rs);
+//            DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
@@ -65,7 +66,7 @@ public class UserDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
+//        ResultSet rs = null;
 
         String query = "UPDATE User SET "
                 + "FirstName = ?, "
@@ -79,7 +80,8 @@ public class UserDB {
                 + "Country = ?, "
                 + "CreditCardType = ?, "
                 + "CreditCardNumber = ?, "
-                + "CreditCardExpirationDate = ? "
+                + "CreditCardExpirationDate = ?, "
+                + "SubscribedToNewsletter = ? "
                 + "WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
@@ -95,13 +97,35 @@ public class UserDB {
             ps.setString(10, user.getCreditCardType());
             ps.setString(11, user.getCreditCardNumber());
             ps.setString(12, user.getCreditCardExpirationDate());
-            ps.setString(13, user.getEmail());
+            ps.setString(13, Boolean.toString(user.isSubscribedToNewsletter()));
+            ps.setString(14, user.getEmail());
 
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-            DBUtil.closeResultSet(rs);
+//            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }
+
+    public static void delete(User user) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+//        ResultSet rs = null;
+
+        String query = "DELETE User WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, user.getEmail());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+//            DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
@@ -161,7 +185,7 @@ public class UserDB {
         }
     }
 
-    public static User buildUser(ResultSet rs) throws SQLException{
+    public static User buildUser(ResultSet rs) throws SQLException {
 
         try {
             User user = new User();
@@ -180,7 +204,7 @@ public class UserDB {
             user.setCreditCardNumber(rs.getString("CreditCardNumber"));
             user.setCreditCardExpirationDate(rs.getString("CreditCardExpirationDate"));
             return user;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
             throw e;
         }
@@ -208,4 +232,45 @@ public class UserDB {
             pool.freeConnection(connection);
         }
     }
+
+    public static void subscribeToNewsletter(String email) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query = "UPDATE User SET "
+                + "SubscribedToNewsletter = TRUE "
+                + "WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }
+
+    public static void unsubscribeFromNewsletter(String email) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query = "UPDATE User SET "
+                + "SubscribedToNewsletter = FALSE "
+                + "WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }
+
 }

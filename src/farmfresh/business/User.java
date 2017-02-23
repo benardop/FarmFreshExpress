@@ -1,7 +1,5 @@
 package farmfresh.business;
 
-//BEN --- login functionality?
-
 import java.util.Date;
 
 /**
@@ -24,6 +22,7 @@ public class User {
     private String creditCardType;
     private String creditCardNumber;
     private String creditCardExpirationDate;
+    private boolean subscribedToNewsletter;
 
     // CONSTRUCTOR
     public User(){
@@ -43,7 +42,7 @@ public class User {
 //         creditCardExpirationDate = "";
     }
 
-    // PUBLIC METHODS:  GETTERS AND SETTERS
+    // GETTERS AND SETTERS
     public Long getUserId() { return userId; }
 
     public void setUserId(Long userId) { this.userId = userId; }
@@ -144,11 +143,19 @@ public class User {
         return creditCardExpirationDate;
     }
 
+    public boolean isSubscribedToNewsletter() {
+        return subscribedToNewsletter;
+    }
+
+    public void setSubscribedToNewsletter(boolean subscribedToNewsletter) {
+        this.subscribedToNewsletter = subscribedToNewsletter;
+    }
+
+    //PUBLIC: SPECIALTY FUNCTIONALITY
     public void setCreditCardExpirationDate(String creditCardExpirationDate) {
         this.creditCardExpirationDate = creditCardExpirationDate;
     }
 
-    //PUBLIC METHODS: SPECIALTY FUNCTIONALITY
     public String getAddressHTMLFormat(){
         return "HTML Format";  //TODO Needs to be coded
     }
