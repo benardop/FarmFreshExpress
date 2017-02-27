@@ -42,7 +42,7 @@ public class OrderController extends HttpServlet {
         }else if (requestURI.endsWith("/displayUser")){
             url = "/cart/user.jsp";
         }else if (requestURI.endsWith("/displayCreditCard")){
-            url = "/cart/creditCard.jsp";
+            url = "/cart/credit_card.jsp";
         }else if (requestURI.endsWith("/completeOrder")){
             url = completeOrder(request, response);
         }
@@ -184,7 +184,7 @@ public class OrderController extends HttpServlet {
         // Add the user to the session objects
         session.setAttribute("user", user);
 
-        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+        return url;
     }
 
     /**
@@ -206,9 +206,9 @@ public class OrderController extends HttpServlet {
         String state = request.getParameter("state");
         String zip = request.getParameter("zip");
         String country = request.getParameter("country");
-        String creditCardType = request.getParameter("creditCardType");
-        String creditCardNumber = request.getParameter("creditCardNumber");
-        String creditCardExpirationDate = request.getParameter("creditCardExpirationDate");
+//        String creditCardType = request.getParameter("creditCardType");
+//        String creditCardNumber = request.getParameter("creditCardNumber");
+//        String creditCardExpirationDate = request.getParameter("creditCardExpirationDate");
 
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
@@ -229,9 +229,9 @@ public class OrderController extends HttpServlet {
             user.setState(state);
             user.setZip(zip);
             user.setCountry(country);
-            user.setCreditCardType(creditCardType);
-            user.setCreditCardNumber(creditCardNumber);
-            user.setCreditCardExpirationDate(creditCardExpirationDate);
+//            user.setCreditCardType(creditCardType);
+//            user.setCreditCardNumber(creditCardNumber);
+//            user.setCreditCardExpirationDate(creditCardExpirationDate);
             UserDB.update(user);
         }else {
             user.setFirstName(firstName);
@@ -244,9 +244,9 @@ public class OrderController extends HttpServlet {
             user.setState(state);
             user.setZip(zip);
             user.setCountry(country);
-            user.setCreditCardType(creditCardType);
-            user.setCreditCardNumber(creditCardNumber);
-            user.setCreditCardExpirationDate(creditCardExpirationDate);
+//            user.setCreditCardType(creditCardType);
+//            user.setCreditCardNumber(creditCardNumber);
+//            user.setCreditCardExpirationDate(creditCardExpirationDate);
             UserDB.insert(user);
         }
 
@@ -291,7 +291,7 @@ public class OrderController extends HttpServlet {
         if(UserDB.emailExists(user.getEmail())) {
             UserDB.update(user);
         }else {
-            UserDB.insert(user);
+//          ERROR  UserDB.insert(user);
         }
 
         invoice.setUser(user);

@@ -56,7 +56,6 @@ public class UserDB {
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-//            DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
@@ -97,14 +96,13 @@ public class UserDB {
             ps.setString(10, user.getCreditCardType());
             ps.setString(11, user.getCreditCardNumber());
             ps.setString(12, user.getCreditCardExpirationDate());
-            ps.setString(13, Boolean.toString(user.isSubscribedToNewsletter()));
+            ps.setBoolean(13,user.isSubscribedToNewsletter());
             ps.setString(14, user.getEmail());
 
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-//            DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }

@@ -118,6 +118,7 @@ public class AdminController extends HttpServlet {
         }
         response.setHeader("content-disposition",
                 "attachment; filename=" + reportName + ".xsl:");
+//                "attachment; filename=" + reportName + ".xsl");
         try(OutputStream out = response.getOutputStream() ){
             workbook.write(out);
         }

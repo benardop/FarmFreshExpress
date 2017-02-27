@@ -43,9 +43,9 @@
     </table>
   </c:if>
 
-  <form action="<c:url value='/admin'/>" method="post">
-    <input type=submit value="Go Back to Menu">
-  </form>
+  <%--<form action="<c:url value='/admin'/>" method="post">--%>
+    <%--<input type=submit value="Go Back to Menu">--%>
+  <%--</form>--%>
 
 </section>
 

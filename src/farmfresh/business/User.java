@@ -157,7 +157,19 @@ public class User {
     }
 
     public String getAddressHTMLFormat(){
-        return "HTML Format";  //TODO Needs to be coded
+        String addressHTML = getAddress1() + "</br>";
+
+        String address2 = getAddress2();
+        if (address2 != null && address2 != "") {
+            addressHTML += address2+ "</br>" ;
+        }
+
+        addressHTML += getCity() + ", "
+                    + getState() + "</br>"
+                    + getZip()+ "</br>"
+                    + getCountry();
+
+        return addressHTML;
     }
 
 }

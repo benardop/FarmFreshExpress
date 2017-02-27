@@ -19,7 +19,7 @@
   />
   <h2>${product.name}</h2>
   <h3>${product.priceCurrencyFormat}</h3>
-  <h4>${product.description}</h4>
+  <h3>${product.description}</h3>
 
     <form action="<c:url value='/order/addItem'/>" method="post">
         <input type="hidden" name="productId"

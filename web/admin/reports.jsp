@@ -13,10 +13,10 @@
 
 <section id="admin">
 
-  <h1>Report list</h1>
+  <h1>Reports List</h1>
 
-  <p>This page contains a list of the reports that are
-    available from this site.</p>
+  <%--<p>This page contains a list of the reports that are--%>
+    <%--available from this site.</p>--%>
 
   <form action="<c:url value='/adminController/displayReport'/>" method="post">
     <input type="hidden" name="reportName" value="userEmail">
@@ -27,7 +27,7 @@
   <form action="parameters.jsp" method="post">
     <input type="hidden" name="reportName" value="downloadDetail">
     <input type="hidden" name="reportTitle" value="The Downloads report">
-    <input type="submit" value="Downloads report" class="left_margin">
+    <input type="submit" value="Downloads Report" class="left_margin">
   </form>
 
 </section>

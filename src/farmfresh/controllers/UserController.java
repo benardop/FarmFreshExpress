@@ -93,13 +93,13 @@ public class UserController extends HttpServlet {
 
         if (UserDB.emailExists(email)) {
             UserDB.unsubscribeFromNewsletter(email);
+            message = "Sorry to see you go!<br>"
+                    + email + " has been unsubscribed.";
+        }else{
+            message = "Unknown Email!<br>"
+                    + "We were not able to unsubscribe " + email + " because it does not exist.";
         }
 
-//        else{
-//            message = "Email " + email + " is not signed up to get our eNewsLetter.";
-//        }
-        message = "Sorry to see you go!<br>"
-                + email + " has been unsubscribed.";
         request.setAttribute("message", message);
         url = "/connect/thanks.jsp";
         return url;

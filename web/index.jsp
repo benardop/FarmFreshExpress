@@ -13,7 +13,8 @@
 <!-- start the middle column -->
 <section>
   <img src="<c:url value='/images/farm_fresh_logo.jpg'/>"
-       alt="Farm Fresh Express Logo" width="750" height="450">
+       alt="Farm Fresh Express Logo" width="780" height="385">
+       <%--alt="Farm Fresh Express Logo" width="750" height="450">--%>
   <%--<p>Thanks for visiting. Make yourself at home. Feel free to browse through--%>
     <%--our Fresh Produce catalog.Our catalog contains some great fresh organic fresh farm produce , and we--%>
     <%--hope you like it as much as we do.</p>--%>

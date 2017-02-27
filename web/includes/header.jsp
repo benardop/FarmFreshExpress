@@ -30,7 +30,7 @@
     <ul>
         <li><a href="<c:url value='/' />">
             HOME</a></li>
-        <li><a href="<c:url value='/connect' />">
+        <li><a href="<c:url value='/eNewsletter' />">
             eNEWSLETTER</a></li>
         <li><a href="<c:url value='/help' />">
             GET HELP</a></li>

@@ -27,8 +27,7 @@
         <ul>
           <c:forEach var="productType" items="${productTypes}">
             <li>
-              <a href="<c:url value='/catalogController/displayProducts?
-                                    productTypeId=${productType.productTypeId}
+              <a href="<c:url value='/catalogController/displayProducts?productTypeId=${productType.productTypeId}
                                     &productTypeName=${productType.productTypeName}'/>">
                   ${productType.productTypeName} </a>
             </li>

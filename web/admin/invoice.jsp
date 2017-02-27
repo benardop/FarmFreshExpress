@@ -28,7 +28,7 @@
     </tr>
     <tr><td colspan="3"><hr></td></tr>
     <tr>
-      <td><b>Qty</b></td>
+      <td><b>Quantity</b></td>
       <td><b>Name</b></td>
       <td><b>Price</b></td>
     </tr>
@@ -37,15 +37,15 @@
           <tr>
               <td>${item.quantity}</td>
               <td>${item.product.name}</td>
-              <td>${item.totalCurrencyFormat}</td>
+              <td>${item.product.price}</td>
           </tr>
       </c:forEach>
 
     <tr><td colspan="3"><hr></td></tr>
     <tr>
-      <td><b>Total</b></td>
       <td></td>
-      <td><p>${invoice.invoiceTotalCurrencyFormat}</td>
+      <td><b>Total</b></td>
+      <td><p><b>${invoice.invoiceTotalCurrencyFormat}</b></td>
     </tr>
   </table>
 
@@ -58,9 +58,9 @@
   <form action="processInvoice" method="post">
     <input type="submit" value="Process Invoice">
   </form>
-  <form action="displayInvoices" method="post">
-    <input type="submit" value="View Unprocessed Invoices">
-  </form>
+  <%--<form action="displayInvoices" method="post">--%>
+    <%--<input type="submit" value="View Unprocessed Invoices">--%>
+  <%--</form>--%>
 
 </section>
 

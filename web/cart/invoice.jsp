@@ -21,7 +21,7 @@
 
   <table>
     <tr>
-      <th>Date</th>
+      <th>Date/Time</th>
       <td>${invoice.invoiceDateDefaultFormat}</td>
       <td></td>
     </tr>
@@ -35,14 +35,14 @@
     </tr>
     <tr>
       <th>Qty</th>
-      <th>Description</th>
+      <th>Name</th>
       <th>Price</th>
     </tr>
 
     <c:forEach var="item" items="${invoice.lineItems}">
       <tr>
         <td>${item.quantity}</td>
-        <td>${item.product.description}</td>
+        <td>${item.product.name}</td>
         <td>${item.totalCurrencyFormat}</td>
       </tr>
     </c:forEach>
