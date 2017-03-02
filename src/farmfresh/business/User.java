@@ -156,17 +156,19 @@ public class User {
         this.creditCardExpirationDate = creditCardExpirationDate;
     }
 
-    public String getAddressHTMLFormat(){
-        String addressHTML = getAddress1() + "</br>";
+    public String getShipToHTMLFormat(){
+        String addressHTML = getFirstName() + " "
+                            + getLastName() + "</br>"
+                            + getAddress1() + "</br>";
 
         String address2 = getAddress2();
-        if (address2 != null && address2 != "") {
-            addressHTML += address2+ "</br>" ;
+        if (address2 != null && !address2.equals("")) {
+            addressHTML += address2 + "</br>" ;
         }
 
         addressHTML += getCity() + ", "
                     + getState() + "</br>"
-                    + getZip()+ "</br>"
+                    + getZip() + "</br>"
                     + getCountry();
 
         return addressHTML;

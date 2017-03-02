@@ -1,7 +1,10 @@
 package farmfresh.util;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.*;
+
 import java.util.Properties;
 import javax.mail.*;
+import javax.mail.MessagingException;
 import javax.mail.internet.*;
 
 /**
@@ -36,7 +39,13 @@ public class MailUtil {
         message.setRecipient(Message.RecipientType.TO, toAddress);
 
         // 4 - send the message
-        Transport.send(message);
+        try {
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
     }
 
 

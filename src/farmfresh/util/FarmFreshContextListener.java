@@ -37,7 +37,7 @@ public class FarmFreshContextListener implements ServletContextListener {
         // Initialize the array of years that is used for the Credit Card Year
         ArrayList<String> creditCardYears = new ArrayList<>();
         for (int i = 0; i < 8; i++){
-            int year = currentYear + 1;
+            int year = currentYear + i;
             String yearString = Integer.toString(year);
             creditCardYears.add(yearString);
         }

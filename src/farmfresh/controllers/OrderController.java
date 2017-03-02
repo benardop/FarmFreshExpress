@@ -10,6 +10,7 @@ import farmfresh.util.MailUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
+import javax.mail.*;
 import java.io.IOException;
 import java.util.Date;
 
@@ -309,7 +310,8 @@ public class OrderController extends HttpServlet {
 
         // send email to user to confirm the order
         String to = user.getEmail();
-        String from = "FarmFreshExpress@gmail.com";
+//        String from = "FarmFreshExpress@gmail.com";
+        String from = "amy.freelance.dev@gmail.com";
         String subject = "Farm Fresh Express Order ";  //TODO fix + invoiceNumber;
         String body = "Dear " + user.getFirstName() + "\n\n" +
                             "Thank you for shopping Farm Fresh Express.\n" +
@@ -317,13 +319,12 @@ public class OrderController extends HttpServlet {
 
         boolean isBodyHTML = false;
 
-//      TODO finish MailUtil
-//        try{
-//            MailUtil.sendMail(to, from, subject, body, isBodyHTML);
-//        }catch (MessagingException e){
-//            this.log("Unable to send email  \n" +
-//            "Please check your system settings");
-//        }
+        try{
+            MailUtil.sendMail(to, from, subject, body, isBodyHTML);
+        }catch (javax.mail.MessagingException e){
+            this.log("Unable to send email  \n" +
+            "Please check your system settings");
+        }
 
         return "/cart/complete.jsp";
     }

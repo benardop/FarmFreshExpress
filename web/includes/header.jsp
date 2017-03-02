@@ -34,8 +34,8 @@
             eNEWSLETTER</a></li>
         <li><a href="<c:url value='/help' />">
             GET HELP</a></li>
-        <li><a href="<c:url value='/admin' />">
-            SIGN IN</a></li>
+        <%--<li><a href="<c:url value='/admin' />">--%>
+            <%--SIGN IN</a></li>--%>
         <li><a href="<c:url value='/adminController/displayInvoices/' />">
             ADMIN</a></li>
         <li><a href="<c:url value='/user/deleteCookies' />">

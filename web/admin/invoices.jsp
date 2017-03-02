@@ -33,7 +33,7 @@
       <c:forEach var="invoice" items="${unprocessedInvoices}">
         <tr>
           <td>
-            <a href="displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>
+            <a href="/adminController/displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>
           </td>
           <td>${invoice.user.firstName} ${invoice.user.lastName}</td>
           <td>${invoice.invoiceDateDefaultFormat}</td>
@@ -43,9 +43,6 @@
     </table>
   </c:if>
 
-  <%--<form action="<c:url value='/admin'/>" method="post">--%>
-    <%--<input type=submit value="Go Back to Menu">--%>
-  <%--</form>--%>
 
 </section>
 

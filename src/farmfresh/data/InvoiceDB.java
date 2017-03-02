@@ -108,7 +108,7 @@ public class InvoiceDB {
                 invoice.setUser(user);
                 List<LineItem> lineItems = LineItemDB.selectLineItems(rs.getLong("InvoiceID"));
                 invoice.setLineItems(lineItems);
-                invoice.setInvoiceDate(rs.getDate("InvoiceDate"));
+                invoice.setInvoiceDate(rs.getTimestamp("InvoiceDate"));
                 invoice.setInvoiceNumber(rs.getLong("InvoiceID"));
 
                 unprocessedInvoices.add(invoice);
