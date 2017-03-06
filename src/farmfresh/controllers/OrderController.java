@@ -287,7 +287,8 @@ public class OrderController extends HttpServlet {
         User user = invoice.getUser();
         user.setCreditCardType(creditCardType);
         user.setCreditCardNumber(creditCardNumber);
-        user.setCreditCardExpirationDate(creditCardExpMonth + "/" + creditCardExpYear );
+        user.setCreditCardExpMonth(creditCardExpMonth);
+        user.setCreditCardExpYear(creditCardExpYear);
 
         if(UserDB.emailExists(user.getEmail())) {
             UserDB.update(user);

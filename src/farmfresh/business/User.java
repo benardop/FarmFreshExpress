@@ -21,26 +21,9 @@ public class User {
     private String country;
     private String creditCardType;
     private String creditCardNumber;
-    private String creditCardExpirationDate;
+    private String creditCardExpMonth;
+    private String creditCardExpYear;
     private boolean subscribedToNewsletter;
-
-    // CONSTRUCTOR
-    public User(){
-//         userId = 0L;
-//         firstName = "";
-//         lastName = "";
-//         email = "";
-//         companyName = "";
-//         address1 = "";
-//         address2 = "";
-//         city = "";
-//         state = "";
-//         zip = "";
-//         country = "";
-//         creditCardType = "";
-//         creditCardNumber = "";
-//         creditCardExpirationDate = "";
-    }
 
     // GETTERS AND SETTERS
     public Long getUserId() { return userId; }
@@ -139,8 +122,20 @@ public class User {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public String getCreditCardExpirationDate() {
-        return creditCardExpirationDate;
+    public String getCreditCardExpMonth() {
+        return creditCardExpMonth;
+    }
+
+    public void setCreditCardExpMonth(String creditCardExpMonth) {
+        this.creditCardExpMonth = creditCardExpMonth;
+    }
+
+    public String getCreditCardExpYear() {
+        return creditCardExpYear;
+    }
+
+    public void setCreditCardExpYear(String creditCardExpYear) {
+        this.creditCardExpYear = creditCardExpYear;
     }
 
     public boolean isSubscribedToNewsletter() {
@@ -152,10 +147,6 @@ public class User {
     }
 
     //PUBLIC: SPECIALTY FUNCTIONALITY
-    public void setCreditCardExpirationDate(String creditCardExpirationDate) {
-        this.creditCardExpirationDate = creditCardExpirationDate;
-    }
-
     public String getShipToHTMLFormat(){
         String addressHTML = getFirstName() + " "
                             + getLastName() + "</br>"

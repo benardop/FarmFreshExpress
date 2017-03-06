@@ -19,10 +19,11 @@ public class UserDB {
         String query
                 = "INSERT INTO User (FirstName, LastName, Email, CompanyName, "
                 + "Address1, Address2, City, State, Zip, Country, "
-                + "CreditCardType, CreditCardNumber, CreditCardExpirationDate, SubscribedToNewsletter) "
+                + "CreditCardType, CreditCardNumber, CreditCardExpMonth, CreditCardExpYear, "
+                + "SubscribedToNewsletter) "
                 + "VALUES (?, ?, ?, ?, "
                 + "?, ?, ?, ?, ?, ?, "
-                + "?, ?, ?, ?)";
+                + "?, ?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getFirstName());
@@ -37,8 +38,9 @@ public class UserDB {
             ps.setString(10, user.getCountry());
             ps.setString(11, user.getCreditCardType());
             ps.setString(12, user.getCreditCardNumber());
-            ps.setString(13, user.getCreditCardExpirationDate());
-            ps.setBoolean(14, user.isSubscribedToNewsletter());
+            ps.setString(13, user.getCreditCardExpMonth());
+            ps.setString(14, user.getCreditCardExpYear());
+            ps.setBoolean(15, user.isSubscribedToNewsletter());
 
             ps.executeUpdate();
 
@@ -79,7 +81,8 @@ public class UserDB {
                 + "Country = ?, "
                 + "CreditCardType = ?, "
                 + "CreditCardNumber = ?, "
-                + "CreditCardExpirationDate = ?, "
+                + "CreditCardExpMonth = ?, "
+                + "CreditCardExpYear = ?, "
                 + "SubscribedToNewsletter = ? "
                 + "WHERE Email = ?";
         try {
@@ -95,9 +98,10 @@ public class UserDB {
             ps.setString(9, user.getCountry());
             ps.setString(10, user.getCreditCardType());
             ps.setString(11, user.getCreditCardNumber());
-            ps.setString(12, user.getCreditCardExpirationDate());
-            ps.setBoolean(13,user.isSubscribedToNewsletter());
-            ps.setString(14, user.getEmail());
+            ps.setString(12, user.getCreditCardExpMonth());
+            ps.setString(13, user.getCreditCardExpYear());
+            ps.setBoolean(14, user.isSubscribedToNewsletter());
+            ps.setString(15, user.getEmail());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -200,7 +204,9 @@ public class UserDB {
             user.setCountry(rs.getString("Country"));
             user.setCreditCardType(rs.getString("CreditCardType"));
             user.setCreditCardNumber(rs.getString("CreditCardNumber"));
-            user.setCreditCardExpirationDate(rs.getString("CreditCardExpirationDate"));
+            user.setCreditCardExpMonth(rs.getString("CreditCardExpMonth"));
+            user.setCreditCardExpYear(rs.getString("CreditCardExpYear"));
+            user.setSubscribedToNewsletter(rs.getBoolean("SubscribedToNewsletter"));
             return user;
         } catch (SQLException e) {
             System.err.println(e);

@@ -60,7 +60,7 @@
 
     <label>Payment information</label>
     <span>${invoice.user.creditCardType}: ${invoice.user.creditCardNumber}
-    (${invoice.user.creditCardExpirationDate})</span><br>
+    (${invoice.user.creditCardExpMonth}/${invoice.user.creditCardExpYear})</span><br>
     <label>Email Address</label>
     <span>${invoice.user.email}</span><br>
 
