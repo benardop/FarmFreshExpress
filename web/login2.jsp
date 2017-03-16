@@ -8,17 +8,19 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- start the middle column -->
 
 <section>
 
   <h1>Login Form</h1>
   <p>Please enter a username and password to continue.</p>
-  <form action="j_security_check" method="post">
+  <form action="<c:url value='/user/login' />" method=post>
     <label>Email</label>
-    <input type="text" name="j_username"><br>
+    <input type="text" name="username"><br>
     <label>Password</label>
-    <input type="password" name="j_password"><br>
+    <input type="password" name="password"><br>
     <label>&nbsp;</label>
     <input type="submit" value="Login">
   </form>

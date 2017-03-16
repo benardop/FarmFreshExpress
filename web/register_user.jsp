@@ -18,9 +18,9 @@
 
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-  <h1>User Information</h1>
+  <h1>Registration:</h1>
 
-  <form action="<c:url value='/order/processUser' />" method=post>
+  <form action="<c:url value='/user/register' />" method=post>
     <p id="required">Required <span class="required">*</span></p>
 
     <label>First Name</label>
@@ -34,6 +34,14 @@
 
     <label>Email Address</label>
     <input type="email" name="email" value="${user.email}" required>
+    <p class="required">*</p><br>
+
+    <label>Password</label>
+    <input type="password" name="password">
+    <p class="required">*</p><br>
+
+    <label>Re-enter Password</label>
+    <input type="password" name="verificationPassword">
     <p class="required">*</p><br>
 
     <label>Company</label>
@@ -67,7 +75,6 @@
     <label>&nbsp;</label>
     <input type="submit" value="Continue">
   </form>
-
 </section>
 
 <!-- end middle column -->

@@ -123,80 +123,10 @@ public class InvoiceDB {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
-    }
 
+    }//End - selectUnprocessedInvoices()
 
-// NOT USED ---- YET --- KEEPING JUST IN CASE I WANT THEM LATER!
-//    public static Product selectProduct(String productCode) {
-//
-//        ConnectionPool pool = ConnectionPool.getInstance();
-//        Connection connection = pool.getConnection();
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//
-//        String query = "SELECT * FROM Products"
-//                + "WHERE product_code = ?";
-//
-//        try {
-//            ps = connnection.prepareStatement(query);
-//            ps.setString(1, productCode);
-//            rs = ps.executeQuery();
-//            Product product = null;
-//
-//            if (rs.next()) {
-//                product = new Product();
-//                product.setProductCode(rs.getString("ProductCode"));
-//                product.setDescription(rs.getString("Description"));
-//                product.setPrice(rs.getDouble("Price"));
-//            }
-//            return product;
-//
-//        } catch (SQLException e) {
-//            System.err.println(e);
-//            return null;
-//        }finally{
-//            DBUtil.closeResultSet(rs);
-//            DBUtil.closePreparedStatement(ps);
-//            //pool.freeConnection(connection);
-//        }
-//        return null;  //Remove after uncommenting
-//    }
-//
-//    public static List<Product> selectAllProducts(){
-//        ConnectionPool pool = ConnectionPool.getInstance();
-//        Connection connection = pool.getConnection();
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//
-//        String query = "SELECT * FROM Users";
-//
-//        try {
-//            ps = connnection.prepareStatement(query);
-//            rs = ps.executeQuery();
-//
-//            List<Product> products = new ArrayList<Product>();
-//
-//            while (rs.next()){
-//                Product product = new Product();
-//                product.setProductCode(rs.getString("ProductCode"));
-//                product.setDescription(rs.getString("Description"));
-//                product.setPrice(rs.getDouble("Price"));
-//                products.add(product);
-//            }
-//            return products;
-//
-//        } catch (SQLException e) {
-//            System.err.println(e);
-//            return false;
-//        }finally{
-//            DBUtil.closeResultSet(rs);
-//            DBUtil.closePreparedStatement(ps);
-//            //pool.freeConnection(connection);
-//        }
-//        return false;  // remove this line...
-//    }
-
-}
+}//End - InvoiceDB.java
 
 
 

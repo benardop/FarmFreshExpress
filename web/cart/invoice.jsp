@@ -61,7 +61,8 @@
         </tr>
     </table>
 
-
+    <br>
+    <br>
     <form action="<c:url value='/order/displayUser' />" method="post" id="float_left">
         <input type="submit" value="Edit Address">
     </form>

@@ -12,8 +12,7 @@
 
 <section>
 
-  <h1>Login Form - Error</h1>
-  <p>You did not log in successfully.</p>
+  <h1>Login Error</h1>
   <p>Please check your username and password and try again.</p>
 
   <form action="j_security_check" method="get">
@@ -24,6 +23,11 @@
     <label>&nbsp;</label>
     <input type="submit" value="Login">
   </form>
+  <br>
+  <p>If you don't have a user account yet, and would like to register,
+    <a href="/register_user.jsp">please click here</a></p>
+  <br>
+  <p><a href="/forgotten_password.jsp">Forgot Your Password</a></p>
 
 </section>
 

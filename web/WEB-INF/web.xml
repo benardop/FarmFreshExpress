@@ -26,6 +26,10 @@
         <servlet-class>farmfresh.controllers.OrderController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CheckOutController</servlet-name>
+        <servlet-class>farmfresh.controllers.CheckOutController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UserController</servlet-name>
         <servlet-class>farmfresh.controllers.UserController</servlet-class>
     </servlet>
@@ -38,11 +42,14 @@
     <servlet-mapping>
         <servlet-name>CatalogController</servlet-name>
         <url-pattern>/catalogController/*</url-pattern>
-        <!--<url-pattern>/catalog/product/*</url-pattern> ALR modified-->
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
         <url-pattern>/order/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutController</servlet-name>
+        <url-pattern>/checkOut/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
@@ -72,27 +79,51 @@
     
     <!-- Define two security roles -->
     <security-role>
-        <description>customer service employees</description>
-        <role-name>service</role-name>
+        <description>system administrator</description>
+        <role-name>admin</role-name>
     </security-role>
     <security-role>
-        <description>programmers</description>
-        <role-name>programmer</role-name>
+        <description>super user</description>
+        <role-name>super_user</role-name>
+    </security-role>
+    <security-role>
+        <description>user</description>
+        <role-name>user</role-name>
     </security-role>
 
     <security-constraint>
         <web-resource-collection>
-
             <!-- restrict access to the urls in the admin directory -->
-            <web-resource-name>Admin</web-resource-name>
+            <web-resource-name>Admin Area</web-resource-name>
             <url-pattern>/adminController/*</url-pattern>
         </web-resource-collection>
 
         <!-- authorize the service and the programmer roles -->
         <auth-constraint>
-            <role-name>service</role-name>
-            <role-name>programmer</role-name>
+            <role-name>super_user</role-name>
+            <role-name>admin</role-name>
         </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <!-- restrict access to the urls in the checkOut directory -->
+            <web-resource-name>Check Out Area</web-resource-name>
+            <url-pattern>/checkOut/*</url-pattern>
+        </web-resource-collection>
+
+        <!-- authorize the service and the programmer roles -->
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
 
     <!-- use FORM-based authentication to provide access to application  -->
@@ -108,13 +139,5 @@
     <session-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
-
-    <!--&lt;!&ndash; Amy put in Define Datasource Reference &ndash;&gt;-->
-    <!--<resource-ref>-->
-        <!--<description>DataSource Reference</description>-->
-        <!--<res-ref-name>jdbc/FarmFreshDB</res-ref-name>-->
-        <!--<res-type>javax.sql.DataSource</res-type>-->
-        <!--<res-auth>Container</res-auth>-->
-    <!--</resource-ref>-->
 
 </web-app>

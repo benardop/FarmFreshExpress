@@ -34,8 +34,8 @@ public class OrderController extends HttpServlet {
             url = updateItem(request, response);
         }else if (requestURI.endsWith("/removeItem")){
             url = removeItem(request, response);
-        }else if (requestURI.endsWith("/checkUser")){
-            url = checkUser(request, response);
+        }else if (requestURI.endsWith("/checkOut")){
+            url = checkOut(request, response);
         }else if (requestURI.endsWith("/processUser")){
             url = processUser(request, response);
         }else if (requestURI.endsWith("/displayInvoice")){
@@ -63,7 +63,7 @@ public class OrderController extends HttpServlet {
         if (requestURI.endsWith("/showCart")){
             url = showCart(request, response);
         }else if (requestURI.endsWith("/checkUser")){
-            url = checkUser(request, response);
+            url = checkOut(request, response);
         }
 
         getServletContext()
@@ -95,7 +95,7 @@ public class OrderController extends HttpServlet {
                 lineItem = new LineItem();
                 lineItem.setProduct(product);
                 lineItem.setQuantity(quantityInt);
-                cart.addLineItem(lineItem);  //TODO the quantity of the line item is not set to 1 at this time?
+                cart.addLineItem(lineItem);
             }
         }
         session.setAttribute("cart", cart);
@@ -120,23 +120,14 @@ public class OrderController extends HttpServlet {
             quantityInt = 0;
         }
 
-//        Product product = ProductDB.selectProduct(productId);  why???
-//        if (product != null && cart != null){
         if (cart != null) {
             LineItem lineItem = cart.getLineItem(Long.parseLong(productId));
-//            lineItem.setProduct(product);
             if (lineItem != null)
                 lineItem.setQuantity(quantityInt);
 
             if (quantityInt == 0)
                 cart.removeLineItem(lineItem);
-
         }
-
-        //BEN - shouldn't I push my updated cart to the session?
-        //why is there not an else --- to complain about a product not existing or cart not existing?
-
-//        return defaultURL;  //defaultURL = "/cart/cart.jsp"
         return "/cart/cart.jsp";
     }
 
@@ -149,16 +140,16 @@ public class OrderController extends HttpServlet {
         if (lineItem != null){
                 cart.removeLineItem(lineItem);
        }
-//        return defaultURL;  //defaultURL = "/cart/cart.jsp"
         return "/cart/cart.jsp";
     }
 
-    private String checkUser(HttpServletRequest request, HttpServletResponse response) {
+    private String checkOut(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        // if user exists and has a populated Address1 field - skip the user input page
+        // TODO Check to make sure a User has logged in...
+        // Once Logged in if user exists and has a populated Address1 field - skip the user input page
         // and display Invoice right away...
         String url = "/cart/user.jsp";
         if (user != null && !user.getAddress1().equals("")) {
@@ -171,9 +162,11 @@ public class OrderController extends HttpServlet {
             //if emailCookie does not exist - you need to get user to enter user information
             if (email.equals("")) {
                 user = new User();
-                url = "/cart/user.jsp";
+                url = "/register_user.jsp";
+//                url = "/cart/user.jsp";
             } else {
                 user = UserDB.selectUser(email);
+                session.setAttribute("user", user);
 
                 //if user exists on the DB and user address1  is populated
                 if (user != null && !user.getAddress1().equals("")) {
@@ -182,8 +175,6 @@ public class OrderController extends HttpServlet {
 
             }
         }
-        // Add the user to the session objects
-        session.setAttribute("user", user);
 
         return url;
     }
@@ -207,9 +198,6 @@ public class OrderController extends HttpServlet {
         String state = request.getParameter("state");
         String zip = request.getParameter("zip");
         String country = request.getParameter("country");
-//        String creditCardType = request.getParameter("creditCardType");
-//        String creditCardNumber = request.getParameter("creditCardNumber");
-//        String creditCardExpirationDate = request.getParameter("creditCardExpirationDate");
 
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
@@ -230,9 +218,6 @@ public class OrderController extends HttpServlet {
             user.setState(state);
             user.setZip(zip);
             user.setCountry(country);
-//            user.setCreditCardType(creditCardType);
-//            user.setCreditCardNumber(creditCardNumber);
-//            user.setCreditCardExpirationDate(creditCardExpirationDate);
             UserDB.update(user);
         }else {
             user.setFirstName(firstName);
@@ -245,9 +230,6 @@ public class OrderController extends HttpServlet {
             user.setState(state);
             user.setZip(zip);
             user.setCountry(country);
-//            user.setCreditCardType(creditCardType);
-//            user.setCreditCardNumber(creditCardNumber);
-//            user.setCreditCardExpirationDate(creditCardExpirationDate);
             UserDB.insert(user);
         }
 

@@ -33,7 +33,8 @@ public class CatalogController extends HttpServlet {
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
-    }
+
+    }//End - doGet()
 
     @Override
     public void doPost(HttpServletRequest request,
@@ -41,35 +42,30 @@ public class CatalogController extends HttpServlet {
 
         String requestURI = request.getRequestURI();
         String url = "/";
-        if (requestURI.endsWith("/register")){
-            url = registerUser(request, response);
-        }
+//        if (requestURI.endsWith("/register")){
+//            url = registerUser(request, response);
+//        }
 
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
-    }
+
+    }//End - doPost()
 
     private String displayProducts(HttpServletRequest request, HttpServletResponse response) {
 
-        // New Logic
         String productTypeId = request.getParameter("productTypeId");
         String productTypeName = request.getParameter("productTypeName");
         HttpSession session = request.getSession();
         session.setAttribute("productTypeName", productTypeName);
 
-        // getPathInfo - takes the path info after the servlet path, but before the query string
-        // servlet path is known because of the mapping the the xml file - correct?
-        // ex)  FFE.com/cart/display --- known servlet is cart/  display is extra path information...
-        //Should never be null
-//        String productType = request.getPathInfo();
         if (productTypeId != null) {
-//            productType = productType.substring(1); //skip first character returned from PathInfo - it's a '/'
             List<Product> products = ProductDB.selectAllProducts(productTypeId);
             session.setAttribute("products", products);
         }
         return "/catalog/products.jsp";
-    }
+
+    }//End - displayProducts()
 
     private String displayProduct(HttpServletRequest request, HttpServletResponse response){
 
@@ -80,41 +76,38 @@ public class CatalogController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("product", product);
         }
-
-//        return "/catalog/" + productCode + "/index.jsp";
         return "/catalog/product.jsp";
-    }
 
-    private String registerUser(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session = request.getSession();
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
+    }//End - displayProduct()
 
-        User user;
-        if (UserDB.emailExists(email)){
-            user = UserDB.selectUser(email);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setEmail(email);
-            UserDB.update(user);
-        }else{
-            user = new User();
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setEmail(email);
-            UserDB.insert(user);
-        }
+//    private String registerUser(HttpServletRequest request, HttpServletResponse response){
+//        HttpSession session = request.getSession();
+//        String firstName = request.getParameter("firstName");
+//        String lastName = request.getParameter("lastName");
+//        String email = request.getParameter("email");
+//
+//        User user;
+//        if (UserDB.emailExists(email)){
+//            user = UserDB.selectUser(email);
+//            user.setFirstName(firstName);
+//            user.setLastName(lastName);
+//            user.setEmail(email);
+//            UserDB.update(user);
+//        }else{
+//            user = new User();
+//            user.setFirstName(firstName);
+//            user.setLastName(lastName);
+//            user.setEmail(email);
+//            UserDB.insert(user);
+//        }
+//
+//        session.setAttribute("user", user);
+//        Cookie emailCookie = new Cookie("emailCookie", email);
+//        emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
+//        emailCookie.setPath("/");  //root which is FarmFreshExpress
+//        response.addCookie(emailCookie);
+//
+//        return "/";
+//    }
 
-        session.setAttribute("user", user);
-        Cookie emailCookie = new Cookie("emailCookie", email);
-        emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
-        emailCookie.setPath("/");  //root which is FarmFreshExpress
-        response.addCookie(emailCookie);
-
-        Product product = (Product)session.getAttribute("product");
-        String url = "/catalog" + product + "index.jsp";
-        return url;
-    }
-
-}
+}//End - CatalogController.java

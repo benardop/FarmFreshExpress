@@ -70,9 +70,23 @@
 
     <!-- Connection is NOT SECURE. For testing only. -->
 <c:if test="${cart != null and !cart.isEmpty()}">
-    <form action="<c:url value='/order/checkUser'/>" method="post">
-        <input type="submit" value="Checkout">
+    <form action="<c:url value='/checkOut/checkOut'/>" method="post">
+    <input type="submit" value="Checkout">
     </form>
+
+    <%--<c:choose>--%>
+        <%--<c:when test="${pageContext.request.isUserInRole('user')}">--%>
+    <%--<form action="<c:url value='/checkOut/checkOut'/>" method="post">--%>
+        <%--<input type="submit" value="Checkout">--%>
+    <%--</form>--%>
+        <%--</c:when>--%>
+        <%--<c:otherwise>--%>
+            <%--<button type="button" disabled>Checkout</button>--%>
+            <%--<br>--%>
+            <%--<p>In order to check out, you must have a User account,--%>
+                <%--please click here to <a href="/register_user.jsp">Register</a></p>--%>
+        <%--</c:otherwise>--%>
+    <%--</c:choose>--%>
     <!-- Connection is SECURE.  Before you can use it, you need to configure
     a secure connection on your system, comment
     out the previous form, and remove the comments from the following form. -->

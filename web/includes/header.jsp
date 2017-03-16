@@ -28,25 +28,57 @@
 </header>
 <nav id="nav_bar">
     <ul>
-        <li><a href="<c:url value='/' />">
-            HOME</a></li>
-        <li><a href="<c:url value='/eNewsletter' />">
-            eNEWSLETTER</a></li>
-        <li><a href="<c:url value='/help' />">
-            GET HELP</a></li>
-        <%--<li><a href="<c:url value='/admin' />">--%>
-            <%--SIGN IN</a></li>--%>
-        <li><a href="<c:url value='/adminController/displayInvoices/' />">
-            ADMIN</a></li>
-        <li><a href="<c:url value='/user/deleteCookies' />">
-        DELETE COOKIES</a></li>
+        <%--HOME--%>
+        <%--<li><a href="<c:url value='/' />">--%>
+            <%--HOME</a></li>--%>
+
+            <c:if test="${!pageContext.request.isUserInRole('super_user') and
+                          !pageContext.request.isUserInRole('admin')}">
+                <%--eNewsletter--%>
+                <li><a href="<c:url value='/eNewsletter' />">
+                    eNEWSLETTER</a></li>
+            </c:if>
+
+            <%--HELP--%>
+            <li><a href="<c:url value='/help' />">
+                HELP</a></li>
+        <%--SIGNIN - if noone is signed-in;  SIGNOUT - if someone is signed in--%>
         <c:choose>
-            <c:when test="${cart == null}">
-                <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
+            <c:when test="${pageContext.request.remoteUser == null}">
+                <li><a href="<c:url value='/login2.jsp' />">
+                    LOG IN</a></li>
             </c:when>
             <c:otherwise>
-                <li><a href="<c:url value='/cart/cart.jsp' />"> CART: ${cart.cartQuantity} </a></li>
+                <li><a href="<c:url value='/user/logout' />">
+                    LOG OUT</a></li>
             </c:otherwise>
         </c:choose>
+
+        <%--ADMIN - if person logged in has a role of administrator or super_user--%>
+        <c:if test="${pageContext.request.isUserInRole('admin') or
+                       pageContext.request.isUserInRole('super_user')}">
+            <li><a href="<c:url value='/adminController/displayInvoices/' />">
+                ADMIN</a></li>
+        </c:if>
+
+        <%--DELETE COOKIES - if person logged in has a role of super_user--%>
+        <c:if test="${pageContext.request.isUserInRole('super_user')}">
+            <li><a href="<c:url value='/user/deleteCookies' />">
+                DELETE COOKIES</a></li>
+        </c:if>
+
+        <%--CART - displaying the number of items in the cart;  Zero if there is no cart--%>
+            <c:if test="${!pageContext.request.isUserInRole('super_user') and
+                          !pageContext.request.isUserInRole('admin')}">
+                <c:choose>
+                    <c:when test="${cart == null}">
+                        <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>
+                        <%--<li class="disabled"><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>--%>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
     </ul>
 </nav>
