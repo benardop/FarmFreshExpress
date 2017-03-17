@@ -93,6 +93,25 @@
 
     <security-constraint>
         <web-resource-collection>
+            <!-- initiate login when LOGIN is clicked in header -->
+            <web-resource-name>Login Area</web-resource-name>
+            <url-pattern>/login_redirect.jsp</url-pattern>
+        </web-resource-collection>
+
+        <!-- authorize the service and the programmer roles -->
+        <auth-constraint>
+            <role-name>super_user</role-name>
+            <role-name>admin</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
             <!-- restrict access to the urls in the admin directory -->
             <web-resource-name>Admin Area</web-resource-name>
             <url-pattern>/adminController/*</url-pattern>
@@ -118,6 +137,7 @@
 
         <!-- authorize the service and the programmer roles -->
         <auth-constraint>
+            <role-name>super_user</role-name>
             <role-name>user</role-name>
         </auth-constraint>
 

@@ -28,7 +28,7 @@
   <p>If you don't have a user account yet, and would like to register,
     <a href="/register_user.jsp">please click here</a></p>
   <br>
-  <p><a href="/forgotten_password.jsp">Forgot Your Password</a></p>
+  <p><a href="/password_reset.jsp">Forgot Your Password</a></p>
 
 </section>
 

@@ -12,10 +12,11 @@
 
 <section>
 
-    <h1>Forgotten Password</h1>
     <p>THIS PAGE IS UNDER CONSTRUCTION - Thank you for your patience!</p>
-    <p>It happens to everyone!</p>
-    <p>Please enter your email - so we can help you out.</p>
+    <br>
+    <h1>Password Reset</h1>
+    <p>With so many passwords to remember - it's easy to forget one!</p>
+    <p>Please enter your email - so we can help you reset it.</p>
     <form action="/" method="post">
         <label>Email</label>
         <input type="text" name="j_username"><br>

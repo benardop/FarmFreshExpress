@@ -53,6 +53,8 @@ public class CheckOutController extends HttpServlet {
 
         if (requestURI.endsWith("/checkUser")) {
             url = checkOut(request, response);
+        }else if (requestURI.endsWith("/completeOrder")) {
+            url = completeOrder(request, response);
         }
 
         getServletContext()
@@ -82,10 +84,6 @@ public class CheckOutController extends HttpServlet {
         if (email == null) {
             return "/login_error.jsp";
         }
-
-
-        if (!request.isUserInRole("user"))
-            return "/checkOut/checkOut";
 
         User user = UserDB.selectUser(email);
         HttpSession session = request.getSession();
@@ -220,12 +218,12 @@ public class CheckOutController extends HttpServlet {
         invoice.setUser(user);
         InvoiceDB.insert(invoice);
 
-        //set the email cookie in the user's browser
-        Cookie emailCookie = new Cookie("emailCookie", user.getEmail());
-        emailCookie.setMaxAge(60 * 60 * 24 * 365 * 2);  //TODO fix other setMax
-        emailCookie.setPath("/");  // for the entire application
-
-        response.addCookie(emailCookie);
+//        //set the email cookie in the user's browser
+//        Cookie emailCookie = new Cookie("emailCookie", user.getEmail());
+//        emailCookie.setMaxAge(60 * 60 * 24 * 365 * 2);  //TODO fix other setMax
+//        emailCookie.setPath("/");  // for the entire application
+//
+//        response.addCookie(emailCookie);
 
         // remove all items from the user's cart
         session.setAttribute("cart", null);

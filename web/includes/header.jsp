@@ -28,13 +28,14 @@
 </header>
 <nav id="nav_bar">
     <ul>
-        <%--HOME--%>
-        <%--<li><a href="<c:url value='/' />">--%>
-            <%--HOME</a></li>--%>
+            <%--HOME--%>
+            <c:if test="${pageContext.request.isUserInRole('super_user')}">
+                <li><a href="<c:url value='/' />">
+                HOME</a></li>
+            </c:if>
 
-            <c:if test="${!pageContext.request.isUserInRole('super_user') and
-                          !pageContext.request.isUserInRole('admin')}">
-                <%--eNewsletter--%>
+            <%--eNewsletter--%>
+            <c:if test="${!pageContext.request.isUserInRole('admin')}">
                 <li><a href="<c:url value='/eNewsletter' />">
                     eNEWSLETTER</a></li>
             </c:if>
@@ -42,11 +43,14 @@
             <%--HELP--%>
             <li><a href="<c:url value='/help' />">
                 HELP</a></li>
+
         <%--SIGNIN - if noone is signed-in;  SIGNOUT - if someone is signed in--%>
         <c:choose>
             <c:when test="${pageContext.request.remoteUser == null}">
-                <li><a href="<c:url value='/login2.jsp' />">
+                <li><a href="<c:url value='/login_redirect.jsp' />">
                     LOG IN</a></li>
+                <li><a href="<c:url value='/register_user.jsp' />">
+                    REGISTER</a></li>
             </c:when>
             <c:otherwise>
                 <li><a href="<c:url value='/user/logout' />">
@@ -55,8 +59,7 @@
         </c:choose>
 
         <%--ADMIN - if person logged in has a role of administrator or super_user--%>
-        <c:if test="${pageContext.request.isUserInRole('admin') or
-                       pageContext.request.isUserInRole('super_user')}">
+        <c:if test="${pageContext.request.isUserInRole('super_user')}">
             <li><a href="<c:url value='/adminController/displayInvoices/' />">
                 ADMIN</a></li>
         </c:if>
@@ -68,8 +71,7 @@
         </c:if>
 
         <%--CART - displaying the number of items in the cart;  Zero if there is no cart--%>
-            <c:if test="${!pageContext.request.isUserInRole('super_user') and
-                          !pageContext.request.isUserInRole('admin')}">
+            <c:if test="${!pageContext.request.isUserInRole('admin')}">
                 <c:choose>
                     <c:when test="${cart == null}">
                         <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>

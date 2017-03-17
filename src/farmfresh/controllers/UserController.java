@@ -28,10 +28,10 @@ public class UserController extends HttpServlet {
 
         if (requestURI.endsWith("/deleteCookies")){
             url = deleteCookies(request, response);
-        }else if (requestURI.endsWith("/login")){
-            url = login(request, response);
         }else if (requestURI.endsWith("/logout")){
             url = logout(request, response);
+        }else if (requestURI.endsWith("/register")){
+            url = register(request, response);
         }
 
         getServletContext()
@@ -53,9 +53,11 @@ public class UserController extends HttpServlet {
              url = unsubscribeFromNewsletter(request, response);
          }else if (requestURI.endsWith("/register")){
              url = register(request, response);
-         }else if (requestURI.endsWith("/login")){
-             url = login(request, response);
          }
+
+//         else if (requestURI.endsWith("/login")){
+//             url = login(request, response);
+//         }
 
         getServletContext()
            .getRequestDispatcher(url)
@@ -63,32 +65,32 @@ public class UserController extends HttpServlet {
 
      }// End - doPost()
 
-    private String login(HttpServletRequest request, HttpServletResponse response){
-//        try {
-//            boolean b = request.authenticate(response);
+//    private String login(HttpServletRequest request, HttpServletResponse response){
+////        try {
+////            boolean b = request.authenticate(response);
+////
+////            this.log("authenticate returned" + b);
+////        } catch (IOException e) {
+////            this.log("Authentication Failed with a IOException."
+////                    + e.getMessage());
+////        }catch (ServletException e) {
+////            this.log("Authentication Failed with a IOException."
+////                    + e.getMessage());
+////        }
 //
-//            this.log("authenticate returned" + b);
-//        } catch (IOException e) {
-//            this.log("Authentication Failed with a IOException."
-//                    + e.getMessage());
-//        }catch (ServletException e) {
-//            this.log("Authentication Failed with a IOException."
+//
+//        String userName = request.getParameter("username");
+//        String password = request.getParameter("password");
+//
+//        try {
+//            request.login(userName, password);
+//        } catch(ServletException e) {
+//            this.log("Login Failed with a ServletException.."
 //                    + e.getMessage());
 //        }
-
-
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        try {
-            request.login(userName, password);
-        } catch(ServletException e) {
-            this.log("Login Failed with a ServletException.."
-                    + e.getMessage());
-        }
-        return "/";
-
-    }//  End login()
+//        return "/";
+//
+//    }//  End login()
 
     private String logout(HttpServletRequest request, HttpServletResponse response){
 
@@ -97,7 +99,11 @@ public class UserController extends HttpServlet {
         }catch (javax.servlet.ServletException e){
             this.log("Unable to logout  \n" +
                     "Please check your system settings");
+            return "/";
         }
+
+        // Remove user from session object
+        request.getSession().setAttribute("user", null);
 
         // Delete the email cookie
         Cookie cookie = CookieUtil.getCookie(request.getCookies(), "emailCookie");
@@ -195,6 +201,7 @@ public class UserController extends HttpServlet {
 
         if (UserDB.emailExists(email)) {
             // This user already exists in the DB - thus has already registered
+            //return "/login2.jsp";
         } else {
             // insert row into user table
             user.setFirstName(firstName);
@@ -231,18 +238,15 @@ public class UserController extends HttpServlet {
         emailCookie.setPath("/");  //root which is FarmFreshExpress
         response.addCookie(emailCookie);
 
-//        String url;
-//        try {
-//                url = request.getContextPath() + "/j_security_check?j_username="
-//                + URLEncoder.encode(email, "UTF-8")
-//                + "&j_password="
-//                + URLEncoder.encode(password, "UTF-8");
-//        }catch (UnsupportedEncodingException e){
-//            System.err.println("UnsupportedEncodingException: " + e.getMessage());
-//            throw e;
-//        }
+        // login this user
+        try {
+            request.login(email, password);
+        } catch(ServletException e) {
+            this.log("Login Failed with a ServletException.."
+                    + e.getMessage());
+        }
 
-        return "/";
+        return "/index.jsp";
 
     }//End - register
 

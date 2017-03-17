@@ -21,7 +21,8 @@
   <h1>User Information</h1>
 
   <form action="<c:url value='/order/processUser' />" method=post>
-    <p id="required">Required <span class="required">*</span></p>
+    <p id="required"><span class="required"></span></p>
+    <%--<p id="required">Required <span class="required">*</span></p>--%>
 
     <label>First Name</label>
     <input type="text" name="firstName"  maxlength=20
@@ -33,8 +34,9 @@
     <p class="required">*</p><br>
 
     <label>Email Address</label>
-    <input type="email" name="email" value="${user.email}" required>
-    <p class="required">*</p><br>
+    <input type="email" name="email" value="${user.email}" disabled>
+    <p></p><br><br>
+
 
     <label>Company</label>
     <input type="text" name="companyName" value="${user.companyName}">

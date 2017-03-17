@@ -13,21 +13,10 @@
 <section>
 
   <h1>Login Error</h1>
+  <%--<h4><i>${message}</i></h4>--%>
   <p>Please check your username and password and try again.</p>
 
-  <form action="j_security_check" method="get">
-    <label>Username</label>
-    <input type="text" name="j_username"><br>
-    <label>Password</label>
-    <input type="password" name="j_password"><br>
-    <label>&nbsp;</label>
-    <input type="submit" value="Login">
-  </form>
-  <br>
-  <p>If you don't have a user account yet, and would like to register,
-    <a href="/register_user.jsp">please click here</a></p>
-  <br>
-  <p><a href="/forgotten_password.jsp">Forgot Your Password</a></p>
+  <jsp:include page="/includes/login_form.jsp" />
 
 </section>
 

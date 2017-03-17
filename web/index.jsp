@@ -5,10 +5,17 @@
   Time: 8:26 AM
   To change this template use File | Settings | File Templates.
 --%>
-<jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_all.jsp" />
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<jsp:include page="/includes/header.jsp" />
+<c:choose>
+    <c:when test="${pageContext.request.isUserInRole('admin')}">
+        <jsp:include page="/includes/column_left_admin.jsp" />
+        </c:when>
+    <c:otherwise>
+        <jsp:include page="/includes/column_left_all.jsp" />
+    </c:otherwise>
+</c:choose>
 
 <!-- start the middle column -->
 <section>

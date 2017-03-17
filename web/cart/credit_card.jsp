@@ -15,7 +15,10 @@
 <!-- begin middle column -->
 
 <section class="cart">
-
+  <p>THIS PAGE IS UNDER CONSTRUCTION - Thank you for your patience!</p>
+  <p>In the future you will have the ability to create multiple credit cards - </p>
+  <p>and select which to use when completing the order. </p>
+  <br>
   <h1>Enter your credit card information</h1>
 
   <form action="<c:url value='/order/completeOrder' />" method="post">
