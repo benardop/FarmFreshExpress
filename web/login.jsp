@@ -13,7 +13,7 @@
 <section>
 
   <h1>Login Form</h1>
-  <p>Please enter a username and password to continue.</p>
+  <p>Please enter your email and password to continue.</p>
 
   <jsp:include page="/includes/login_form.jsp" />
 

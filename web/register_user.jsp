@@ -11,68 +11,58 @@
      secure connection.
 <jsp:include page="/includes/column_left_all_absolute.jsp" />
 --%>
-<script type="text/javascript">
+<%--<script type="text/javascript">--%>
 
-  function checkForm(form)
-  {
-//    if(form.username.value == "") {
-//      alert("Error: Username cannot be blank!");
-//      form.username.focus();
-//      return false;
-//    }
-//    re = /^\w+$/;
-//    if(!re.test(form.username.value)) {
-//      alert("Error: Username must contain only letters, numbers and underscores!");
-//      form.username.focus();
-//      return false;
-//    }
+  <%--function checkForm(form)--%>
+  <%--{--%>
 
-    if (form.password.value != ""){
+    <%--// Password Validation--%>
+    <%--if (form.password.value != ""){--%>
 
-        if (form.password.value != form.verificationPassword.value) {
-          alert("Error: Passwords do not match - Please re-enter!");
-          form.password.focus();
-          return false;
-        }
-//      if(form.pwd1.value.length < 6) {
-//        alert("Error: Password must contain at least six characters!");
-//        form.pwd1.focus();
-//        return false;
-//      }
-//      if(form.pwd1.value == form.username.value) {
-//        alert("Error: Password must be different from Username!");
-//        form.pwd1.focus();
-//        return false;
-//      }
-//      re = /[0-9]/;
-//      if(!re.test(form.pwd1.value)) {
-//        alert("Error: password must contain at least one number (0-9)!");
-//        form.pwd1.focus();
-//        return false;
-//      }
-//      re = /[a-z]/;
-//      if(!re.test(form.pwd1.value)) {
-//        alert("Error: password must contain at least one lowercase letter (a-z)!");
-//        form.pwd1.focus();
-//        return false;
-//      }
-//      re = /[A-Z]/;
-//      if(!re.test(form.pwd1.value)) {
-//        alert("Error: password must contain at least one uppercase letter (A-Z)!");
-//        form.pwd1.focus();
-//        return false;
-//      }
-    } else {
-      alert("Error: Please check that you've entered and confirmed your password!");
-      form.password.focus();
-      return false;
-    }
+        <%--if (form.password.value != form.verificationPassword.value) {--%>
+          <%--alert("Error: Passwords do not match - Please re-enter!");--%>
+          <%--form.password.focus();--%>
+          <%--return false;--%>
+        <%--}--%>
+<%--//      if(form.pwd1.value.length < 6) {--%>
+<%--//        alert("Error: Password must contain at least six characters!");--%>
+<%--//        form.pwd1.focus();--%>
+<%--//        return false;--%>
+<%--//      }--%>
+<%--//      if(form.pwd1.value == form.username.value) {--%>
+<%--//        alert("Error: Password must be different from Username!");--%>
+<%--//        form.pwd1.focus();--%>
+<%--//        return false;--%>
+<%--//      }--%>
+<%--//      re = /[0-9]/;--%>
+<%--//      if(!re.test(form.pwd1.value)) {--%>
+<%--//        alert("Error: password must contain at least one number (0-9)!");--%>
+<%--//        form.pwd1.focus();--%>
+<%--//        return false;--%>
+<%--//      }--%>
+<%--//      re = /[a-z]/;--%>
+<%--//      if(!re.test(form.pwd1.value)) {--%>
+<%--//        alert("Error: password must contain at least one lowercase letter (a-z)!");--%>
+<%--//        form.pwd1.focus();--%>
+<%--//        return false;--%>
+<%--//      }--%>
+<%--//      re = /[A-Z]/;--%>
+<%--//      if(!re.test(form.pwd1.value)) {--%>
+<%--//        alert("Error: password must contain at least one uppercase letter (A-Z)!");--%>
+<%--//        form.pwd1.focus();--%>
+<%--//        return false;--%>
+<%--//      }--%>
+    <%--} else {--%>
+      <%--alert("Error: Please check that you've entered and confirmed your password!");--%>
+      <%--form.password.focus();--%>
+      <%--return false;--%>
+    <%--}--%>
 
-    // All fields populated correctly
-    return true;
-  }
+    <%--// All fields populated correctly--%>
+    <%--return true;--%>
+  <%--}--%>
 
-</script>
+<%--</script>--%>
 
 <!-- begin middle column -->
 
@@ -81,8 +71,9 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   <h1>Registration:</h1>
-  <%--<form ... onsubmit="return checkForm(this);">--%>
-  <form action="<c:url value='/user/register' />" onsubmit="return checkForm(this); method=post">
+  <h4><i>${message}</i></h4>
+  <%--<form action="<c:url value='/user/register' />" onsubmit="return checkForm(this); method=post">--%>
+    <form action="<c:url value='/user/register' />"  method=post">
     <p id="required">Required <span class="required">*</span></p>
 
     <label>First Name</label>
@@ -99,11 +90,11 @@
     <p class="required">*</p><br>
 
     <label>Password</label>
-    <input type="password" name="password">
+    <input type="password" name="password1">
     <p class="required">*</p><br>
 
     <label>Re-enter Password</label>
-    <input type="password" name="verificationPassword">
+    <input type="password" name="password2">
     <p class="required">*</p><br>
 
     <label>Company</label>

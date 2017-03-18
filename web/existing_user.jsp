@@ -12,9 +12,9 @@
 
 <section>
 
-  <h1>Login Error</h1>
-  <%--<h4><i>${message}</i></h4>--%>
-  <p>Please check your email and password and try again.</p>
+  <h1>Registration Error</h1>
+  <h3>A User already exists with the email address ${email}</h3>
+  <p>Please re-enter your email and password to Log In.</p>
 
   <jsp:include page="/includes/login_form.jsp" />
 

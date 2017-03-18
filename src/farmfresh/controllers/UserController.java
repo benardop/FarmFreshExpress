@@ -184,8 +184,8 @@ public class UserController extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String verificationPassword = request.getParameter("verificationPassword");
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password2");
         String companyName = request.getParameter("companyName");
         String address1 = request.getParameter("address1");
         String address2 = request.getParameter("address2");
@@ -199,27 +199,43 @@ public class UserController extends HttpServlet {
             user = new User();
         }
 
-        if (UserDB.emailExists(email)) {
-            // This user already exists in the DB - thus has already registered
-            //return "/login2.jsp";
-        } else {
+        //set user data
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setCompanyName(companyName);
+        user.setAddress1(address1);
+        user.setAddress2(address2);
+        user.setCity(city);
+        user.setState(state);
+        user.setZip(zip);
+        user.setCountry(country);
+
+        // save  user to session
+        session.setAttribute("user", user);
+
+        if (UserDB.emailExists(user.getEmail())) {
+            //EMAIL ALREADY EXISTS IN USER DB
+            String message = "A User already exists with email address " + email + ".  ";
+            message += "Please enter a different password.";
+            request.setAttribute("message", message);
+            return "/register_user.jsp";
+        } else if (password1 != password2){
+            // PASSWORDS ENTERED DO NOT MATCH
+            String message = "The two passwords entered do not match.  ";
+            message += "Please re-enter the passwords.";
+            request.setAttribute("message", message);
+            return "/register_user.jsp";
+        }else{
+            //USER DATA IS VALID
+
             // insert row into user table
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setEmail(email);
-            user.setCompanyName(companyName);
-            user.setAddress1(address1);
-            user.setAddress2(address2);
-            user.setCity(city);
-            user.setState(state);
-            user.setZip(zip);
-            user.setCountry(country);
             UserDB.insert(user);
 
             // insert row into userpass table
             UserPass userPass = new UserPass();
             userPass.setUsername(email);
-            userPass.setPassword(password);
+            userPass.setPassword(password1);
             UserPassDB.insert(userPass);
 
             // insert row into userrole table
@@ -229,9 +245,6 @@ public class UserController extends HttpServlet {
             UserRoleDB.insert(userRole);
         }
 
-        // save registered user to session
-        session.setAttribute("user", user);
-
         // create a cookie to save the User's Email
         Cookie emailCookie = new Cookie("emailCookie", email);
         emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
@@ -240,7 +253,7 @@ public class UserController extends HttpServlet {
 
         // login this user
         try {
-            request.login(email, password);
+            request.login(email, password1);
         } catch(ServletException e) {
             this.log("Login Failed with a ServletException.."
                     + e.getMessage());
@@ -248,7 +261,7 @@ public class UserController extends HttpServlet {
 
         return "/index.jsp";
 
-    }//End - register
+    }//End - register()
 
 }// End - UserController class
 
