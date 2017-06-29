@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <footer>
-  <p>&copy; Copyright ${currentYear} Amy Radtke &amp; Associates, Inc.
+  <p>&copy; Copyright ${currentYear} Roo Freelancing LLC.
     All rights reserved.</p>
 </footer>
 </body>

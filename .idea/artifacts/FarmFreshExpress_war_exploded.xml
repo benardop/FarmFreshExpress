@@ -21,6 +21,12 @@
           <element id="file-copy" path="$USER_HOME$/Downloads/jstl-1.2 (1).jar" />
           <element id="file-copy" path="$USER_HOME$/Downloads/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar" />
           <element id="file-copy" path="$USER_HOME$/Downloads/tomcat-jdbc.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/dependencies/poi-3.15.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/dependencies/javax.mail-1.4.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/dependencies/jstl-1.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/dependencies/connection-pool-2.3.5.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/dependencies/mysql-connector-java-5.1.40.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/dependencies/tomcat-jdbc-7.0.19.jar" />
         </element>
       </element>
       <element id="directory" name="Resources">

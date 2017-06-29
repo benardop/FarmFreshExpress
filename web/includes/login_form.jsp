@@ -7,9 +7,9 @@
 --%>
 <form action="j_security_check" method="post">
     <label>Email</label>
-    <input type="text" name="j_username"><br>
+    <input type="email" name="j_username" maxlength="254" required><br>
     <label>Password</label>
-    <input type="password" name="j_password"><br>
+    <input type="password" name="j_password" required><br>
     <label>&nbsp;</label>
     <input type="submit" value="Login">
 </form>

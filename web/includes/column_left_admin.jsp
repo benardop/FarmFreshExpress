@@ -6,11 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <aside id="sidebarA">
+  <h1>Admin Functions:</h1>
   <nav>
     <ul>
       <%--<li><a href="<c:url value='/' />">HOME</a></li>--%>
-      <li><a href="<c:url value='/adminController/displayInvoices/' />">Display Invoices</a></li>
+      <li><a href="<c:url value='/adminController/displayInvoices/' />">Invoices</a></li>
       <li><a href="<c:url value='/admin/reports.jsp' />">Reports</a></li>
     </ul>
   </nav>

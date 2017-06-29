@@ -24,7 +24,8 @@
     <form action="<c:url value='/order/addItem'/>" method="post">
         <input type="hidden" name="productId"
                value="<c:out value='${product.productId}'/>">
-      <input id="quantity" type="number" name="productQuantity" value="1" min=0 class="tc item-quantity">
+      <input id="quantity" type="number" name="productQuantity" value="1"
+             min=1 max="1000" class="tc item-quantity" required>
       <input type=submit value="Add to Cart">
     </form>
 </section>

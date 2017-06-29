@@ -101,6 +101,15 @@ public class AdminController extends HttpServlet {
         return "/adminController/displayInvoices";
     }
 
+    /**
+     * @param request:  request contains the following Parameters
+     *               reportName - Name of report to be run
+     *               startDate  -  date used as the Start point of the Report
+     *               endDate    -  date used as the End point of the Report
+     *
+     * @param response:
+     * @throws IOException
+     */
     private void displayReports(HttpServletRequest request,
                                   HttpServletResponse response) throws IOException{
 
@@ -117,7 +126,8 @@ public class AdminController extends HttpServlet {
             workbook = new HSSFWorkbook();
         }
         response.setHeader("content-disposition",
-                "attachment; filename=" + reportName + ".xsl:");
+                "attachment; filename=" + reportName + ".xls");
+//                "attachment; filename=" + reportName + ".xsl:");
 //                "attachment; filename=" + reportName + ".xsl");
         try(OutputStream out = response.getOutputStream() ){
             workbook.write(out);

@@ -134,7 +134,6 @@ public class CheckOutController extends HttpServlet {
         String city = request.getParameter("city");
         String state = request.getParameter("state");
         String zip = request.getParameter("zip");
-        String country = request.getParameter("country");
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -154,7 +153,6 @@ public class CheckOutController extends HttpServlet {
             user.setCity(city);
             user.setState(state);
             user.setZip(zip);
-            user.setCountry(country);
             UserDB.update(user);
         } else {
             user.setFirstName(firstName);
@@ -166,7 +164,6 @@ public class CheckOutController extends HttpServlet {
             user.setCity(city);
             user.setState(state);
             user.setZip(zip);
-            user.setCountry(country);
             UserDB.insert(user);
         }
 

@@ -18,7 +18,6 @@ public class User {
     private String city;
     private String state;
     private String zip;
-    private String country;
     private String creditCardType;
     private String creditCardNumber;
     private String creditCardExpMonth;
@@ -98,14 +97,6 @@ public class User {
         return zip;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
     public String getCreditCardType() {
         return creditCardType;
     }
@@ -159,8 +150,7 @@ public class User {
 
         addressHTML += getCity() + ", "
                     + getState() + "</br>"
-                    + getZip() + "</br>"
-                    + getCountry();
+                    + getZip();
 
         return addressHTML;
     }

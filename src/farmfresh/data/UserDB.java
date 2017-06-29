@@ -14,16 +14,14 @@ public class UserDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-//        ResultSet rs = null;
 
         String query
                 = "INSERT INTO User (FirstName, LastName, Email, CompanyName, "
-                + "Address1, Address2, City, State, Zip, Country, "
-                + "CreditCardType, CreditCardNumber, CreditCardExpMonth, CreditCardExpYear, "
-                + "SubscribedToNewsletter) "
+                + "Address1, Address2, City, State, Zip, "
+                + "CreditCardType, CreditCardNumber, CreditCardExpMonth, CreditCardExpYear) "
                 + "VALUES (?, ?, ?, ?, "
-                + "?, ?, ?, ?, ?, ?, "
-                + "?, ?, ?, ?, ?)";
+                + "?, ?, ?, ?, ?, "
+                + "?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getFirstName());
@@ -35,12 +33,10 @@ public class UserDB {
             ps.setString(7, user.getCity());
             ps.setString(8, user.getState());
             ps.setString(9, user.getZip());
-            ps.setString(10, user.getCountry());
-            ps.setString(11, user.getCreditCardType());
-            ps.setString(12, user.getCreditCardNumber());
-            ps.setString(13, user.getCreditCardExpMonth());
-            ps.setString(14, user.getCreditCardExpYear());
-            ps.setBoolean(15, user.isSubscribedToNewsletter());
+            ps.setString(10, user.getCreditCardType());
+            ps.setString(11, user.getCreditCardNumber());
+            ps.setString(12, user.getCreditCardExpMonth());
+            ps.setString(13, user.getCreditCardExpYear());
 
             ps.executeUpdate();
 
@@ -67,7 +63,6 @@ public class UserDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-//        ResultSet rs = null;
 
         String query = "UPDATE User SET "
                 + "FirstName = ?, "
@@ -78,12 +73,10 @@ public class UserDB {
                 + "City = ?, "
                 + "State = ?, "
                 + "Zip = ?, "
-                + "Country = ?, "
                 + "CreditCardType = ?, "
                 + "CreditCardNumber = ?, "
                 + "CreditCardExpMonth = ?, "
-                + "CreditCardExpYear = ?, "
-                + "SubscribedToNewsletter = ? "
+                + "CreditCardExpYear = ? "
                 + "WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
@@ -95,13 +88,11 @@ public class UserDB {
             ps.setString(6, user.getCity());
             ps.setString(7, user.getState());
             ps.setString(8, user.getZip());
-            ps.setString(9, user.getCountry());
-            ps.setString(10, user.getCreditCardType());
-            ps.setString(11, user.getCreditCardNumber());
-            ps.setString(12, user.getCreditCardExpMonth());
-            ps.setString(13, user.getCreditCardExpYear());
-            ps.setBoolean(14, user.isSubscribedToNewsletter());
-            ps.setString(15, user.getEmail());
+            ps.setString(9, user.getCreditCardType());
+            ps.setString(10, user.getCreditCardNumber());
+            ps.setString(11, user.getCreditCardExpMonth());
+            ps.setString(12, user.getCreditCardExpYear());
+            ps.setString(13, user.getEmail());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -113,21 +104,23 @@ public class UserDB {
     }
 
     public static void delete(User user) {
+        delete(user.getEmail());
+    }
+
+    public static void delete(String email) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-//        ResultSet rs = null;
 
-        String query = "DELETE User WHERE Email = ?";
+        String query = "DELETE FROM User WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, user.getEmail());
+            ps.setString(1, email);
             ps.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-//            DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
@@ -201,7 +194,6 @@ public class UserDB {
             user.setCity(rs.getString("City"));
             user.setState(rs.getString("State"));
             user.setZip(rs.getString("Zip"));
-            user.setCountry(rs.getString("Country"));
             user.setCreditCardType(rs.getString("CreditCardType"));
             user.setCreditCardNumber(rs.getString("CreditCardNumber"));
             user.setCreditCardExpMonth(rs.getString("CreditCardExpMonth"));
@@ -222,6 +214,29 @@ public class UserDB {
 
         String query = "SELECT Email FROM User "
                 + "WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }
+
+    public static boolean emailExistsUserDataDoesNot(String email) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT Email FROM User "
+                + "WHERE Email = ? AND LastName IS NULL";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
@@ -258,6 +273,7 @@ public class UserDB {
     }
 
     public static void unsubscribeFromNewsletter(String email) {
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
@@ -276,5 +292,4 @@ public class UserDB {
             pool.freeConnection(connection);
         }
     }
-
 }

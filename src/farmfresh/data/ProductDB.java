@@ -28,7 +28,8 @@ public class ProductDB {
                 " ProductType.ProductTypeName" +
                 " FROM ProductType, Product" +
                 " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
-                " AND Product.ProductTypeID = ?;";
+                " AND Product.ProductTypeID = ?" +
+                " ORDER BY Product.Name;";
 
 
         try {

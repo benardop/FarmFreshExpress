@@ -41,7 +41,7 @@
                                 <input type="hidden" name="productId"
                                        value="<c:out value='${item.product.productId}'/>">
                                 <input type="number" name="updateQuantity" value="<c:out value='${item.quantity}'/>"
-                                       min=0 onblur="this.form.submit()" id="updateQuantity" class="tc item-quantity">
+                                       min=0 max="10000" onblur="this.form.submit()" id="updateQuantity" class="tc item-quantity">
                                 <%--<button>Update</button>--%>
                                 <%--<input type="submit" value="Update">--%>
                             </form>

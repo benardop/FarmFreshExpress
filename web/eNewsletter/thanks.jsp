@@ -11,7 +11,7 @@
 <section>
 
 
-  <h4><i>${message}</i></h4>
+  <h3><i>${message}</i></h3>
 </section>
 
 <jsp:include page="/includes/footer.jsp" />

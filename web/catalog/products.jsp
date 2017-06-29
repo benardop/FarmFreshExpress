@@ -15,7 +15,7 @@
     <h1>${productTypeName}</h1>
 
     <c:if test="${products.size() == 0}">
-        <h3>There are no ${productTypeName} for sale.</h3>
+        <h3>There are no ${productTypeName} for sale at this time.</h3>
     </c:if>
 
 
@@ -37,7 +37,8 @@
                             <input type="hidden" name="productId"
                                    value="<c:out value='${product.productId}'/>">
                             <input type="number" name="productQuantity"
-                                   value="<c:out value='1'/>" min=1 class="tc item-quantity">
+                                   value="<c:out value='1'/>" min=1 max=1000
+                                   class="tc item-quantity" required>
                             <input type="submit" value="Add to Cart">
                         </form>
                         <%--<a href="='/order/addItem?ProductID=${product.productId} & ProductQuantity=1">Add to Cart</a>--%>

@@ -19,7 +19,7 @@
   <p>In the future you will have the ability to create multiple credit cards - </p>
   <p>and select which to use when completing the order. </p>
   <br>
-  <h1>Enter your credit card information</h1>
+  <h1>Enter your credit card information - to complete your purchase and save your invoice</h1>
 
   <form action="<c:url value='/order/completeOrder' />" method="post">
     <table>

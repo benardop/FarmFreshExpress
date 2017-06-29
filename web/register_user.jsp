@@ -7,62 +7,6 @@
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
-<%-- Use the following left column instead after you configure a
-     secure connection.
-<jsp:include page="/includes/column_left_all_absolute.jsp" />
---%>
-<%--<script type="text/javascript">--%>
-
-  <%--function checkForm(form)--%>
-  <%--{--%>
-
-    <%--// Password Validation--%>
-    <%--if (form.password.value != ""){--%>
-
-        <%--if (form.password.value != form.verificationPassword.value) {--%>
-          <%--alert("Error: Passwords do not match - Please re-enter!");--%>
-          <%--form.password.focus();--%>
-          <%--return false;--%>
-        <%--}--%>
-<%--//      if(form.pwd1.value.length < 6) {--%>
-<%--//        alert("Error: Password must contain at least six characters!");--%>
-<%--//        form.pwd1.focus();--%>
-<%--//        return false;--%>
-<%--//      }--%>
-<%--//      if(form.pwd1.value == form.username.value) {--%>
-<%--//        alert("Error: Password must be different from Username!");--%>
-<%--//        form.pwd1.focus();--%>
-<%--//        return false;--%>
-<%--//      }--%>
-<%--//      re = /[0-9]/;--%>
-<%--//      if(!re.test(form.pwd1.value)) {--%>
-<%--//        alert("Error: password must contain at least one number (0-9)!");--%>
-<%--//        form.pwd1.focus();--%>
-<%--//        return false;--%>
-<%--//      }--%>
-<%--//      re = /[a-z]/;--%>
-<%--//      if(!re.test(form.pwd1.value)) {--%>
-<%--//        alert("Error: password must contain at least one lowercase letter (a-z)!");--%>
-<%--//        form.pwd1.focus();--%>
-<%--//        return false;--%>
-<%--//      }--%>
-<%--//      re = /[A-Z]/;--%>
-<%--//      if(!re.test(form.pwd1.value)) {--%>
-<%--//        alert("Error: password must contain at least one uppercase letter (A-Z)!");--%>
-<%--//        form.pwd1.focus();--%>
-<%--//        return false;--%>
-<%--//      }--%>
-    <%--} else {--%>
-      <%--alert("Error: Please check that you've entered and confirmed your password!");--%>
-      <%--form.password.focus();--%>
-      <%--return false;--%>
-    <%--}--%>
-
-    <%--// All fields populated correctly--%>
-    <%--return true;--%>
-  <%--}--%>
-
-<%--</script>--%>
 
 <!-- begin middle column -->
 
@@ -72,7 +16,7 @@
 
   <h1>Registration:</h1>
   <h4><i>${message}</i></h4>
-  <%--<form action="<c:url value='/user/register' />" onsubmit="return checkForm(this); method=post">--%>
+
     <form action="<c:url value='/user/register' />"  method=post">
     <p id="required">Required <span class="required">*</span></p>
 
@@ -90,11 +34,11 @@
     <p class="required">*</p><br>
 
     <label>Password</label>
-    <input type="password" name="password1">
+    <input type="password" name="password1" required>
     <p class="required">*</p><br>
 
     <label>Re-enter Password</label>
-    <input type="password" name="password2">
+    <input type="password" name="password2" required>
     <p class="required">*</p><br>
 
     <label>Company</label>
@@ -119,10 +63,6 @@
 
     <label>Zip Code</label>
     <input type="text" name="zip" value="${user.zip}" required>
-    <p class="required">*</p><br>
-
-    <label>Country</label>
-    <input type="text" name="country" value="${user.country}" required>
     <p class="required">*</p><br>
 
     <label>&nbsp;</label>

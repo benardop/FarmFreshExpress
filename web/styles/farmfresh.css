@@ -14,7 +14,7 @@ body {
     padding: 15px 25px;
     border: 1px solid black;
 }
-section, aside, h1, h2, p, ul {
+section, aside, h1, h2, h3, p, ul {
     margin: 0;
     padding: 0;
 }
@@ -26,7 +26,9 @@ section, aside {
 h1 { font-size: 175%; }
 h2 { font-size: 125%; }
 h3 { font-size: 100%; }
-h4 { font-size: 75%; }
+h4 { font-size: 100%; }
+
+h4 { color: red; }
 
 a { font-weight: bold; }
 a:link { color: green; }
@@ -56,7 +58,6 @@ header h1 {
     color:  black;
     margin-left: 120px;
     margin-bottom: 0.25em;
-
 }
 header h2 {
     /*color: forestgreen;*/
@@ -64,6 +65,7 @@ header h2 {
     font-style: italic;
     margin-left: 120px;
 }
+
 header img {
     float: left;
 }
@@ -111,6 +113,9 @@ section h1 {
     margin-bottom: 0.35em;
 }
 section h2 {
+    margin-bottom: 0.35em;
+}
+section h3 {
     margin-bottom: 0.35em;
 }
 .top_margin {

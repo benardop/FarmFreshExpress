@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Objects;
 
 /**
  * Created by Mom and Dad on 11/6/2016.
@@ -150,7 +151,7 @@ public class UserController extends HttpServlet {
                 + email + " is now subscribed to our eNewsLetter.";
         request.setAttribute("message", message);
 
-        url = "/connect/thanks.jsp";
+        url = "/eNewsletter/thanks.jsp";
         return url;
 
     }// End - eNewsletterSubscribe()
@@ -160,8 +161,11 @@ public class UserController extends HttpServlet {
 
         String url;
         String message;
-
-        if (UserDB.emailExists(email)) {
+        if (UserDB.emailExistsUserDataDoesNot(email)) {
+            UserDB.delete(email);
+            message = "Sorry to see you go!<br>"
+                    + email + " has been unsubscribed.";
+        } else if (UserDB.emailExists(email)) {
             UserDB.unsubscribeFromNewsletter(email);
             message = "Sorry to see you go!<br>"
                     + email + " has been unsubscribed.";
@@ -172,7 +176,7 @@ public class UserController extends HttpServlet {
 
         request.setAttribute("message", message);
 
-        url = "/connect/thanks.jsp";
+        url = "/eNewsletter/thanks.jsp";
         return url;
 
     }// End - eNewsletterUnsubscribe()
@@ -192,7 +196,6 @@ public class UserController extends HttpServlet {
         String city = request.getParameter("city");
         String state = request.getParameter("state");
         String zip = request.getParameter("zip");
-        String country = request.getParameter("country");
 
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -209,49 +212,49 @@ public class UserController extends HttpServlet {
         user.setCity(city);
         user.setState(state);
         user.setZip(zip);
-        user.setCountry(country);
 
         // save  user to session
         session.setAttribute("user", user);
 
-        if (UserDB.emailExists(user.getEmail())) {
-            //EMAIL ALREADY EXISTS IN USER DB
-            String message = "A User already exists with email address " + email + ".  ";
-            message += "Please enter a different password.";
-            request.setAttribute("message", message);
-            return "/register_user.jsp";
-        } else if (password1 != password2){
-            // PASSWORDS ENTERED DO NOT MATCH
+        if (password1.equals(password2) == false){
+            // The two passwords entered do not match.
             String message = "The two passwords entered do not match.  ";
             message += "Please re-enter the passwords.";
             request.setAttribute("message", message);
             return "/register_user.jsp";
+        }else if (UserDB.emailExistsUserDataDoesNot(user.getEmail())) {
+            // User has subscribed to get an eNewsletter, but hasn't Registered yet
+            UserDB.update(user);
+      } else if (UserDB.emailExists(user.getEmail())) {
+            //User has already registered or is an admin or super_user
+            String message = "A User has already registered with email address " + email + ".<br>";
+            message += "Please Log In instead.";
+            request.setAttribute("message", message);
+            return "/register_user.jsp";
         }else{
-            //USER DATA IS VALID
-
-            // insert row into user table
+            // row in User table doesn't exist yet for this email address
             UserDB.insert(user);
-
-            // insert row into userpass table
-            UserPass userPass = new UserPass();
-            userPass.setUsername(email);
-            userPass.setPassword(password1);
-            UserPassDB.insert(userPass);
-
-            // insert row into userrole table
-            UserRole userRole = new UserRole();
-            userRole.setUsername(email);
-            userRole.setRolename("user");
-            UserRoleDB.insert(userRole);
         }
 
-        // create a cookie to save the User's Email
+        // insert row into userpass table
+        UserPass userPass = new UserPass();
+        userPass.setUsername(email);
+        userPass.setPassword(password1);
+        UserPassDB.insert(userPass);
+
+        // insert row into userrole table
+        UserRole userRole = new UserRole();
+        userRole.setUsername(email);
+        userRole.setRolename("user");
+        UserRoleDB.insert(userRole);
+
+        // create a cookie to save the User's Email Address
         Cookie emailCookie = new Cookie("emailCookie", email);
         emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
         emailCookie.setPath("/");  //root which is FarmFreshExpress
         response.addCookie(emailCookie);
 
-        // login this user
+        // Log this user in
         try {
             request.login(email, password1);
         } catch(ServletException e) {
@@ -264,4 +267,3 @@ public class UserController extends HttpServlet {
     }//End - register()
 
 }// End - UserController class
-

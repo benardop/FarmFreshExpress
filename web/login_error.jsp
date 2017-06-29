@@ -12,9 +12,9 @@
 
 <section>
 
-  <h1>Login Error</h1>
+  <h1>Login Error </h1>
   <%--<h4><i>${message}</i></h4>--%>
-  <p>Please check your email and password and try again.</p>
+  <h4>Please check your email and password and try again.</h4>
 
   <jsp:include page="/includes/login_form.jsp" />
 

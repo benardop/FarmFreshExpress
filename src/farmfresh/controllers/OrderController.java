@@ -217,7 +217,6 @@ public class OrderController extends HttpServlet {
             user.setCity(city);
             user.setState(state);
             user.setZip(zip);
-            user.setCountry(country);
             UserDB.update(user);
         }else {
             user.setFirstName(firstName);
@@ -229,7 +228,6 @@ public class OrderController extends HttpServlet {
             user.setCity(city);
             user.setState(state);
             user.setZip(zip);
-            user.setCountry(country);
             UserDB.insert(user);
         }
 

@@ -23,18 +23,18 @@
 <header>
     <img src="<c:url value='/images/locally_grown.jpg'/>"
          alt="Farm Fresh Express Logo" width="70" height="70">
-    <h1>Welcome to Farm Fresh Express!</h1>
+    <h1>Welcome to Farm Fresh Express Beta V1.0 </h1>
     <h2>FARM FRESH GOODS served up FAST!</h2>
 </header>
 <nav id="nav_bar">
     <ul>
-            <%--HOME--%>
+            <%--CATEGORIES--%>
             <c:if test="${pageContext.request.isUserInRole('super_user')}">
                 <li><a href="<c:url value='/' />">
-                HOME</a></li>
+                CATEGORIES</a></li>
             </c:if>
 
-            <%--eNewsletter--%>
+            <%--eNEWSLETTER--%>
             <c:if test="${!pageContext.request.isUserInRole('admin')}">
                 <li><a href="<c:url value='/eNewsletter' />">
                     eNEWSLETTER</a></li>
@@ -44,7 +44,7 @@
             <li><a href="<c:url value='/help' />">
                 HELP</a></li>
 
-        <%--SIGNIN - if noone is signed-in;  SIGNOUT - if someone is signed in--%>
+        <%--LOG IN - if noone is logged in;  LOG OUT - if someone is logged in--%>
         <c:choose>
             <c:when test="${pageContext.request.remoteUser == null}">
                 <li><a href="<c:url value='/login_redirect.jsp' />">
@@ -78,7 +78,6 @@
                     </c:when>
                     <c:otherwise>
                         <li><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>
-                        <%--<li class="disabled"><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>--%>
                     </c:otherwise>
                 </c:choose>
             </c:if>
