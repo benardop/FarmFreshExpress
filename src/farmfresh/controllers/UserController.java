@@ -103,7 +103,7 @@ public class UserController extends HttpServlet {
      * Session object Attributes:<br>
      * "user" - User object
      *
-     * @return  URL to /admin/invoice.jsp which displays the Admin Invoice window
+     * @return  URL to /index.jsp which displays the homepage
      * @throws UnsupportedEncodingException
      */
     private String register(HttpServletRequest request,

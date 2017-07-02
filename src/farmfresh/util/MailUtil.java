@@ -8,9 +8,21 @@ import javax.mail.MessagingException;
 import javax.mail.internet.*;
 
 /**
- * Created by Mom and Dad on 11/11/2016.
+ * Purpose: To Send an Email Message
+ *
+ * @author Benard Pacho developed the logic  Amy Radtke commented the code.
  */
 public class MailUtil {
+
+    /**
+     * Builds the Email Message and Sends it
+     * @param to Who the email is to
+     * @param from Who the email is from
+     * @param subject email Subject
+     * @param body body of email
+     * @param bodyIsHTML flag indicating if the body is in HTML format
+     * @throws MessagingException re-thrown if issues occur during call to Transport.send(message)
+     */
     public static void sendMail(String to, String from,
                                 String subject, String body, boolean bodyIsHTML)
             throws MessagingException {
@@ -46,7 +58,6 @@ public class MailUtil {
             throw e;
         }
 
-    }
+    }//End - sendMail()
 
-
-}
+}//End - MailUtil.java

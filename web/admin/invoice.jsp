@@ -14,7 +14,7 @@
 
 <section id="admin">
 
-    <h1>Your Invoice</h1>
+    <h1>Invoice#  ${invoice.invoiceNumber}</h1>
 
     <table>
         <tr>

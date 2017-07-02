@@ -71,7 +71,7 @@
     <!-- Connection is NOT SECURE. For testing only. -->
 <c:if test="${cart != null and !cart.isEmpty()}">
     <form action="<c:url value='/checkOut/checkUser'/>" method="post">
-    <input type="submit" value="Checkout">
+    <input type="submit" value="Proceed To Checkout">
     </form>
 
     <%--<c:choose>--%>

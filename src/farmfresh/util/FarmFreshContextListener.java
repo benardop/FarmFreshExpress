@@ -8,10 +8,24 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Created by Mom and Dad on 11/13/2016.
+ * Purpose: To initialize the Servlet Context object Attributes. <br>
+ * Attributes set include:  Absolute Path , Absolute Path (Secured),
+ * Default Customer Service Email Address, Current Year, Array of Years to
+ * be used in Credit Card processing logic.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class FarmFreshContextListener implements ServletContextListener {
 
+    /**
+     * Initializes the Servlet Context object Attributes. <br>
+     * Attributes set include:  Absolute Path , Absolute Path (Secured),
+     * Default Customer Service Email Address, Current Year, Array of Years to
+     * be used in Credit Card processing logic.
+     *
+     * @param event Which contains the ServletContext object used by this method
+     */
     @Override
     public void contextInitialized(ServletContextEvent event){
 
@@ -42,11 +56,16 @@ public class FarmFreshContextListener implements ServletContextListener {
             creditCardYears.add(yearString);
         }
         sc.setAttribute("creditCardYears", creditCardYears);
-    }
 
+    }//End - contextInitialized()
+
+    /**
+     * Performs any cleanup needed when the Context object is destroyed...
+     */
     @Override
     public void contextDestroyed(ServletContextEvent event){
         //No need for clean up code - it will be done automatically
-    }
 
-}
+    }//End - contextDestoyed()
+
+}//End - FarmFreshContextListener.java

@@ -88,7 +88,7 @@ public class AdminController extends HttpServlet {
      * "unprocessedInvoices" - Invoices which have not been processed - have not been
      * shipped or paid for yet
      *
-     * @return  URL to /admin/invoice.jsp which displays the Admin Invoice window
+     * @return  URL to /admin/order.jsp which displays the Admin Invoice window
      */
     private String displayInvoice(HttpServletRequest request, HttpServletResponse response){
 
@@ -123,7 +123,7 @@ public class AdminController extends HttpServlet {
      * "unprocessedInvoices" - Invoices which have not been processed - have not been
      * shipped or paid for yet
      *
-     * @return  URL to /admin/invoice.jsp which displays the Admin Invoice window
+     * @return  URL to /admin/order.jsp which displays the Admin Invoice window
      */
     private String displayInvoices(HttpServletRequest request, HttpServletResponse response){
 

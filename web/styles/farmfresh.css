@@ -155,7 +155,6 @@ br {
     margin-left: 0.5em;
 }
 
-
 table {
     border: none;
 }
@@ -164,14 +163,20 @@ th {
     text-align: left;
 }
 td {
-    /*vertical-align: top;*/
     vertical-align: center;
+    text-align: left;
 }
 th, td {
     padding: .3em;
 }
 .top {
     vertical-align: top;
+}
+.center {
+    text-align: center;
+}
+.right{
+    text-align: right;
 }
 
 /* the style for the cart pages */

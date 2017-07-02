@@ -1,16 +1,20 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:25 PM
-  To change this template use File | Settings | File Templates.
+  File:  order.jsp
+  Purpose:  To display the Order's Detail information prior to being placed.
+  Future Enhancements:  The order.jsp window will pull information from the Invoice
+  only - since the Invoice will be a picture of the Cart at the time of the Order
+  e.g.  Price of product, User information at the time of the order.
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp"/>
 <jsp:include page="/includes/column_left_all.jsp"/>
+
 <%-- Use the following left column instead after you configure a
      secure connection.
 <jsp:include page="/includes/column_left_all_absolute.jsp" />
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- begin middle column -->
@@ -20,11 +24,11 @@
     <h1>Your Order</h1>
 
     <table>
-        <tr>
-            <th>Date/Time</th>
-            <td>${invoice.invoiceDateDefaultFormat}</td>
-            <td></td>
-        </tr>
+        <%--<tr>--%>
+            <%--<th>Date/Time</th>--%>
+            <%--<td>${invoice.invoiceDateDefaultFormat}</td>--%>
+            <%--<td></td>--%>
+        <%--</tr>--%>
         <tr>
             <th class="top">Ship To</th>
             <td>${user.shipToHTMLFormat}</td>

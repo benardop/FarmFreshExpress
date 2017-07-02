@@ -25,7 +25,9 @@
 
       <tr>
         <td></td>
+        <td><b>Invoice #</b></td>
         <td><b>Customer Name</b></td>
+        <td><b>Total</b></td>
         <td><b>Invoice Date</b></td>
       </tr>
 
@@ -35,7 +37,9 @@
           <td>
             <a href="/adminController/displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>
           </td>
+          <td class="center">${invoice.invoiceNumber}</td>
           <td>${invoice.user.firstName} ${invoice.user.lastName}</td>
+          <td class="right">${invoice.invoiceTotalCurrencyFormat}</td>
           <td>${invoice.invoiceDateDefaultFormat}</td>
         </tr>
       </c:forEach>
