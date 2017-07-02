@@ -16,10 +16,20 @@ import java.net.URLEncoder;
 import java.util.Objects;
 
 /**
- * Created by Mom and Dad on 11/6/2016.
+ * Purpose: To manage all User specific activities
+ * These activities include Logging Out, Registering, and subscribing to and
+ * un-subscribing from the eNewsletter.
+ * Logging In is managed by the Security Layer of this application.
+ * Deleting Cookies is also available - but only to the Super User for Development purposes.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class UserController extends HttpServlet {
 
+    /**
+     *  Handles any URL ending in /register, /logout or /deleteCookies
+     */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws IOException, ServletException{
@@ -27,13 +37,13 @@ public class UserController extends HttpServlet {
         String requestURI = request.getRequestURI();
         String url = "";
 
-        if (requestURI.endsWith("/deleteCookies")){
-            url = deleteCookies(request, response);
+        if (requestURI.endsWith("/register")){
+            url = register(request, response);
         }else if (requestURI.endsWith("/logout")){
             url = logout(request, response);
-        }else if (requestURI.endsWith("/register")){
-            url = register(request, response);
-        }
+        }else if (requestURI.endsWith("/deleteCookies")){
+             url = deleteCookies(request, response);
+         }
 
         getServletContext()
                 .getRequestDispatcher(url)
@@ -41,6 +51,9 @@ public class UserController extends HttpServlet {
 
     }// End - doGet()
 
+    /**
+     *  Handles any URL ending in /subscribeToNewsletter or /unsubscribeFromNewsletter
+     */
     @Override
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws IOException, ServletException{
@@ -52,12 +65,10 @@ public class UserController extends HttpServlet {
              url = subscribeToNewsletter(request, response);
          }else if (requestURI.endsWith("/unsubscribeFromNewsletter")) {
              url = unsubscribeFromNewsletter(request, response);
-         }else if (requestURI.endsWith("/register")){
-             url = register(request, response);
          }
 
-//         else if (requestURI.endsWith("/login")){
-//             url = login(request, response);
+//         else if (requestURI.endsWith("/register")){
+//             url = register(request, response);
 //         }
 
         getServletContext()
@@ -66,47 +77,159 @@ public class UserController extends HttpServlet {
 
      }// End - doPost()
 
-//    private String login(HttpServletRequest request, HttpServletResponse response){
-////        try {
-////            boolean b = request.authenticate(response);
-////
-////            this.log("authenticate returned" + b);
-////        } catch (IOException e) {
-////            this.log("Authentication Failed with a IOException."
-////                    + e.getMessage());
-////        }catch (ServletException e) {
-////            this.log("Authentication Failed with a IOException."
-////                    + e.getMessage());
-////        }
-//
-//
-//        String userName = request.getParameter("username");
-//        String password = request.getParameter("password");
-//
-//        try {
-//            request.login(userName, password);
-//        } catch(ServletException e) {
-//            this.log("Login Failed with a ServletException.."
-//                    + e.getMessage());
-//        }
-//        return "/";
-//
-//    }//  End login()
 
+    /**
+     * <br>
+     * Registers the User - saving their information (including Login and Password) in the database.
+     * <br><br>
+     * Retrieves all User info from the incoming request and stores it in a User object.
+     * Verifies all user information:<br>
+     * - Passwords must match. Registration window is redisplayed with Error Msg if not.<br>
+     * - If User subscribed to the eNewsletter, but has not yet Registered - all User's
+     *   information will be updated in the User table.<br>
+     * - If full User information exists (User has been registered) and Email already exists
+     *   in the User table - then the user cannot re-register.  They are directed to login instead. <br>
+     *   Else --- <br>
+     *   A row is inserted into the user table containing all User information entered <br>
+     *   A row is inserted in the userpass table containing the User's password <br>
+     *   A row is inserted in the userrole table containing the role of "user' <br>
+     *   A userEmail cookie is created containing the User's Email <br>
+     *   The User is Logged In <br>
+     *   The URL for the homepage is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * Parameters used are those linked to the form fields of the register_user.jsp
+     * <br><br>
+     * Session object Attributes:<br>
+     * "user" - User object
+     *
+     * @return  URL to /admin/invoice.jsp which displays the Admin Invoice window
+     * @throws UnsupportedEncodingException
+     */
+    private String register(HttpServletRequest request,
+                            HttpServletResponse response) throws UnsupportedEncodingException{
+
+        // Pull all user information from the request
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password2");
+        String companyName = request.getParameter("companyName");
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
+        String zip = request.getParameter("zip");
+
+        // Create User object if it does not already exist in the Session
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+        }
+
+        // Save user information to the User object
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setCompanyName(companyName);
+        user.setAddress1(address1);
+        user.setAddress2(address2);
+        user.setCity(city);
+        user.setState(state);
+        user.setZip(zip);
+
+        // Verify Information Entered
+        // - Passwords must match. Registration window is redisplayed with Error Msg if not.
+        // - If User subscribed to the eNewsletter, but has not yet Registered - all User's
+        //    information will be updated in the User table.
+        // - If full User information exists (User has been registered) and Email already exists
+        //    in the User table - then the user cannot re-register.  They are directed to login instead
+        // - Else --- A row is inserted into the User DB containing all User information entered
+        if (password1.equals(password2) == false){
+            // The two passwords entered do not match.
+            String message = "The two passwords entered do not match.  ";
+            message += "Please re-enter the passwords.";
+            request.setAttribute("message", message);
+            return "/user/register_user.jsp";
+        }else if (UserDB.userIsOnlySubcribedToNewsletterAndNotRegistered(email)){
+            UserDB.update(user);
+        }else if (UserDB.emailExists(email)) {
+            String message = "A User has already registered with email address " + email + ".<br>";
+            message += "Please Log In instead.";
+            request.setAttribute("message", message);
+            return "/user/register_user.jsp";
+        }else {
+            UserDB.insert(user);
+        }
+
+        // Save user to Session object
+        session.setAttribute("user", user);
+
+        // Insert Password information into userpass table
+        UserPass userPass = new UserPass();
+        userPass.setUsername(email);
+        userPass.setPassword(password1);
+        UserPassDB.insert(userPass);
+
+        // Insert row into userrole table with a role of "user"
+        UserRole userRole = new UserRole();
+        userRole.setUsername(email);
+        userRole.setRolename("user");
+        UserRoleDB.insert(userRole);
+
+        // Create a User's Email cookie
+        Cookie emailCookie = new Cookie("emailCookie", email);
+        emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
+        emailCookie.setPath("/");  //root which is FarmFreshExpress
+        response.addCookie(emailCookie);
+
+        // Login User
+        try {
+            request.login(email, password1);
+        } catch(ServletException e) {
+            this.log("Login Failed with a ServletException.."
+                    + e.getMessage());
+        }
+
+        // Initiate display of Home Page
+        return "/index.jsp";
+
+    }//End - register()
+
+    /**
+     * <br>
+     * Initiates the User Logout and returns to the Home Screen.
+     * Also removes the User from the Session object and removes the User Email Cookie
+     * <br><br>
+     * Request object Parameters:<br>
+     * "emailCookie" - Email Cookie <br>
+     * <br>
+     * Response object Parameters:<br>
+     * "emailCookie" - Email Cookie (deleted) <br>
+     * <br>
+     * Session object Attributes:<br>
+     * "user" - User object
+     *
+     * @return  URL to / which displays the Home Page window
+     */
     private String logout(HttpServletRequest request, HttpServletResponse response){
 
+        // 1-- Logout - clearing the identity information in the request
         try{
             request.logout();
+
         }catch (javax.servlet.ServletException e){
             this.log("Unable to logout  \n" +
                     "Please check your system settings");
             return "/";
         }
 
-        // Remove user from session object
+        // 2-- Remove user from session object
         request.getSession().setAttribute("user", null);
 
-        // Delete the email cookie
+        // 3-- Delete the email cookie
         Cookie cookie = CookieUtil.getCookie(request.getCookies(), "emailCookie");
         if (cookie != null) {
             cookie.setMaxAge(0);
@@ -118,6 +241,12 @@ public class UserController extends HttpServlet {
 
     }//  End logout()
 
+    /**
+     *  Delete all cookies at the Application Level <br>
+     *
+     * @return  URL to /delete_cookies.jsp which displays window indicating
+     * the Cookies Have Been Deleted
+     */
     private String deleteCookies(HttpServletRequest request, HttpServletResponse response){
 
         Cookie[] cookies = request.getCookies();
@@ -129,39 +258,75 @@ public class UserController extends HttpServlet {
 
         return "/delete_cookies.jsp";
 
-    }//  End deleteCookies()
+    }//  End - deleteCookies()
 
+    /**
+     * <br>
+     * Subscribes User to eNewsletter
+     * <br><br>
+     * If there exists a row in the User table for this email address, update the subscribedToNewsletter Flag.
+     * If no row exists, create one containing the email address and subscribedToNewsletter Flag=TRUE.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "email" - the User's email<br>
+     * <br>
+     *
+     * @return  URL to /eNewsletter/thanks.jsp which displays a message to the user
+     */
     private String subscribeToNewsletter(HttpServletRequest request, HttpServletResponse response){
+
+        // retrieve email from request
         String email = request.getParameter("email");
 
-        String url;
-        String message;
-
+        // If email already exists in User table - set the subscribedToNewsletter Flag to TRUE
+        // Else Insert a new row in the User table - setting email and subscribedToNewsletter to TRUE
        if (UserDB.emailExists(email)) {
            UserDB.subscribeToNewsletter(email);
         }else{
            User user = new User();
            user.setEmail(email);
            user.setSubscribedToNewsletter(true);
-           request.setAttribute("user",user);
+         //  request.setAttribute("user",user);  //TO DO:  do I need this?  How is it used?
            UserDB.insert(user);
         }
 
+        // Prepare message to be displayed - which will indicated email address subscribed.
+        String message;
         message = "Glad you have joined us!<br>"
                 + email + " is now subscribed to our eNewsLetter.";
+
         request.setAttribute("message", message);
 
-        url = "/eNewsletter/thanks.jsp";
-        return url;
+        return "/eNewsletter/thanks.jsp";
 
-    }// End - eNewsletterSubscribe()
+    }// End - SubscribeToNewsletter()
 
+    /**
+     * <br>
+     * Un-Subscribes User from eNewsletter
+     * <br><br>
+     * If the information stored on the UserDB indicates they have only subscribed to
+     * the newsletter and they have not registered.  Delete the row.<br>
+     * Else Update the row indicating that the user no longer wants the newsletter. <br>
+     * Else if User has never subscribed to the Newsletter or Registered - Let the user know.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "email" - the User's email<br>
+     * <br>
+     *
+     * @return  URL to /eNewsletter/thanks.jsp which displays a message to the user
+     */
     private String unsubscribeFromNewsletter(HttpServletRequest request, HttpServletResponse response){
+
+        // retrieve email from request
         String email = request.getParameter("email");
 
-        String url;
+        // If the information stored on the UserDB indicates they have only subscribed to
+        // the newsletter and they have not registered.  Delete the row.
+        // Else Update the row indicating that the user no longer wants the newsletter.
+        // Else if User has never subscribed to the Newsletter or Registered - Let the user know
         String message;
-        if (UserDB.emailExistsUserDataDoesNot(email)) {
+        if (UserDB.userIsOnlySubcribedToNewsletterAndNotRegistered(email)) {
             UserDB.delete(email);
             message = "Sorry to see you go!<br>"
                     + email + " has been unsubscribed.";
@@ -176,94 +341,10 @@ public class UserController extends HttpServlet {
 
         request.setAttribute("message", message);
 
-        url = "/eNewsletter/thanks.jsp";
-        return url;
+        return "/eNewsletter/thanks.jsp";
 
-    }// End - eNewsletterUnsubscribe()
+    }// End - unsubscribeFromNewsletter()
 
-    private String register(HttpServletRequest request,
-                            HttpServletResponse response) throws UnsupportedEncodingException{
 
-        HttpSession session = request.getSession();
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String password1 = request.getParameter("password1");
-        String password2 = request.getParameter("password2");
-        String companyName = request.getParameter("companyName");
-        String address1 = request.getParameter("address1");
-        String address2 = request.getParameter("address2");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
-        String zip = request.getParameter("zip");
-
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-        }
-
-        //set user data
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setCompanyName(companyName);
-        user.setAddress1(address1);
-        user.setAddress2(address2);
-        user.setCity(city);
-        user.setState(state);
-        user.setZip(zip);
-
-        // save  user to session
-        session.setAttribute("user", user);
-
-        if (password1.equals(password2) == false){
-            // The two passwords entered do not match.
-            String message = "The two passwords entered do not match.  ";
-            message += "Please re-enter the passwords.";
-            request.setAttribute("message", message);
-            return "/register_user.jsp";
-        }else if (UserDB.emailExistsUserDataDoesNot(user.getEmail())) {
-            // User has subscribed to get an eNewsletter, but hasn't Registered yet
-            UserDB.update(user);
-      } else if (UserDB.emailExists(user.getEmail())) {
-            //User has already registered or is an admin or super_user
-            String message = "A User has already registered with email address " + email + ".<br>";
-            message += "Please Log In instead.";
-            request.setAttribute("message", message);
-            return "/register_user.jsp";
-        }else{
-            // row in User table doesn't exist yet for this email address
-            UserDB.insert(user);
-        }
-
-        // insert row into userpass table
-        UserPass userPass = new UserPass();
-        userPass.setUsername(email);
-        userPass.setPassword(password1);
-        UserPassDB.insert(userPass);
-
-        // insert row into userrole table
-        UserRole userRole = new UserRole();
-        userRole.setUsername(email);
-        userRole.setRolename("user");
-        UserRoleDB.insert(userRole);
-
-        // create a cookie to save the User's Email Address
-        Cookie emailCookie = new Cookie("emailCookie", email);
-        emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
-        emailCookie.setPath("/");  //root which is FarmFreshExpress
-        response.addCookie(emailCookie);
-
-        // Log this user in
-        try {
-            request.login(email, password1);
-        } catch(ServletException e) {
-            this.log("Login Failed with a ServletException.."
-                    + e.getMessage());
-        }
-
-        return "/index.jsp";
-
-    }//End - register()
 
 }// End - UserController class

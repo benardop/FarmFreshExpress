@@ -3,7 +3,7 @@
     <!-- the farmfresh database that contains the Farm Fresh Express data -->
     <Resource name="jdbc/farmFreshDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/farmfresh?autoReconnect=true"
+              url="jdbc:mysql://127.0.0.1:3306/farmfresh?autoReconnect=true"
               username="root" password="78ZSD6GaQFm2"
               logAbandoned="true"
               removeAbandoned="true" removeAbandonedTimeout="60"
@@ -12,7 +12,7 @@
     <!-- the farmadmin database that contains admin usernames and passwords -->
     <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/farmadmin?autoReconnect=true"
+              url="jdbc:mysql://127.0.0.1:3306/farmadmin?autoReconnect=true"
               username="root" password="78ZSD6GaQFm2"
               logAbandoned="true"
               removeAbandoned="true" removeAbandonedTimeout="60"

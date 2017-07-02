@@ -14,10 +14,20 @@ import java.io.OutputStream;
 import java.util.List;
 
 /**
- * Created by Mom and Dad on 11/11/2016.
+ * Purpose: To manage all activities available to the Farm Fresh Administrator.
+ * These activities include displaying Admin reports, displaying all unprocessed Invoices,
+ * displaying a single invoice (to be viewed and/or processed) and marking an Invoice
+ * as "Processed" which means the products in the invoice have been shipped and
+ * the User's Credit Card has been charged.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class AdminController extends HttpServlet {
 
+    /**
+     *  Handles any URL ending in /displayInvoice or /displayInvoices
+     */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)throws IOException, ServletException {
@@ -34,8 +44,12 @@ public class AdminController extends HttpServlet {
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
-    }
 
+    }//End - doGet()
+
+    /**
+     *  Handles any URL ending in /displayInvoices, /processInvoice or /displayReport
+     */
     @Override
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)throws IOException, ServletException{
@@ -54,14 +68,36 @@ public class AdminController extends HttpServlet {
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
-    }
 
+    }//End - DoPost()
+
+    /**
+     * <br>
+     * Initiates the display of a given Invoice in the Admin Invoice window.
+     * <br><br>
+     * Retrieves an Invoice based on the Invoice Number pulled from the incoming request.
+     * Invoice is retrieved from the List of unprocessed Invoices stored on the Session object.
+     * The Invoice retrieved is then stored on the Session object and
+     * the URL for the Admin Invoice window is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "invoiceNumber" - the Invoice Number that uniquely identifies an Invoice<br>
+     * <br>
+     * Session object Attributes:<br>
+     * "invoice" - an Invoice Object<br>
+     * "unprocessedInvoices" - Invoices which have not been processed - have not been
+     * shipped or paid for yet
+     *
+     * @return  URL to /admin/invoice.jsp which displays the Admin Invoice window
+     */
     private String displayInvoice(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session = request.getSession();
+
         String invoiceNumberString = request.getParameter("invoiceNumber");
         int invoiceNumber = Integer.parseInt(invoiceNumberString);
 
+        HttpSession session = request.getSession();
         List<Invoice> unprocessedInvoices = (List<Invoice>)session.getAttribute("unprocessedInvoices");
+
         Invoice invoice = null;
         for (Invoice unprocessedInvoice : unprocessedInvoices) {
             invoice = unprocessedInvoice;
@@ -69,45 +105,80 @@ public class AdminController extends HttpServlet {
                 break;
             }
         }
+
         session.setAttribute("invoice", invoice);
         return "/admin/invoice.jsp";
-    }
 
+    }//End - displayInvoice()
+
+    /**
+     * <br>
+     * Initiates the display of all Unprocessed Invoices in the Admin Invoices window.
+     * <br><br>
+     * Retrieves all Unprocessed Invoices from the Invoice Database.
+     * The List of Invoices is then stored on the Session object and
+     * the URL for the Admin Invoices window is returned - initiating display of that window.
+     * <br><br>
+     * Session object Attributes:<br>
+     * "unprocessedInvoices" - Invoices which have not been processed - have not been
+     * shipped or paid for yet
+     *
+     * @return  URL to /admin/invoice.jsp which displays the Admin Invoice window
+     */
     private String displayInvoices(HttpServletRequest request, HttpServletResponse response){
-        List<Invoice> unprocessedInvoices = InvoiceDB.selectUnprocessedInvoices();
-        String url;
 
-        if (unprocessedInvoices != null){
-            if (unprocessedInvoices.size() <=0){
-                unprocessedInvoices = null;
-            }
+        List<Invoice> unprocessedInvoices = InvoiceDB.selectUnprocessedInvoices();
+
+        if (unprocessedInvoices != null && unprocessedInvoices.size() <= 0) {
+            unprocessedInvoices = null;
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("unprocessedInvoices", unprocessedInvoices);
 
-        url = "/admin/invoices.jsp";
-        return url;
-    }
+        return "/admin/invoices.jsp";
 
+    }//End - displayInvoices()
+
+    /**
+     * <br>
+     * Marks a given Invoice as Processed and initiates the refresh and display of the
+     * new list of Unprocessed Invoices in the Admin Invoices window.
+     * <br><br>
+     * Retrieves the given Invoice from the Session object.
+     * Marks the Invoice as Processed in the Invoice database.
+     * Initiates the refresh of the Admin Invoices window by returning
+     * The URL for the AdminController's Display Invoices function is returned -
+     * initiating the refresh of the Admin Invoices window.
+     * <br><br>
+     * Session object Attributes:<br>
+     * "invoice" - an Invoice Object<br>
+     *
+     * @return  URL to /adminController/displayInvoices which displays the Admin Invoices window
+     */
     private String processInvoice(HttpServletRequest request,
                                   HttpServletResponse response) throws IOException{
 
         HttpSession session = request.getSession();
         Invoice invoice = (Invoice)session.getAttribute("invoice");
 
-        InvoiceDB.update(invoice);
+        InvoiceDB.markAsProcessed(invoice);
 
         return "/adminController/displayInvoices";
-    }
+
+    }//End - processInvoice()
 
     /**
-     * @param request:  request contains the following Parameters
-     *               reportName - Name of report to be run
-     *               startDate  -  date used as the Start point of the Report
-     *               endDate    -  date used as the End point of the Report
+     * <br>
+     * Creates the following Admin Reports:<br>
+     * User Email Report - Lists contact information for all Users in the System
+     * Download Report - To Be Developed Later
+     * <br><br>
+     * Request object Parameters:<br>
+     * "reportName" - Name of report to be run<br>
+     * "startDate"  - Date used as the Starting point of the Report<br>
+     * "endDate"    - Date used as the End point of the Report<br>
      *
-     * @param response:
      * @throws IOException
      */
     private void displayReports(HttpServletRequest request,
@@ -120,17 +191,22 @@ public class AdminController extends HttpServlet {
         Workbook workbook;
         if (reportName.equalsIgnoreCase("userEmail")){
             workbook = ReportDB.getUserEmail();
-//        }else if (reportName.equalsIgnoreCase("downloadDetail")){  //TODO at a later time
-//            workbook = ReportDB.getDownloadDetail(startDate, endDate);
+        }else if (reportName.equalsIgnoreCase("downloadDetail")){
+//            workbook = ReportDB.getDownloadDetail(startDate, endDate);//TODO at a later time
+            workbook = new HSSFWorkbook();
         }else{
             workbook = new HSSFWorkbook();
         }
         response.setHeader("content-disposition",
                 "attachment; filename=" + reportName + ".xls");
-//                "attachment; filename=" + reportName + ".xsl:");
-//                "attachment; filename=" + reportName + ".xsl");
+
+//                "attachment; filename=" + reportName + ".xsl:"); //TODO Ask benard which is correct
+//                "attachment; filename=" + reportName + ".xsl");  //TODO
+
         try(OutputStream out = response.getOutputStream() ){
             workbook.write(out);
         }
-    }
-}
+
+    }//End - displayReports()
+
+}// End - AdminController.java

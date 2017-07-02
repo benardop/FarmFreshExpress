@@ -14,7 +14,7 @@
 
 <section id="admin">
 
-    <h1>Your invoice</h1>
+    <h1>Your Invoice</h1>
 
     <table>
         <tr>
@@ -56,20 +56,39 @@
             <th>Total:</th>
             <td><p><b>${invoice.invoiceTotalCurrencyFormat}</b></td>
         </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>Payment Information</b></td>
+            <td>Under Development - Not Currently Available</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td><b>User Email</b></td>
+            <td>${invoice.user.email}</td>
+            <td></td>
+            <td></td>
+        </tr>
+
     </table>
 
-    <label>Payment information</label>
-    <span>${invoice.user.creditCardType}: ${invoice.user.creditCardNumber}
-    (${invoice.user.creditCardExpMonth}/${invoice.user.creditCardExpYear})</span><br>
-    <label>Email Address</label>
-    <span>${invoice.user.email}</span><br>
+    <%--<label>Payment information</label>--%>
+    <%--<p>Under Development - Not currently available</p><br>--%>
+
+    <%--TO BE ADDED ONCE THE CREDIT CARD FUNCTIONALITY HAS BEEN DEVELOPED ***************--%>
+    <%--<span>${invoice.user.creditCardType}: ${invoice.user.creditCardNumber}           --%>
+    <%--(${invoice.user.creditCardExpMonth}/${invoice.user.creditCardExpYear})</span><br>--%>
+    <%--*********************************************************************************--%>
+
+    <%--<label>Email Address</label>--%>
+    <%--<span>${invoice.user.email}</span><br>--%>
 
     <form action="processInvoice" method="post">
         <input type="submit" value="Process Invoice">
     </form>
-    <%--<form action="displayInvoices" method="post">--%>
-    <%--<input type="submit" value="View Unprocessed Invoices">--%>
-    <%--</form>--%>
 
 </section>
 

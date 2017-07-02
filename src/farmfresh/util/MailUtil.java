@@ -18,7 +18,7 @@ public class MailUtil {
         // 1 - get a mail session
         Properties props = new Properties();
         //props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", "localhost");
+        props.put("mail.smtp.host", "127.0.0.1");
         //props.put("mail.smtp.port", 25);
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);

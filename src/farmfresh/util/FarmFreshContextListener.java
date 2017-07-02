@@ -19,8 +19,8 @@ public class FarmFreshContextListener implements ServletContextListener {
 
         //get the absolute parts for switching regular and secure connections
         String contextPath = sc.getContextPath();
-        String absolutePath = "http://localhost:8080" + contextPath;
-        String absolutePathSecure = "http://localhost:8443" + contextPath;
+        String absolutePath = "http://127.0.0.1:8080" + contextPath;
+        String absolutePathSecure = "http://127.0.0.1:8443" + contextPath;
 
         sc.setAttribute("absolutePath", absolutePath);
         sc.setAttribute("absolutePathSecure", absolutePathSecure);

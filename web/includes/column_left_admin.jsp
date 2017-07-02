@@ -13,7 +13,7 @@
     <ul>
       <%--<li><a href="<c:url value='/' />">HOME</a></li>--%>
       <li><a href="<c:url value='/adminController/displayInvoices/' />">Invoices</a></li>
-      <li><a href="<c:url value='/admin/reports.jsp' />">Reports</a></li>
+      <%--<li><a href="<c:url value='/admin/reports.jsp' />">Reports</a></li>--%>
     </ul>
   </nav>
 </aside>

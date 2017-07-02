@@ -17,7 +17,7 @@
 
 <section class="cart">
 
-    <h1>Your invoice</h1>
+    <h1>Your Order</h1>
 
     <table>
         <tr>
@@ -63,11 +63,11 @@
 
     <br>
     <br>
-    <form action="<c:url value='/order/displayUser' />" method="post" id="float_left">
+    <form action="<c:url value='/checkOut/editUser' />" method="post" id="float_left">
         <input type="submit" value="Edit Address">
     </form>
 
-    <form action="<c:url value='/order/displayCreditCard' />" method="post">
+    <form action="<c:url value='/checkOut/displayCreditCard' />" method="post">
         <input type="submit" value="Continue">
     </form>
 

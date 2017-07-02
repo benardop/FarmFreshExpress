@@ -87,9 +87,7 @@ public class Product implements Serializable{
         this.price = price;
     }
 
-    public boolean isInSeason() {
-        return inSeason;
-    }
+    public boolean isInSeason() { return inSeason; }
 
     public void setInSeason(boolean inSeason) {
         this.inSeason = inSeason;

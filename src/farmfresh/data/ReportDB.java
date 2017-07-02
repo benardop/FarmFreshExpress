@@ -35,7 +35,6 @@ public class ReportDB {
         row.createCell(6).setCellValue("City");
         row.createCell(7).setCellValue("State");
         row.createCell(8).setCellValue("Zip");
-        row.createCell(9).setCellValue("Country");
         row.createCell(10).setCellValue("UserID");
 
         // Create data rows
@@ -63,7 +62,6 @@ public class ReportDB {
                 row.createCell(6).setCellValue(rs.getString("City"));
                 row.createCell(7).setCellValue(rs.getString("State"));
                 row.createCell(8).setCellValue(rs.getString("Zip"));
-                row.createCell(9).setCellValue(rs.getString("Country"));
                 row.createCell(10).setCellValue(rs.getString("UserID"));
                 i++;
             }

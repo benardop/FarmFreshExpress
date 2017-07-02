@@ -15,14 +15,17 @@ public class InvoiceDB {
 
     // Invoice is written to database at point that Order is complete and paid for
     public static void insert(Invoice invoice) {
+
+        // Get a connection from the Connection Pool
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         String query
                 = "INSERT INTO Invoice(UserID, InvoiceDate, TotalAmount, IsProcessed) "
-                + "VALUES (?, NOW(), ?, 'n')";
+                + "VALUES (?, NOW(), ?, FALSE)";
 
         try{
             ps = connection.prepareStatement(query);
@@ -31,18 +34,16 @@ public class InvoiceDB {
 
             ps.executeUpdate();
 
-            //Get the ID from the last insert statement
+            // Get the Invoice ID from the last insert statement
             String identityQuery = "SELECT @@IDENTITY AS IDENTITY";
             Statement identityStatement = connection.createStatement();
             ResultSet identityResultSet = identityStatement.executeQuery(identityQuery);
-
             identityResultSet.next();
-
             long invoiceId = identityResultSet.getLong("IDENTITY");
             identityResultSet.close();
             identityStatement.close();
 
-            //write line items to the line items table
+            // Write line items to the database (with the InvoiceID
             List<LineItem> lineItems = invoice.getLineItems();
             for (LineItem item: lineItems){
                 LineItemDB.insert(invoiceId, item);
@@ -60,14 +61,14 @@ public class InvoiceDB {
 
     }
 
-    public static void update(Invoice invoice) {
+    public static void markAsProcessed(Invoice invoice) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         String query = "UPDATE Invoice SET"
-                     + " IsProcessed = 'y'  "
+                     + " IsProcessed = TRUE  "
                      + "WHERE InvoiceID = ?";
 
         try{
@@ -87,13 +88,14 @@ public class InvoiceDB {
     }
 
     public static List<Invoice> selectUnprocessedInvoices(){
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         String query =  "SELECT * FROM Invoice " +
-                        "WHERE IsProcessed = 'n'";
+                        "WHERE IsProcessed = FALSE ";
 
         try {
             ps = connection.prepareStatement(query);
@@ -127,6 +129,3 @@ public class InvoiceDB {
     }//End - selectUnprocessedInvoices()
 
 }//End - InvoiceDB.java
-
-
-

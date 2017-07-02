@@ -5,6 +5,7 @@
   Time: 3:28 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
 <%-- Use the following left column instead after you configure a
@@ -20,7 +21,7 @@
 
   <h1>User Information</h1>
 
-  <form action="<c:url value='/order/processUser' />" method=post>
+  <form action="<c:url value='/checkOut/processUserUpdate' />" method=post>
     <p id="required"><span class="required"></span></p>
     <%--<p id="required">Required <span class="required">*</span></p>--%>
 
@@ -36,7 +37,6 @@
     <label>Email Address</label>
     <input type="email" name="email" value="${user.email}" disabled>
     <p></p><br><br>
-
 
     <label>Company</label>
     <input type="text" name="companyName" value="${user.companyName}">
@@ -60,10 +60,6 @@
 
     <label>Zip Code</label>
     <input type="text" name="zip" value="${user.zip}" required>
-    <p class="required">*</p><br>
-
-    <label>Country</label>
-    <input type="text" name="country" value="${user.country}" required>
     <p class="required">*</p><br>
 
     <label>&nbsp;</label>

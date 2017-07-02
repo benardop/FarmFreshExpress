@@ -16,12 +16,16 @@
 
 <section class="cart">
   <p>THIS PAGE IS UNDER CONSTRUCTION - Thank you for your patience!</p>
-  <p>In the future you will have the ability to create multiple credit cards - </p>
+  <p>Credit Card Processing Logic has not yet been added.</p>
+  <p>At this time, your credit card will NOT be charged and your credit card information </p>
+  <p>will NOT be saved.  Your invoice WILL be saved as if your payment was processed. </p>
+  <p>Additionally, in the future you will have the ability to create multiple credit cards - </p>
   <p>and select which to use when completing the order. </p>
+
   <br>
   <h1>Enter your credit card information - to complete your purchase and save your invoice</h1>
 
-  <form action="<c:url value='/order/completeOrder' />" method="post">
+  <form action="<c:url value='/checkOut/submitOrder' />" method="post">
     <table>
       <tr>
         <td><b>Credit card type</b></td>

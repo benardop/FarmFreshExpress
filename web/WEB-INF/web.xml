@@ -9,7 +9,7 @@
     <!--  Define Context Initialization Parameters -->
     <context-param>
         <param-name>custServEmail</param-name>
-        <param-value>amy.freelance.dev@gmail.com</param-value>
+        <param-value>amy@roofreelancing.com</param-value>
     </context-param>
 
     <!-- Servlets Definitions(alphabetical order) -->
@@ -77,7 +77,7 @@
         <location>/error_java.jsp</location>
     </error-page>
     
-    <!-- Define two security roles -->
+    <!-- Define three security roles -->
     <security-role>
         <description>system administrator</description>
         <role-name>admin</role-name>

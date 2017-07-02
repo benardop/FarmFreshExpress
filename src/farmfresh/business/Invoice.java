@@ -5,7 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by Mom and Dad on 11/4/2016.
+ * Invoice.java
+ * Purpose: Invoice represents an Invoice created once a User makes a purchase.
+ * It contains a List of the Products and how many of each Product was purchased.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class Invoice {
     // PRIVATE INSTANCE VARIABLES
@@ -55,15 +60,16 @@ public class Invoice {
 
     public boolean isProcessed() { return isProcessed; }
 
-    // idProcessed flag set only when Invoice is inserted into the Database
+    //************************************************************************
+    // isProcessed flag set only when Invoice is inserted into the Database
     //public void setProcessed(boolean processed) { isProcessed = processed; }
-
+    //************************************************************************
 
     //PUBLIC METHODS:  SPECIALTY FUNCTIONALITY
     public double getInvoiceTotal(){
         double invoiceTotal = 0;
         for (LineItem lineItem: lineItems) {
-            invoiceTotal += lineItem.getTotal();
+            invoiceTotal += lineItem.getTotalCost();
         }
         return invoiceTotal;
     }

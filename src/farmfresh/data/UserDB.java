@@ -1,13 +1,13 @@
+/**
+ * Created by Mom and Dad on 11/6/2016.
+ */
+
 package farmfresh.data;
 
 import farmfresh.business.User;
 
 import java.sql.*;
-//import java.sql.*
 
-/**
- * Created by Mom and Dad on 11/6/2016.
- */
 public class UserDB {
 
     public static void insert(User user) {
@@ -17,11 +17,9 @@ public class UserDB {
 
         String query
                 = "INSERT INTO User (FirstName, LastName, Email, CompanyName, "
-                + "Address1, Address2, City, State, Zip, "
-                + "CreditCardType, CreditCardNumber, CreditCardExpMonth, CreditCardExpYear) "
+                + "Address1, Address2, City, State, Zip) "
                 + "VALUES (?, ?, ?, ?, "
-                + "?, ?, ?, ?, ?, "
-                + "?, ?, ?, ?)";
+                + "?, ?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getFirstName());
@@ -33,10 +31,6 @@ public class UserDB {
             ps.setString(7, user.getCity());
             ps.setString(8, user.getState());
             ps.setString(9, user.getZip());
-            ps.setString(10, user.getCreditCardType());
-            ps.setString(11, user.getCreditCardNumber());
-            ps.setString(12, user.getCreditCardExpMonth());
-            ps.setString(13, user.getCreditCardExpYear());
 
             ps.executeUpdate();
 
@@ -72,11 +66,7 @@ public class UserDB {
                 + "Address2 = ?, "
                 + "City = ?, "
                 + "State = ?, "
-                + "Zip = ?, "
-                + "CreditCardType = ?, "
-                + "CreditCardNumber = ?, "
-                + "CreditCardExpMonth = ?, "
-                + "CreditCardExpYear = ? "
+                + "Zip = ? "
                 + "WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
@@ -88,11 +78,7 @@ public class UserDB {
             ps.setString(6, user.getCity());
             ps.setString(7, user.getState());
             ps.setString(8, user.getZip());
-            ps.setString(9, user.getCreditCardType());
-            ps.setString(10, user.getCreditCardNumber());
-            ps.setString(11, user.getCreditCardExpMonth());
-            ps.setString(12, user.getCreditCardExpYear());
-            ps.setString(13, user.getEmail());
+            ps.setString(9, user.getEmail());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -194,10 +180,6 @@ public class UserDB {
             user.setCity(rs.getString("City"));
             user.setState(rs.getString("State"));
             user.setZip(rs.getString("Zip"));
-            user.setCreditCardType(rs.getString("CreditCardType"));
-            user.setCreditCardNumber(rs.getString("CreditCardNumber"));
-            user.setCreditCardExpMonth(rs.getString("CreditCardExpMonth"));
-            user.setCreditCardExpYear(rs.getString("CreditCardExpYear"));
             user.setSubscribedToNewsletter(rs.getBoolean("SubscribedToNewsletter"));
             return user;
         } catch (SQLException e) {
@@ -229,7 +211,7 @@ public class UserDB {
         }
     }
 
-    public static boolean emailExistsUserDataDoesNot(String email) {
+    public static boolean userIsOnlySubcribedToNewsletterAndNotRegistered(String email) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;

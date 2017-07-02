@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ProductDB {
 
-    public static List<Product> selectAllProducts(String productTypeId) {
+    public static List<Product> selectProductsInSeason(String productTypeId) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
@@ -29,8 +29,8 @@ public class ProductDB {
                 " FROM ProductType, Product" +
                 " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
                 " AND Product.ProductTypeID = ?" +
+                " AND Product.InSeason = TRUE" +
                 " ORDER BY Product.Name;";
-
 
         try {
             ps = connection.prepareStatement(query);

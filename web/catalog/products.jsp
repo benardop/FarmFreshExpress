@@ -14,15 +14,15 @@
 <section id="catalog">
     <h1>${productTypeName}</h1>
 
-    <c:if test="${products.size() == 0}">
+    <c:if test="${productsInSeason.size() == 0}">
         <h3>There are no ${productTypeName} for sale at this time.</h3>
     </c:if>
 
 
-    <c:if test="${products.size() > 0}">
+    <c:if test="${productsInSeason.size() > 0}">
         <table>
             <tr></tr>
-            <c:forEach var="product" items="${products}">
+            <c:forEach var="product" items="${productsInSeason}">
                 <tr>
                     <td><a href="/catalogController/displayProduct?productId=${product.productId}">
                         <img src="${product.imageURL}"

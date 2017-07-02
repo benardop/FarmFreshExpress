@@ -3,7 +3,14 @@ package farmfresh.business;
 import java.text.NumberFormat;
 
 /**
- * Created by Mom and Dad on 11/4/2016.
+ * LineItem.java
+ * Purpose: LineItem serves to record the Product and how many of each Product has been added.
+ * It also records the cost of the Product when it was is purchased. After the Product is purchased
+ * and the LineItem becomes part of an Invoice - we need to have record of what the price of the
+ * product was at the time of purchase because the product price may change in the future.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class LineItem {
     //PRIVATE INSTANCE VARIABLES
@@ -42,13 +49,13 @@ public class LineItem {
     public void increaseQuantity(int nbr) {this.quantity += nbr;}
 
     //PUBLIC METHODS:  SPECIAL FUNCTIONALITY
-    public double getTotal(){
+    public double getTotalCost(){
         return product.getPrice() * quantity;
     }
 
-    public String getTotalCurrencyFormat(){
+    public String getTotalCostInvoicedCurrencyFormat(){
         NumberFormat currency = NumberFormat.getCurrencyInstance();
-        return currency.format(getTotal());
+        return currency.format(getTotalCost());
     }
 
 }

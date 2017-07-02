@@ -13,10 +13,17 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Mom and Dad on 11/9/2016.
+ * Purpose: Acts like a Product Catalog.  Manages the display of all products of a given Product Type
+ * (Products window) or Product Detail for a single Product (Product window)
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class CatalogController extends HttpServlet {
 
+    /**
+     *  Handles any URL ending in /displayProduct or /displayProductsInSeason
+     */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)throws IOException, ServletException{
@@ -24,10 +31,10 @@ public class CatalogController extends HttpServlet {
         String requestURI = request.getRequestURI();
         String url = "/";
 
-        if (requestURI.endsWith("/displayProducts")) {
-            url = displayProducts(request, response);
-        }else if (requestURI.endsWith("/displayProduct")) {
+        if (requestURI.endsWith("/displayProduct")) {
             url = displayProduct(request, response);
+        }else if (requestURI.endsWith("/displayProductsInSeason")) {
+            url = displayProductsInSeason(request, response);
         }
 
         getServletContext()
@@ -36,15 +43,15 @@ public class CatalogController extends HttpServlet {
 
     }//End - doGet()
 
+    /**
+     *  Handles no URLs at this time...
+     */
     @Override
     public void doPost(HttpServletRequest request,
                       HttpServletResponse response)throws IOException, ServletException{
 
         String requestURI = request.getRequestURI();
         String url = "/";
-//        if (requestURI.endsWith("/register")){
-//            url = registerUser(request, response);
-//        }
 
         getServletContext()
                 .getRequestDispatcher(url)
@@ -52,21 +59,22 @@ public class CatalogController extends HttpServlet {
 
     }//End - doPost()
 
-    private String displayProducts(HttpServletRequest request, HttpServletResponse response) {
-
-        String productTypeId = request.getParameter("productTypeId");
-        String productTypeName = request.getParameter("productTypeName");
-        HttpSession session = request.getSession();
-        session.setAttribute("productTypeName", productTypeName);
-
-        if (productTypeId != null) {
-            List<Product> products = ProductDB.selectAllProducts(productTypeId);
-            session.setAttribute("products", products);
-        }
-        return "/catalog/products.jsp";
-
-    }//End - displayProducts()
-
+     /**
+     * <br>
+     * Initiates the display of a given Product in the Product Detail window.
+     * <br><br>
+     * Retrieves a Product from the Database based on the Product ID pulled from the incoming request.
+     * The Product retrieved is then stored on the Session object and
+     * the URL for the Product Detail window is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "productId" - the Product ID that uniquely identifies a Product<br>
+     * <br>
+     * Session object Attributes:<br>
+     * "product" - a Product Object<br>
+     *
+     * @return  URL to /catalog/product.jsp which displays the Product Detail window
+     */
     private String displayProduct(HttpServletRequest request, HttpServletResponse response){
 
         String productId = request.getParameter("productId");
@@ -76,38 +84,49 @@ public class CatalogController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("product", product);
         }
+
         return "/catalog/product.jsp";
 
     }//End - displayProduct()
 
-//    private String registerUser(HttpServletRequest request, HttpServletResponse response){
-//        HttpSession session = request.getSession();
-//        String firstName = request.getParameter("firstName");
-//        String lastName = request.getParameter("lastName");
-//        String email = request.getParameter("email");
-//
-//        User user;
-//        if (UserDB.emailExists(email)){
-//            user = UserDB.selectUser(email);
-//            user.setFirstName(firstName);
-//            user.setLastName(lastName);
-//            user.setEmail(email);
-//            UserDB.update(user);
-//        }else{
-//            user = new User();
-//            user.setFirstName(firstName);
-//            user.setLastName(lastName);
-//            user.setEmail(email);
-//            UserDB.insert(user);
-//        }
-//
-//        session.setAttribute("user", user);
-//        Cookie emailCookie = new Cookie("emailCookie", email);
-//        emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
-//        emailCookie.setPath("/");  //root which is FarmFreshExpress
-//        response.addCookie(emailCookie);
-//
-//        return "/";
-//    }
+    /**
+     * <br>
+     * Initiates the display of all Products of a particular type that are In Season
+     * in the Products window, as well as the Type of Product being displayed.
+     * <br><br>
+     * Retrieves the Name of the Product Type (such as Fruits, Vegetables, etc) from
+     * the Request and stores it in the Session object - to be used by future windows.
+     * Retrieves all Products that are InSeason and are of a particular Product Type
+     * from the Product Database.  The List of In Season Products are then stored on the Session object and
+     * the URL for the Products window is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "productTypeId" - the Product Type ID that uniquely identifies the Type of Product<br>
+     * "productTypeName" - the Name corresponding to the Product Type ID
+     * such as Fruits, Vegetables, etc<br>
+     *
+     * <br>
+     * Session object Attributes:<br>
+     * "productTypeName" - the Name corresponding to the Product Type ID
+     * such as Fruits, Vegetables, etc<br>
+     * "unprocessedInvoices" - Invoices which have not been processed - have not been
+     * shipped or paid for yet
+     *
+     * @return  URL to /catalog/products.jsp which displays the Products window
+     */
+    private String displayProductsInSeason(HttpServletRequest request, HttpServletResponse response) {
+
+        String productTypeId = request.getParameter("productTypeId");
+        String productTypeName = request.getParameter("productTypeName");
+        HttpSession session = request.getSession();
+        session.setAttribute("productTypeName", productTypeName);
+
+        if (productTypeId != null) {
+            List<Product> productsInSeason = ProductDB.selectProductsInSeason(productTypeId);
+            session.setAttribute("productsInSeason", productsInSeason);
+        }
+        return "/catalog/products.jsp";
+
+    }//End - displayProducts()
 
 }//End - CatalogController.java

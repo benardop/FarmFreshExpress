@@ -18,10 +18,6 @@ public class User {
     private String city;
     private String state;
     private String zip;
-    private String creditCardType;
-    private String creditCardNumber;
-    private String creditCardExpMonth;
-    private String creditCardExpYear;
     private boolean subscribedToNewsletter;
 
     // GETTERS AND SETTERS
@@ -95,38 +91,6 @@ public class User {
 
     public String getZip() {
         return zip;
-    }
-
-    public String getCreditCardType() {
-        return creditCardType;
-    }
-
-    public void setCreditCardType(String creditCardType) {
-        this.creditCardType = creditCardType;
-    }
-
-    public String getCreditCardNumber() {
-        return creditCardNumber;
-    }
-
-    public void setCreditCardNumber(String creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
-    }
-
-    public String getCreditCardExpMonth() {
-        return creditCardExpMonth;
-    }
-
-    public void setCreditCardExpMonth(String creditCardExpMonth) {
-        this.creditCardExpMonth = creditCardExpMonth;
-    }
-
-    public String getCreditCardExpYear() {
-        return creditCardExpYear;
-    }
-
-    public void setCreditCardExpYear(String creditCardExpYear) {
-        this.creditCardExpYear = creditCardExpYear;
     }
 
     public boolean isSubscribedToNewsletter() {
