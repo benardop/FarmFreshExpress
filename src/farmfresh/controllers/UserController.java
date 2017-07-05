@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -108,7 +109,7 @@ public class UserController extends HttpServlet {
      * @throws UnsupportedEncodingException
      */
     private String register(HttpServletRequest request,
-                            HttpServletResponse response) throws UnsupportedEncodingException{
+                            HttpServletResponse response) throws UnsupportedEncodingException {
 
         // Pull all user information from the request
         String firstName = request.getParameter("firstName");
@@ -140,6 +141,7 @@ public class UserController extends HttpServlet {
         user.setCity(city);
         user.setState(state);
         user.setZip(zip);
+        user.setIsSubscribedToNewsletter(false);
 
         // Verify Information Entered
         // - Passwords must match. Registration window is redisplayed with Error Msg if not.
@@ -341,7 +343,7 @@ public class UserController extends HttpServlet {
 
         // Prepare message to be displayed - which will indicated email address subscribed.
         String message;
-        message = "Glad you have joined us!<br>"
+        message = "Glad you have joined us!<br><br>"
                 + email + " is now subscribed to our eNewsLetter.";
 
         request.setAttribute("message", message);
@@ -377,15 +379,15 @@ public class UserController extends HttpServlet {
         String message;
         if (UserDB.userIsOnlySubcribedToNewsletterAndNotRegistered(email)) {
             UserDB.delete(email);
-            message = "Sorry to see you go!<br>"
+            message = "Sorry to see you go!<br><br>"
                     + email + " has been unsubscribed.";
         } else if (UserDB.emailExists(email)) {
             UserDB.unsubscribeFromNewsletter(email);
-            message = "Sorry to see you go!<br>"
+            message = "Sorry to see you go!<br><br>"
                     + email + " has been unsubscribed.";
         }else{
-            message = "Unknown Email!<br>"
-                    + "We were not able to unsubscribe " + email + " because it does not exist.";
+            message = "Unknown Email!<br><br>"
+                    + "We were unable to unsubscribe " + email + " because it does not exist.";
         }
 
         request.setAttribute("message", message);

@@ -1,19 +1,26 @@
 <%--
+            [REPORT FUNCTIONALITY IS CURRENTLY IN DEVELOPMENT]
   File: reports.jsp
   Purpose:  To display a List of Reports Administrators are able to run.
             The user can click the "User Detail Report" Link to initiate
-            creation of the User Detail Report (initiates call to
-            /displayReports caught by the AdminController.
+            creation of the User Detail Report.
             The user can click the "Processed Invoices Report" Link to
             initiate the display of the Report Parameters window which will
-            be used to collect Report Start and End Dates - by initiating
-            a call to parameters.jsp.
-            [REPORT FUNCTIONALITY IS CURRENTLY IN DEVELOPMENT]
+            be used to collect Report Start and End Dates.
+
+            Window Actions:
+            - Click of the "User Detail Report" Link sends form data to
+              /displayReports in the AdminController
+            - Click of the "Processed Invoices Report' Link sends form data
+             to parameters.jsp in the Admin directory.
+
+
   Author: Amy Radtke
-  Version: 1.0    Dated: 06/01/2017
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_admin.jsp" />
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- begin middle column -->

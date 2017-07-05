@@ -1,17 +1,10 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/21/2016
-  Time: 6:40 PM
-  To change this template use File | Settings | File Templates.
+  File: logout.jsp
+  Purpose:  To display a Message indicating Successful Logout
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 07/01/2017
 --%>
-
-<%--<%--%>
-  <%--response.setHeader("Cache-Control","no-cache");--%>
-  <%--response.setHeader("Pragma","no-cache");--%>
-  <%--response.setDateHeader ("Expires", -1);--%>
-<%--%>--%>
-
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
 

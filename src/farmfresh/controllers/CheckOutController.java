@@ -230,7 +230,7 @@ public class CheckOutController extends HttpServlet {
 //        if (UserDB.emailExists(user.getEmail())) {
 //            UserDB.update(user);
 //        } else {
-//          ERROR  UserDB.insert(user);
+//          ERROR
 //        }
 //        **************************************************************************************
 

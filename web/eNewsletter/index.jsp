@@ -1,15 +1,16 @@
 <%--
-  Class:  index.jsp in FarmFreshExpress/web/eNewsletter directory
-  Purpose:  Screen used to subscribe or unsubscribe from the Farm's eNewsletter
-  Specifics:  If user is already signed up - they will be told they are.
-              If user is not signed up yet - a row will be added in the user table
-              with email and SubscribedToNewsletter flag set.
-              Email entered must have an @ and be 254 characters or less.
+  Class:  index.jsp
+  Purpose:  Screen used to subscribe or unsubscribe from the eNewsletter
+  Specifics:  Email entered must be 254 characters or less.
 
-  @version 1.0  Dated:  05/01/2017
-  @author Amy Radtke    Initial Creation             05/01/2017
-  @since ??? version of jdk
+            Window Actions:
+            - Clicking the "Subscribe" Button sends form data to
+            /subscribeToNewsletter in the UserController
+            - Clicking the "UnSubscribe" Button sends form data to
+            /unsubscribeFromNewsletter in the UserController
 
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
 
 <jsp:include page="/includes/header.jsp" />

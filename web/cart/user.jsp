@@ -1,32 +1,30 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:28 PM
-  To change this template use File | Settings | File Templates.
---%>
+  File:  user.jsp
+  Purpose:  To display the User's information to be Updated.
 
-<jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_all.jsp" />
-<%-- Use the following left column instead after you configure a
-     secure connection.
-<jsp:include page="/includes/column_left_all_absolute.jsp" />
+            Window Actions:
+            - Clicking the "Continue" Button sends form data to
+            /processUserUpdate in the CheckoutController
+
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
+<jsp:include page="/includes/header.jsp"/>
+<jsp:include page="/includes/column_left_all.jsp"/>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- begin middle column -->
 
 <section class="cart">
 
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
   <h1>User Information</h1>
 
   <form action="<c:url value='/checkOut/processUserUpdate' />" method=post>
     <p id="required"><span class="required"></span></p>
-    <%--<p id="required">Required <span class="required">*</span></p>--%>
 
     <label>First Name</label>
-    <input type="text" name="firstName"  maxlength=20
+    <input type="text" name="firstName" maxlength=20
            value="${user.firstName}" required>
     <p class="required">*</p><br>
 
@@ -35,7 +33,7 @@
     <p class="required">*</p><br>
 
     <label>Email Address</label>
-    <input type="email" name="email" value="${user.email}" disabled>
+    <input type="email" name="email" maxlength="254" value="${user.email}" disabled>
     <p></p><br><br>
 
     <label>Company</label>
@@ -70,4 +68,4 @@
 
 <!-- end middle column -->
 
-<jsp:include page="/includes/footer.jsp" />
+<jsp:include page="/includes/footer.jsp"/>

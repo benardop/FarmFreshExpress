@@ -1,16 +1,30 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:19 PM
-  To change this template use File | Settings | File Templates.
+  File: cart.jsp
+  Purpose:  To display the User's Cart containing any Products they may
+            wish to purchase.  The user can click the "Proceed To Checkout" Button
+            to move forward in Purchasing the items.  They also have
+            the ability to change the Quantity of any Product in the cart.
+            If they change the Quantity to Zero or click the "Remove" Button
+            beside that Product - the Product will be removed from the Cart.
+
+            Window Actions:
+            - Clicking the "Proceed to Checkout" Button sends form data to
+            /CheckUser in the CheckoutController
+            - Moving out of the "Quantity" input field sends form data to
+            /UpdateItem in the OrderController
+            - Clicking the "Remove" Button sends form data to
+            /RemoveItem in the OrderController
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 06/01/2017
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="/includes/header.jsp"/>
 <jsp:include page="/includes/column_left_all.jsp"/>
 
 <!-- begin middle column -->
 <section class="cart">
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <c:choose>
         <c:when test="${cart == null or cart.isEmpty()}">
@@ -40,10 +54,10 @@
                             <form action="<c:url value='/order/updateItem'/>" method="post">
                                 <input type="hidden" name="productId"
                                        value="<c:out value='${item.product.productId}'/>">
-                                <input type="number" name="updateQuantity" value="<c:out value='${item.quantity}'/>"
-                                       min=0 max="10000" onblur="this.form.submit()" id="updateQuantity" class="tc item-quantity">
-                                <%--<button>Update</button>--%>
-                                <%--<input type="submit" value="Update">--%>
+                                <input type="number" name="updateQuantity"
+                                       value="<c:out value='${item.quantity}'/>"
+                                       min=0 max="10000" onblur="this.form.submit()"
+                                       id="updateQuantity" class="tc item-quantity">
                             </form>
                         </td>
                         <td>
@@ -56,46 +70,23 @@
                     </tr>
                 </c:forEach>
                 <c:if test="${cart != null and !cart.isEmpty()}">
-                <tr>
-                    <td></td>
-                    <th>Total (${cart.cartQuantity} items):</th>
-                    <th>${cart.totalCostInCurrencyFormat}</th>
-                </tr>
+                    <tr>
+                        <td></td>
+                        <th>Total (${cart.cartQuantity} items):</th>
+                        <th>${cart.totalCostInCurrencyFormat}</th>
+                    </tr>
                 </c:if>
             </table>
         </c:otherwise>
     </c:choose>
-    <br />
-    <br />
+    <br/>
+    <br/>
 
-    <!-- Connection is NOT SECURE. For testing only. -->
-<c:if test="${cart != null and !cart.isEmpty()}">
-    <form action="<c:url value='/checkOut/checkUser'/>" method="post">
-    <input type="submit" value="Proceed To Checkout">
-    </form>
-
-    <%--<c:choose>--%>
-        <%--<c:when test="${pageContext.request.isUserInRole('user')}">--%>
-    <%--<form action="<c:url value='/checkOut/checkOut'/>" method="post">--%>
-        <%--<input type="submit" value="Checkout">--%>
-    <%--</form>--%>
-        <%--</c:when>--%>
-        <%--<c:otherwise>--%>
-            <%--<button type="button" disabled>Checkout</button>--%>
-            <%--<br>--%>
-            <%--<p>In order to check out, you must have a User account,--%>
-                <%--please click here to <a href="/register_user.jsp">Register</a></p>--%>
-        <%--</c:otherwise>--%>
-    <%--</c:choose>--%>
-    <!-- Connection is SECURE.  Before you can use it, you need to configure
-    a secure connection on your system, comment
-    out the previous form, and remove the comments from the following form. -->
-    <!--
-    <%--<form action="${absolutePathSecure}/order/checkUser" method="post">--%>
-    <input type="submit" value="Checkout">
-    </form>
-    -->
-</c:if>
+    <c:if test="${cart != null and !cart.isEmpty()}">
+        <form action="<c:url value='/checkOut/checkUser'/>" method="post">
+            <input type="submit" value="Proceed To Checkout">
+        </form>
+    </c:if>
 </section>
 
 <!-- end middle column -->

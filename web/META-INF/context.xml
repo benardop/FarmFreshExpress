@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/farmFreshExpress">
-    <!-- the farmfresh database that contains the Farm Fresh Express data -->
+    <!-- the farmfresh database that contains non-security Farm Fresh data -->
     <Resource name="jdbc/farmFreshDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://127.0.0.1:3306/farmfresh?autoReconnect=true"

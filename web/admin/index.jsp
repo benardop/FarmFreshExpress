@@ -1,6 +1,8 @@
+<%--THIS JSP IS NOT CURRENTLY BEING USED...--%>
+
 <%--&lt;%&ndash;--%>
         <%--Class:  index.jsp in FarmFreshExpress/web/eNewsletter directory--%>
-        <%--THIS JSP IS NOT CURRENTLY BEING USED...--%>
+
 
 <%--@version 1.0  Dated:  05/01/2017--%>
 <%--@author Amy Radtke    Initial Creation             05/01/2017--%>

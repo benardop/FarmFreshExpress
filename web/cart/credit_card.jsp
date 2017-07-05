@@ -1,15 +1,19 @@
+<%-- THIS FUNCTIONALITY IS CURRENTLY IN DEVELOPMENT AND NOT YET AVAILABLE --%>
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:22 PM
-  To change this template use File | Settings | File Templates.
+  File: cart.jsp
+  Purpose:  To display the Credit Card window that enables the User to enter
+            their Credit Card Information to complete their purchase and
+            save their Order.
+
+            Window Actions:
+            - Clicking the "Submit Order" Button sends form data to
+            /submitOrder in the CheckoutController
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 06/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
-<%-- Use the following left column instead after you configure a
-     secure connection.
-<jsp:include page="/includes/column_left_all_absolute.jsp" />
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- begin middle column -->
@@ -23,7 +27,7 @@
   <p>and select which to use when completing the order. </p>
 
   <br>
-  <h1>Enter your credit card information - to complete your purchase and save your invoice</h1>
+  <h1>Enter your credit card information - to complete your purchase and save your order</h1>
 
   <form action="<c:url value='/checkOut/submitOrder' />" method="post">
     <table>

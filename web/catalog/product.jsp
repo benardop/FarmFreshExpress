@@ -1,9 +1,14 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:43 PM
-  To change this template use File | Settings | File Templates.
+  File:  product.jsp
+  Purpose:  To display the Product Detail window and enable the user to
+            Add a given Quantity of that Product to the Cart.
+
+            Window Actions:
+            - Clicking the "Add to Cart" Button sends form data to
+            /addItem in the OrderController
+
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />

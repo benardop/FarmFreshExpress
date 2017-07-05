@@ -1,19 +1,23 @@
 <%--
   File:  order.jsp
-  Purpose:  To display the Order's Detail information prior to being placed.
+  Purpose:  To display the Order's Detail information for verification by the user.
+            (Part of the Checkout Process)
+
+            Window Actions:
+            - Clicking the "Edit Address" Button sends form data to
+            /editUser in the CheckoutController
+            - Clicking the "Continue" Button sends form data to
+            /displayCreditCard in the CheckoutController
+
   Future Enhancements:  The order.jsp window will pull information from the Invoice
   only - since the Invoice will be a picture of the Cart at the time of the Order
   e.g.  Price of product, User information at the time of the order.
+
   Author:  Amy Radtke
   Version  1.0  07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp"/>
 <jsp:include page="/includes/column_left_all.jsp"/>
-
-<%-- Use the following left column instead after you configure a
-     secure connection.
-<jsp:include page="/includes/column_left_all_absolute.jsp" />
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

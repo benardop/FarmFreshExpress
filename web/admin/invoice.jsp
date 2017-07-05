@@ -3,10 +3,13 @@
   Purpose:  To display a single Invoice as part of Admin Functionality
             The user can click the "Process" Button to process the Invoice
             when the purchase associated with the Invoice is shipped.
-            The "Process" Button initiates FormAction of /processInvoice
-            caught by the AdminController.
+
+            Window Actions:
+            -  Click of the "Process" Button sends form data to
+            /processInvoice in the AdminController
+
   Author: Amy Radtke
-  Version: 1.0    Dated: 06/01/2017
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp"/>
 <jsp:include page="/includes/column_left_admin.jsp"/>

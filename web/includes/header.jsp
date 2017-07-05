@@ -1,12 +1,19 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 2:49 PM
-  To change this template use File | Settings | File Templates.
+  File: header.jsp
+  Purpose:  To display the Homepage's Header information.
+            Header information includes:  Logo, Title and Horizontal Menu Bar.
+            The items on the Menu are displayed/not displayed based on
+            If the User has Logged In or Not and what the User's Role is.
+            Menu Bar Items include:  Categories, eNewsletter, Help, Login,
+            Logout, Register, Admin, Delete Cookies and Cart: <# items in cart>
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <%@page contentType="text/html" pageEncoding="utf-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 
 <html>
@@ -26,25 +33,27 @@
     <h1>Welcome to Farm Fresh Express Beta V1.0 </h1>
     <h2>FARM FRESH GOODS served up FAST!</h2>
 </header>
+<%--Prepare the Horizontal Menu Bar--%>
 <nav id="nav_bar">
     <ul>
-            <%--CATEGORIES--%>
-            <c:if test="${pageContext.request.isUserInRole('super_user')}">
-                <li><a href="<c:url value='/' />">
+        <%--CATEGORIES is displayed for Super Users--%>
+        <c:if test="${pageContext.request.isUserInRole('super_user')}">
+            <li><a href="<c:url value='/' />">
                 CATEGORIES</a></li>
-            </c:if>
+        </c:if>
 
-            <%--eNEWSLETTER--%>
-            <c:if test="${!pageContext.request.isUserInRole('admin')}">
-                <li><a href="<c:url value='/eNewsletter' />">
-                    eNEWSLETTER</a></li>
-            </c:if>
+        <%--eNEWSLETTER is displayed for Users that are NOT Admins--%>
+        <c:if test="${!pageContext.request.isUserInRole('admin')}">
+            <li><a href="<c:url value='/eNewsletter' />">
+                eNEWSLETTER</a></li>
+        </c:if>
 
-            <%--HELP--%>
-            <li><a href="<c:url value='/help' />">
-                HELP</a></li>
+        <%--HELP is always displayed--%>
+        <li><a href="<c:url value='/help' />">
+            HELP</a></li>
 
-        <%--LOG IN - if noone is logged in;  LOG OUT - if someone is logged in--%>
+        <%--LOG IN and REGISTER are displayed when noone is logged in--%>
+        <%--LOG OUT is displayed when someone is logged in--%>
         <c:choose>
             <c:when test="${pageContext.request.remoteUser == null}">
                 <li><a href="<c:url value='/user/login' />">
@@ -58,28 +67,32 @@
             </c:otherwise>
         </c:choose>
 
-        <%--ADMIN - if person logged in has a role of administrator or super_user--%>
+        <%--ADMIN is displayed for Super Users--%>
+        <%--ADMIN is not needed for Admins because they are already--%>
+        <%--in Admin view, Super Users may be in Admin or User view--%>
+        <%--and will need to toggle between the two--%>
         <c:if test="${pageContext.request.isUserInRole('super_user')}">
             <li><a href="<c:url value='/adminController/displayInvoices/' />">
                 ADMIN</a></li>
         </c:if>
 
-        <%--DELETE COOKIES - if person logged in has a role of super_user--%>
+        <%--DELETE COOKIES is displayed for Super Users--%>
         <c:if test="${pageContext.request.isUserInRole('super_user')}">
             <li><a href="<c:url value='/user/deleteCookies' />">
                 DELETE COOKIES</a></li>
         </c:if>
 
-        <%--CART - displaying the number of items in the cart;  Zero if there is no cart--%>
-            <c:if test="${!pageContext.request.isUserInRole('admin')}">
-                <c:choose>
-                    <c:when test="${cart == null}">
-                        <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
+        <%--CART is always displayed--%>
+        <%--It displays the Number of Items in the Cart or Zero if there is not Cart--%>
+        <c:if test="${!pageContext.request.isUserInRole('admin')}">
+            <c:choose>
+                <c:when test="${cart == null}">
+                    <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
     </ul>
 </nav>

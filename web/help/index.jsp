@@ -1,9 +1,14 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:46 PM
-  To change this template use File | Settings | File Templates.
+  Class:  index.jsp
+  Purpose:  To display Customer Service Contact Information when the User needs Help
+
+            Window Actions:
+            - Clicking the "Customer Service Email" Link opens
+            the User's Email Application with the "To" set to
+            the Customer Service Email Address.
+
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

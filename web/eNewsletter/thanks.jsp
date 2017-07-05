@@ -1,9 +1,10 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 4:00 PM
-  To change this template use File | Settings | File Templates.
+  File: thanks.jsp
+  Purpose:  To display a Message to the User after they have subscribed
+            or unsubscribed from the eNewsletter.
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />

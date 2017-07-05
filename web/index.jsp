@@ -1,9 +1,13 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Mom and Dad
-  Date: 11/2/2016
-  Time: 8:26 AM
-  To change this template use File | Settings | File Templates.
+  File: index.jsp
+  Purpose:  To display the Home Page - which includes a Header, Footer,
+            Picture in the Middle Panel and the Vertical Menu.
+            Vertical Menu has two views:  Admin and User
+            The Admin view is only displayed if an Admin is logged in
+            The User view is displayed in all other scenarios.
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

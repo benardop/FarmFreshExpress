@@ -1,9 +1,13 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:28 PM
-  To change this template use File | Settings | File Templates.
+  File:  register_user.jsp
+  Purpose:  To display the User Registration window.
+
+            Window Actions:
+            - Clicking the "Continue" Button sends form data to
+            /register in the UserController
+
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
@@ -21,8 +25,7 @@
     <p id="required">Required <span class="required">*</span></p>
 
     <label>First Name</label>
-    <input type="text" name="firstName"  maxlength=20
-           value="${user.firstName}" required>
+    <input type="text" name="firstName" value="${user.firstName}" required>
     <p class="required">*</p><br>
 
     <label>Last Name</label>
@@ -30,7 +33,7 @@
     <p class="required">*</p><br>
 
     <label>Email Address</label>
-    <input type="email" name="email" value="${user.email}" required>
+    <input type="email" name="email" maxlength="254" value="${user.email}" required>
     <p class="required">*</p><br>
 
     <label>Password</label>

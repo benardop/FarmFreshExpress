@@ -49,18 +49,14 @@ em { font-weight: bold; }
 /* the styles for the header */
 header {
     padding-bottom: 2em;
-    /*border-bottom: 2px solid #ef9c00;*/
     border-bottom: ridge;
 }
 header h1 {
-    /*color: #ef9c00;*/
-    /*color: darkgreen;*/
     color:  black;
     margin-left: 120px;
     margin-bottom: 0.25em;
 }
 header h2 {
-    /*color: forestgreen;*/
     color: black;
     font-style: italic;
     margin-left: 120px;
@@ -75,7 +71,6 @@ header img {
     clear: left;
     margin: 0;
     padding: 0;
-    /*border-bottom: 2px solid #ef9c00;*/
     border-bottom:  2px solid black;
     text-align: right;
 }
@@ -102,12 +97,10 @@ header img {
 
 /* the styles for the section */
 section {
-    /*width: 520px;*/
     width:  700px;
     padding-right: 20px;
     padding-left: 20px;
     float: left;
-    /*float: none;*/
 }
 section h1 {
     margin-bottom: 0.35em;
@@ -256,7 +249,6 @@ aside img {
     margin-bottom: 1em;
 }
 #sidebarA {
-    /*width: 180px;*/
     width: 150px;
     float: left;
     height: 400px;

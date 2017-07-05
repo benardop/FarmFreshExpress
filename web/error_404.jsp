@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/21/2016
-  Time: 6:36 PM
-  To change this template use File | Settings | File Templates.
+  File: error_404.jsp
+  Purpose:  To display a 404 Error Message.
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
@@ -20,6 +20,10 @@
 
   <h2>Details</h2>
   <p>Requested URI: ${pageContext.errorData.requestURI}</p>
+
+  <p>Cause of Error:</p>
+  <p>${pageContext.errorData.throwable.cause}</p>
+
 
 </section>
 <!-- end the middle column -->

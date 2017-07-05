@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/21/2016
-  Time: 6:38 PM
-  To change this template use File | Settings | File Templates.
+  File: error_java.jsp
+  Purpose:  To display a System Error Message.
+
+  Author: Amy Radtke
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
@@ -14,12 +14,15 @@
 
 <section>
 
-  <h1>404 Error</h1>
-  <p>The server was not able to find the file you requested.</p>
+  <h1>System Error</h1>
+  <p>A System Error has occurred.</p>
   <p>To continue, click the Back button or select a link from this page.</p>
 
   <h2>Details</h2>
   <p>Requested URI: ${pageContext.errorData.requestURI}</p>
+
+  <p>Cause of Error:</p>
+  <p>${pageContext.errorData.throwable.cause}</p>
 
 </section>
 

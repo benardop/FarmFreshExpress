@@ -1,13 +1,17 @@
 <%--
   File: parameters.jsp
-  Purpose:  A Form to Collect Reporting Start and End Dates
-            The "Continue" Button initiates call of /displayReport
-            caught by the AdminController.
+  Purpose:  A Form to Collect Start and End Dates used in Reporting
+
+            Window Actions:
+            - Click of the "Continue" Button sends form data to
+            /displayReport in the AdminController.
+
   Author: Amy Radtke
-  Version: 1.0    Dated: 06/01/2017
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_admin.jsp" />
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- begin middle column -->

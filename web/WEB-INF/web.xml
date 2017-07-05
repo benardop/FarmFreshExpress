@@ -91,14 +91,18 @@
         <role-name>user</role-name>
     </security-role>
 
+    <!-- Secure the calls to user/login - requiring authentication before executing -->
+    <!-- This will force the User to Login through the System Login functionality -->
+    <!-- and then proceed to the login functionality Save the User in the Session -->
+    <!-- and save the userEmail cookie, etc -->
     <security-constraint>
         <web-resource-collection>
-            <!-- initiate login when LOGIN is clicked in header -->
+
             <web-resource-name>Login Area</web-resource-name>
             <url-pattern>/user/login</url-pattern>
         </web-resource-collection>
 
-        <!-- authorize the service and the programmer roles -->
+        <!-- authorize all roles to Login -->
         <auth-constraint>
             <role-name>super_user</role-name>
             <role-name>admin</role-name>
@@ -110,14 +114,15 @@
         </user-data-constraint>
     </security-constraint>
 
+    <!-- restrict access to the urls in the admin directory -->
     <security-constraint>
         <web-resource-collection>
-            <!-- restrict access to the urls in the admin directory -->
             <web-resource-name>Admin Area</web-resource-name>
             <url-pattern>/adminController/*</url-pattern>
         </web-resource-collection>
 
-        <!-- authorize the service and the programmer roles -->
+        <!-- authorize the super_user and admin roles to -->
+        <!-- perform Admin functionality-->
         <auth-constraint>
             <role-name>super_user</role-name>
             <role-name>admin</role-name>
@@ -128,14 +133,14 @@
         </user-data-constraint>
     </security-constraint>
 
+    <!-- restrict access to the urls in the checkOut directory -->
     <security-constraint>
         <web-resource-collection>
-            <!-- restrict access to the urls in the checkOut directory -->
             <web-resource-name>Check Out Area</web-resource-name>
             <url-pattern>/checkOut/*</url-pattern>
         </web-resource-collection>
 
-        <!-- authorize the service and the programmer roles -->
+        <!-- authorize the super_user and user roles to checkout -->
         <auth-constraint>
             <role-name>super_user</role-name>
             <role-name>user</role-name>

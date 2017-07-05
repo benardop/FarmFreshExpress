@@ -1,9 +1,18 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 3:43 PM
-  To change this template use File | Settings | File Templates.
+  File:  product.jsp
+  Purpose:  To display all Products of a given Type/Category that are available
+            for Sale and enable the user to add a given Quantity of a Product
+            to the Cart.  Also, enable user to click a Product's Image to
+            view the Product Detail information.
+
+            Window Actions:
+            - Clicking the "Add to Cart" Button sends form data to
+            /addItem in the OrderController
+            - Clicking a Product's Image sends form data to
+            /displayProduct in the CatalogController
+
+  Author:  Amy Radtke
+  Version  1.0  07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_all.jsp" />
@@ -14,7 +23,7 @@
 <section id="catalog">
     <h1>${productTypeName}</h1>
 
-    <c:if test="${availableProducts.size() == 0}">
+    <c:if test="${availableProducts == null || availableProducts.size() == 0}">
         <h3>There are no ${productTypeName} for sale at this time.</h3>
     </c:if>
 
@@ -41,11 +50,9 @@
                                    class="tc item-quantity" required>
                             <input type="submit" value="Add to Cart">
                         </form>
-                        <%--<a href="='/order/addItem?ProductID=${product.productId} & ProductQuantity=1">Add to Cart</a>--%>
                     </td>
                 </tr>
             </c:forEach>
-
         </table>
     </c:if>
 </section>

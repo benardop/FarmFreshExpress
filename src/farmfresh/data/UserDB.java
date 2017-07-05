@@ -32,7 +32,7 @@ public class UserDB {
                 = "INSERT INTO user (FirstName, LastName, Email, CompanyName, "
                 + "Address1, Address2, City, State, Zip, IsSubscribedToNewsletter) "
                 + "VALUES (?, ?, ?, ?, ?, "
-                + "?, ?, ?, ?,  FALSE)";
+                + "?, ?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getFirstName());
@@ -44,6 +44,7 @@ public class UserDB {
             ps.setString(7, user.getCity());
             ps.setString(8, user.getState());
             ps.setString(9, user.getZip());
+            ps.setBoolean(10, user.isSubscribedToNewsletter());
 
             ps.executeUpdate();
 
@@ -60,6 +61,7 @@ public class UserDB {
 
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -104,6 +106,7 @@ public class UserDB {
 
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -131,6 +134,7 @@ public class UserDB {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -159,6 +163,7 @@ public class UserDB {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -195,6 +200,7 @@ public class UserDB {
 
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -228,7 +234,7 @@ public class UserDB {
             return user;
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -265,7 +271,7 @@ public class UserDB {
             return user;
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -279,9 +285,9 @@ public class UserDB {
      *
      * @param rs ResultSet containing a row from the User table
      * @return {@link User} User Information
-     * @throws SQLException
+     * @
      */
-    private static User buildUser(ResultSet rs) throws SQLException {
+    private static User buildUser(ResultSet rs) {
 
         try {
             User user = new User();
@@ -299,7 +305,7 @@ public class UserDB {
             return user;
         } catch (SQLException e) {
             System.err.println(e);
-            throw e;
+            throw new RuntimeException(e);
         }
 
     }//End - buildUser()
@@ -323,7 +329,7 @@ public class UserDB {
             return rs.next();
         } catch (SQLException e) {
             System.err.println(e);
-            return false;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -355,7 +361,7 @@ public class UserDB {
             return rs.next();
         } catch (SQLException e) {
             System.err.println(e);
-            return false;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);

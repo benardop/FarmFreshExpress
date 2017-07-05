@@ -3,13 +3,17 @@
   Purpose:  To display all unprocessed Invoices as part of Admin Functionality
             The user can click the "Click To View" Link beside any Invoice
             to View the Invoice in the Invoice Detail window.
-            The "Click to View" Link initiates call to /displayInvoice
-            caught by the AdminController.
+
+            Window Actions:
+            - Click of the "Click to View" Link sends form data to
+            /displayInvoice in the AdminController.
+
   Author: Amy Radtke
-  Version: 1.0    Dated: 06/01/2017
+  Version: 1.0    Dated: 07/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_admin.jsp" />
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- begin middle column -->
