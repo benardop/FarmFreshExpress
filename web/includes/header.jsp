@@ -47,7 +47,7 @@
         <%--LOG IN - if noone is logged in;  LOG OUT - if someone is logged in--%>
         <c:choose>
             <c:when test="${pageContext.request.remoteUser == null}">
-                <li><a href="<c:url value='/login_redirect.jsp' />">
+                <li><a href="<c:url value='/user/login' />">
                     LOG IN</a></li>
                 <li><a href="<c:url value='/register_user.jsp' />">
                     REGISTER</a></li>

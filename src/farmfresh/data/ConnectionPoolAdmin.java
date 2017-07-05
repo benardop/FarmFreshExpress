@@ -7,12 +7,36 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by benard on 11/15/2016.
+ * A connection pool contains a group of JDBC connections that are created when the
+ * connection pool is registered. Connection pools use a JDBC driver
+ * to create physical database connections. This class provides the ability
+ * for the application to borrow a connection from the pool, use it, then
+ * return it to the pool by closing it.  <br>
+ *
+ * It connects to the farmDB that contains all security related
+ * data such as User Logins, Passwords and Roles
+ * See the context.xml file for additional details
+ *
+ * @author Benard Pacho developed the logic  Amy Radtke commented the code.
  */
 public class ConnectionPoolAdmin {
+    /**
+     * DB Connection pool used by the Farm Fresh application
+     * One set up statically for this Application
+     */
     private static ConnectionPoolAdmin pool = null;
+
+    /**
+     * The factory for connections to the physical datasource: farmDB
+     * that is connected to the security related Farm Fresh Express Data
+     * such as User Logins, Passwords and Roles.
+     * One set up statically for this Application
+     */
     private static DataSource dataSource = null;
 
+    /**
+     * @return a New ConnectionPoolAdmin if one has not been instantiated yet.
+     */
     public synchronized static ConnectionPoolAdmin getInstance() {
         if (pool == null) {
             pool = new ConnectionPoolAdmin();
@@ -20,6 +44,10 @@ public class ConnectionPoolAdmin {
         return pool;
     }
 
+    /**
+     * ConnectionPool Constructor that initializes the Datasource
+     * associated with the farmDB used by this application
+     */
     private ConnectionPoolAdmin() {
         try {
             InitialContext ic = new InitialContext();
@@ -29,6 +57,9 @@ public class ConnectionPoolAdmin {
         }
     }
 
+    /**
+     * @return Connection returned from the farmFreshDB Datasource (security tables)
+     */
     public Connection getConnection() {
         try {
             return dataSource.getConnection();
@@ -38,6 +69,10 @@ public class ConnectionPoolAdmin {
         }
     }
 
+    /**
+     * Free the given Database Connection by closing it
+     * @param c {@link Connection}
+     */
     public void freeConnection(Connection c) {
         try {
             c.close();
@@ -45,4 +80,5 @@ public class ConnectionPoolAdmin {
             System.err.println(sqle);
         }
     }
-}
+
+}//End - ConnectionPoolAdmin()

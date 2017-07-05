@@ -169,7 +169,7 @@ CREATE TABLE `product` (
   `Description` varchar(1000) DEFAULT NULL,
   `ImageID` varchar(45) DEFAULT NULL,
   `Price` decimal(8,2) DEFAULT NULL,
-  `InSeason` char(1) DEFAULT NULL,
+  `IsAvailable` char(1) DEFAULT NULL,
   PRIMARY KEY (`ProductID`,`ProductTypeID`),
   UNIQUE KEY `ProductCode_UNIQUE` (`ProductCode`),
   KEY `fk_Product_ProductType1_idx` (`ProductTypeID`),

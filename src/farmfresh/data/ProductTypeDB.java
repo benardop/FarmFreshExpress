@@ -10,11 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mom and Dad on 12/14/2016.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the 'producttype' Table.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class ProductTypeDB {
 
+    /**
+     * @return Return the List of All Product Types
+     */
     public static List<ProductType> selectProductTypes() {
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
@@ -45,6 +53,6 @@ public class ProductTypeDB {
             pool.freeConnection(connection);
         }
 
-    }
+    }//End - selectProductTypes()
 
-}
+}//End - ProductTypeDB.java

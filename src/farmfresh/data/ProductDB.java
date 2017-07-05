@@ -7,11 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mom and Dad on 11/15/2016.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the 'product' Table.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class ProductDB {
 
-    public static List<Product> selectProductsInSeason(String productTypeId) {
+    /**
+     * Return the List of Products matching the given Product Type that are
+     * Available to be sold
+     * @param productTypeId  Unique ID for a Product Type such as fruits, veggies
+     * @return List of Products of a given Product Type that are available to be sold
+     */
+    public static List<Product> selectAvailableProducts(String productTypeId) {
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
@@ -24,12 +35,12 @@ public class ProductDB {
                 " Product.Description," +
                 " Product.ImageID," +
                 " Product.Price," +
-                " Product.InSeason," +
+                " Product.IsAvailable," +
                 " ProductType.ProductTypeName" +
                 " FROM ProductType, Product" +
                 " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
                 " AND Product.ProductTypeID = ?" +
-                " AND Product.InSeason = TRUE" +
+                " AND Product.IsAvailable = TRUE" +
                 " ORDER BY Product.Name;";
 
         try {
@@ -48,7 +59,7 @@ public class ProductDB {
                 product.setDescription(rs.getString("Description"));
                 product.setImageId(rs.getString("ImageID"));
                 product.setPrice(rs.getDouble("Price"));
-                product.setInSeason(rs.getBoolean("InSeason"));
+                product.setIsAvailable(rs.getBoolean("IsAvailable"));
                 product.setProductTypeName(rs.getString("ProductTypeName"));
                 products.add(product);
             }
@@ -63,44 +74,13 @@ public class ProductDB {
             pool.freeConnection(connection);
         }
 
-    }
+    }//End - selectAvailableProducts
 
-//    public static Product selectProduct(String productID) {
-//
-//        ConnectionPool pool = ConnectionPool.getInstance();
-//        Connection connection = pool.getConnection();
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//
-//        String query = "SELECT * FROM Product "
-//                + "WHERE ProductID = ?";
-//
-//        try {
-//            ps = connection.prepareStatement(query);
-//            ps.setString(1, productID);
-//            rs = ps.executeQuery();
-//
-//            if (rs.next()) {
-//                Product product = new Product();
-//                product.setProductId(rs.getLong("ProductID"));
-//                product.setProductCode(rs.getString("ProductCode"));
-//                product.setDescription(rs.getString("Description"));
-//                product.setPrice(rs.getDouble("Price"));
-//                return product;
-//            } else {
-//                return null;
-//            }
-//
-//        } catch (SQLException e) {
-//            System.err.println(e);
-//            return null;
-//        } finally {
-//            DBUtil.closeResultSet(rs);
-//            DBUtil.closePreparedStatement(ps);
-//            pool.freeConnection(connection);
-//        }
-//    }
-
+    /**
+     * Return a Product given the Product's Unique ID
+     * @param productId  A Product's Unique ID
+     * @return {@link Product}
+     */
     public static Product selectProduct(String productId) {
 
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -116,7 +96,7 @@ public class ProductDB {
                         " Product.Description," +
                         " Product.ImageID," +
                         " Product.Price," +
-                        " Product.InSeason," +
+                        " Product.IsAvailable," +
                         " ProductType.ProductTypeName" +
                         " FROM ProductType, Product" +
                         " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
@@ -136,7 +116,7 @@ public class ProductDB {
                 product.setDescription(rs.getString("Description"));
                 product.setImageId(rs.getString("ImageID"));
                 product.setPrice(rs.getDouble("Price"));
-                product.setInSeason(rs.getBoolean("InSeason"));
+                product.setIsAvailable(rs.getBoolean("IsAvailable"));
                 product.setProductTypeName(rs.getString("ProductTypeName"));
                 return product;
             } else {
@@ -151,9 +131,10 @@ public class ProductDB {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
-    }
 
-// METHODS I PROGRAMMED - I DON'T NEED THEM NOW - BUT I MAY WANT THEM LATER...
+    }//End - selectProduct()
+
+// METHODS I PROGRAMMED - I DON'T NEED THEM NOW - BUT I MAY WANT THEM FOR A LATER VERSION...
 //    public static void insert(Product product) {
 //        ConnectionPool pool = ConnectionPool.getInstance();
 //        Connection connection = pool.getConnection();
@@ -231,4 +212,4 @@ public class ProductDB {
 //
 //    }
 
-}
+}//End - ProductDB.java

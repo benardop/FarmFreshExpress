@@ -1,9 +1,12 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 6:44 AM
-  To change this template use File | Settings | File Templates.
+  File: invoice.jsp
+  Purpose:  To display a single Invoice as part of Admin Functionality
+            The user can click the "Process" Button to process the Invoice
+            when the purchase associated with the Invoice is shipped.
+            The "Process" Button initiates FormAction of /processInvoice
+            caught by the AdminController.
+  Author: Amy Radtke
+  Version: 1.0    Dated: 06/01/2017
 --%>
 <jsp:include page="/includes/header.jsp"/>
 <jsp:include page="/includes/column_left_admin.jsp"/>
@@ -19,12 +22,12 @@
     <table>
         <tr>
             <td><b>Date/Time</b></td>
-            <td>${invoice.invoiceDateDefaultFormat}</td>
+            <td>${invoice.invoiceDateInSimpleDateFormat}</td>
             <td></td>
         </tr>
         <tr>
             <th class="top">Ship To</th>
-            <td>${invoice.user.shipToHTMLFormat}</td>
+            <td>${invoice.user.shipToAddressInHTMLFormat}</td>
             <td></td>
         </tr>
         <tr>
@@ -42,7 +45,7 @@
             <tr>
                 <td>${item.quantity}</td>
                 <td>${item.product.name}</td>
-                <td>${item.product.priceCurrencyFormat}</td>
+                <td>${item.product.priceInCurrencyFormat}</td>
             </tr>
         </c:forEach>
 
@@ -54,7 +57,7 @@
         <tr>
             <td></td>
             <th>Total:</th>
-            <td><p><b>${invoice.invoiceTotalCurrencyFormat}</b></td>
+            <td><p><b>${invoice.totalCostInCurrencyFormat}</b></td>
         </tr>
         <tr>
             <td></td>
@@ -62,6 +65,10 @@
         <tr>
             <td><b>Payment Information</b></td>
             <td>Under Development - Not Currently Available</td>
+            <%--TO BE ADDED ONCE THE CREDIT CARD FUNCTIONALITY HAS BEEN DEVELOPED ***************--%>
+            <%--<span>${invoice.user.creditCardType}: ${invoice.user.creditCardNumber}           --%>
+            <%--(${invoice.user.creditCardExpMonth}/${invoice.user.creditCardExpYear})</span><br>--%>
+            <%--*********************************************************************************--%>
             <td></td>
             <td></td>
         </tr>
@@ -74,17 +81,6 @@
         </tr>
 
     </table>
-
-    <%--<label>Payment information</label>--%>
-    <%--<p>Under Development - Not currently available</p><br>--%>
-
-    <%--TO BE ADDED ONCE THE CREDIT CARD FUNCTIONALITY HAS BEEN DEVELOPED ***************--%>
-    <%--<span>${invoice.user.creditCardType}: ${invoice.user.creditCardNumber}           --%>
-    <%--(${invoice.user.creditCardExpMonth}/${invoice.user.creditCardExpYear})</span><br>--%>
-    <%--*********************************************************************************--%>
-
-    <%--<label>Email Address</label>--%>
-    <%--<span>${invoice.user.email}</span><br>--%>
 
     <form action="processInvoice" method="post">
         <input type="submit" value="Process Invoice">

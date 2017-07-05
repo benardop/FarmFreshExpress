@@ -17,9 +17,10 @@ import java.util.Objects;
 
 /**
  * Purpose: To manage all User specific activities
- * These activities include Logging Out, Registering, and subscribing to and
+ * These activities include Logging In, Logging Out, Registering, subscribing to and
  * un-subscribing from the eNewsletter.
  * Logging In is managed by the Security Layer of this application.
+ * (/user/login is setup as a secure area (requiring login) in the web.xml file
  * Deleting Cookies is also available - but only to the Super User for Development purposes.
  *
  * @author Amy Radtke
@@ -39,6 +40,8 @@ public class UserController extends HttpServlet {
 
         if (requestURI.endsWith("/register")){
             url = register(request, response);
+        }else if (requestURI.endsWith("/login")) {
+            url = login(request, response);
         }else if (requestURI.endsWith("/logout")){
             url = logout(request, response);
         }else if (requestURI.endsWith("/deleteCookies")){
@@ -65,11 +68,9 @@ public class UserController extends HttpServlet {
              url = subscribeToNewsletter(request, response);
          }else if (requestURI.endsWith("/unsubscribeFromNewsletter")) {
              url = unsubscribeFromNewsletter(request, response);
+         }else if (requestURI.endsWith("/register")){
+             url = register(request, response);
          }
-
-//         else if (requestURI.endsWith("/register")){
-//             url = register(request, response);
-//         }
 
         getServletContext()
            .getRequestDispatcher(url)
@@ -179,7 +180,7 @@ public class UserController extends HttpServlet {
         userRole.setRolename("user");
         UserRoleDB.insert(userRole);
 
-        // Create a User's Email cookie
+        // Create a User Email cookie
         Cookie emailCookie = new Cookie("emailCookie", email);
         emailCookie.setMaxAge(60 * 60 * 365 * 2); // 2 years
         emailCookie.setPath("/");  //root which is FarmFreshExpress
@@ -199,9 +200,58 @@ public class UserController extends HttpServlet {
     }//End - register()
 
     /**
+     * Initiates User Login:  /user/login is a secured method - which initiates System Login.
+     * Functionality.  Once the user is Logged In and Authenticated, the User information is
+     * saved to the Session object and the email is saved to the userEmail Cookie.
+     *
+     * @param request
+     * @param response
+     * @return  URL to
+     * @return  URL / is returned to initiate display of the homepage
+     * the homepage
+     */
+    private String login(HttpServletRequest request, HttpServletResponse response) {
+
+        // The only way for a user to be able to proceed with the Login functionality is
+        // they've already done a System Login and been authenticated...
+        // getRemoteUser() - Returns the login of the user making this request.
+
+        String email = request.getRemoteUser();
+
+        //  ** User has Authenticated **
+        // Pull user from User DB and save User to Session
+        User user = UserDB.selectUser(email);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+
+        // Set the email cookie in the user's browser
+        Cookie emailCookie = new Cookie("emailCookie", user.getEmail());
+        emailCookie.setMaxAge(60 * 60 * 24 * 365 * 2);  //TODO fix other setMax
+        emailCookie.setPath("/");  // for the entire application
+        response.addCookie(emailCookie);
+
+        // Initiate display of the Homepage
+        return "/";
+
+    }// End - login()
+
+    /**
      * <br>
      * Initiates the User Logout and returns to the Home Screen.
      * Also removes the User from the Session object and removes the User Email Cookie
+     *
+     * User's identity information should be cleared from the request.
+     * User should be cleared from the session object.  userEmail Cookie should be cleared.
+     * BUT, the cart should NOT be cleared from the session object.
+     * To support the scenario where the user added items to the cart, then realized they
+     * were logged in under the wrong account.  They should be able to logout of the wrong account
+     * and login with the right account - without losing the items that were stored in their cart.
+     *
+     * NOTE:  logout() clears the identity information in the request but doesn't affect the session.
+     * invalidate() invalidates the session but doesn't affect the identity information in the request.
+     * I want to maintain the cart information in the Session object.
+     * Therefore, I did not call Session.invalidate
+     *
      * <br><br>
      * Request object Parameters:<br>
      * "emailCookie" - Email Cookie <br>
@@ -216,7 +266,7 @@ public class UserController extends HttpServlet {
      */
     private String logout(HttpServletRequest request, HttpServletResponse response){
 
-        // 1-- Logout - clearing the identity information in the request
+        // Call request.logout() to clear the identity information from the request
         try{
             request.logout();
 
@@ -226,10 +276,10 @@ public class UserController extends HttpServlet {
             return "/";
         }
 
-        // 2-- Remove user from session object
+        // Remove user from session object
         request.getSession().setAttribute("user", null);
 
-        // 3-- Delete the email cookie
+        // Delete the email cookie
         Cookie cookie = CookieUtil.getCookie(request.getCookies(), "emailCookie");
         if (cookie != null) {
             cookie.setMaxAge(0);
@@ -285,8 +335,7 @@ public class UserController extends HttpServlet {
         }else{
            User user = new User();
            user.setEmail(email);
-           user.setSubscribedToNewsletter(true);
-         //  request.setAttribute("user",user);  //TO DO:  do I need this?  How is it used?
+           user.setIsSubscribedToNewsletter(true);
            UserDB.insert(user);
         }
 

@@ -35,7 +35,7 @@
                                  height="50"/>
                         </td>
                         <td>${item.product.name}</td>
-                        <td>${item.product.priceCurrencyFormat}</td>
+                        <td>${item.product.priceInCurrencyFormat}</td>
                         <td>
                             <form action="<c:url value='/order/updateItem'/>" method="post">
                                 <input type="hidden" name="productId"
@@ -59,7 +59,7 @@
                 <tr>
                     <td></td>
                     <th>Total (${cart.cartQuantity} items):</th>
-                    <th>${cart.cartTotalCurrencyFormat}</th>
+                    <th>${cart.totalCostInCurrencyFormat}</th>
                 </tr>
                 </c:if>
             </table>

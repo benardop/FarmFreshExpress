@@ -1,9 +1,10 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 6:58 AM
-  To change this template use File | Settings | File Templates.
+  File: parameters.jsp
+  Purpose:  A Form to Collect Reporting Start and End Dates
+            The "Continue" Button initiates call of /displayReport
+            caught by the AdminController.
+  Author: Amy Radtke
+  Version: 1.0    Dated: 06/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_admin.jsp" />

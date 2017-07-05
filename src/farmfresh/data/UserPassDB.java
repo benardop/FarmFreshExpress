@@ -8,10 +8,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Mom and Dad on 11/15/2016.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the 'userpass' Table.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class UserPassDB {
 
+    /**
+     * Insert a row into the userpass table
+     * @param userPass contains the User's User/Login Name and Password
+     */
     public static void insert(UserPass userPass) {
 
         ConnectionPoolAdmin pool = ConnectionPoolAdmin.getInstance();

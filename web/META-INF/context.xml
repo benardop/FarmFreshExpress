@@ -9,7 +9,7 @@
               removeAbandoned="true" removeAbandonedTimeout="60"
               maxActive="100" maxIdle="30" maxWait="10000" />
 
-    <!-- the farmadmin database that contains admin usernames and passwords -->
+    <!-- the farmfresh database that contains usernames, passwords and roles -->
     <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://127.0.0.1:3306/farmadmin?autoReconnect=true"

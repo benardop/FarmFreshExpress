@@ -18,7 +18,7 @@
        height="250"
   />
   <h2>${product.name}</h2>
-  <h3>${product.priceCurrencyFormat}</h3>
+  <h3>${product.priceInCurrencyFormat}</h3>
   <h3>${product.description}</h3>
 
     <form action="<c:url value='/order/addItem'/>" method="post">

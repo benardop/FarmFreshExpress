@@ -27,15 +27,33 @@ public class MailUtil {
                                 String subject, String body, boolean bodyIsHTML)
             throws MessagingException {
 
-        // 1 - get a mail session
+        // Create a Mail Session
         Properties props = new Properties();
-        //props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", "127.0.0.1");
-        //props.put("mail.smtp.port", 25);
-        Session session = Session.getDefaultInstance(props);
+//        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("amy@roofreelancing.com", "k3rVE3VNV3h4");
+
+                        //return new PasswordAuthentication("amy.freelance.dev@gmail.com", "free6312");
+                    }
+                });
+
+//        props.put("mail.transport.protocol", "smtp");
+//        props.put("mail.smtp.host", "localhost");
+//        props.put("mail.smtp.host", "127.0.0.1"); --- this was the only line not commented out in old logic
+//        props.put("mail.smtp.port", 25);
+//        Session session = Session.getDefaultInstance(props);
+
+        // Turn Debugging On
         session.setDebug(true);
 
-        // 2 - create a message
+        // Create the Message
         Message message = new MimeMessage(session);
         message.setSubject(subject);
         if (bodyIsHTML) {
@@ -44,14 +62,15 @@ public class MailUtil {
             message.setText(body);
         }
 
-        // 3 - address the message
+        // Address the Message
         Address fromAddress = new InternetAddress(from);
         Address toAddress = new InternetAddress(to);
         message.setFrom(fromAddress);
         message.setRecipient(Message.RecipientType.TO, toAddress);
 
-        // 4 - send the message
+        // Send the Message
         try {
+            //Transport hangs - last msg:  trying to connect to host "127.0.0.1", port 25, isSSL false
             Transport.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();

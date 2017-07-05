@@ -3,7 +3,6 @@ package farmfresh.business;
 import java.util.Date;
 
 /**
- * CreditCard.java
  * Purpose: CreditCard represents a Credit Card used to make purchases by a User
  * Users can have multiple credit cards
  * NOT YET IMPLEMENTED - THIS IS ONLY A SHELL

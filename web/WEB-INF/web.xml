@@ -95,7 +95,7 @@
         <web-resource-collection>
             <!-- initiate login when LOGIN is clicked in header -->
             <web-resource-name>Login Area</web-resource-name>
-            <url-pattern>/login_redirect.jsp</url-pattern>
+            <url-pattern>/user/login</url-pattern>
         </web-resource-collection>
 
         <!-- authorize the service and the programmer roles -->

@@ -171,8 +171,9 @@ public class AdminController extends HttpServlet {
     /**
      * <br>
      * Creates the following Admin Reports:<br>
-     * User Email Report - Lists contact information for all Users in the System
-     * Download Report - To Be Developed Later
+     * User Detail Report - Lists detail information for all Users registered
+     * in the System
+     * OTHER REPORTS TO BE DEVELOPED LATER
      * <br><br>
      * Request object Parameters:<br>
      * "reportName" - Name of report to be run<br>
@@ -190,11 +191,9 @@ public class AdminController extends HttpServlet {
 
         Workbook workbook;
         if (reportName.equalsIgnoreCase("userEmail")){
-            workbook = ReportDB.getUserEmail();
-        }else if (reportName.equalsIgnoreCase("downloadDetail")){
-//            workbook = ReportDB.getDownloadDetail(startDate, endDate);//TODO at a later time
-            workbook = new HSSFWorkbook();
-        }else{
+            workbook = ReportDB.getUserDetailReport();
+        }else {
+            // workbook = ReportDB.get???(startDate, endDate);//TODO at a later time
             workbook = new HSSFWorkbook();
         }
         response.setHeader("content-disposition",

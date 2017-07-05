@@ -24,14 +24,9 @@
     <h1>Your Order</h1>
 
     <table>
-        <%--<tr>--%>
-            <%--<th>Date/Time</th>--%>
-            <%--<td>${invoice.invoiceDateDefaultFormat}</td>--%>
-            <%--<td></td>--%>
-        <%--</tr>--%>
         <tr>
             <th class="top">Ship To</th>
-            <td>${user.shipToHTMLFormat}</td>
+            <td>${user.shipToAddressInHTMLFormat}</td>
             <td></td>
         </tr>
         <tr>
@@ -49,7 +44,7 @@
             <tr>
                 <td>${item.quantity}</td>
                 <td>${item.product.name}</td>
-                <td>${item.product.priceCurrencyFormat}</td>
+                <td>${item.product.priceInCurrencyFormat}</td>
             </tr>
         </c:forEach>
 
@@ -61,7 +56,7 @@
         <tr>
             <td></td>
             <th>Total:</th>
-            <td>${invoice.invoiceTotalCurrencyFormat}</td>
+            <td>${invoice.totalCostInCurrencyFormat}</td>
         </tr>
     </table>
 

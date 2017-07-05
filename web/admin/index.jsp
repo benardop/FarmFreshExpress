@@ -1,63 +1,59 @@
-<%--
-        Class:  index.jsp in FarmFreshExpress/web/eNewsletter directory
-        Purpose:  Screen used to subscribe or unsubscribe from the Farm's eNewsletter
-        Specifics:  If user is already signed up - they will be told they are.
-        If user is not signed up yet - a row will be added in the user table
-        with email and SubscribedToNewsletter flag set.
-        Email entered must have an @ and be 254 characters or less.
+<%--&lt;%&ndash;--%>
+        <%--Class:  index.jsp in FarmFreshExpress/web/eNewsletter directory--%>
+        <%--THIS JSP IS NOT CURRENTLY BEING USED...--%>
 
-@version 1.0  Dated:  05/01/2017
-@author Amy Radtke    Initial Creation             05/01/2017
-@since ??? version of jdk
+<%--@version 1.0  Dated:  05/01/2017--%>
+<%--@author Amy Radtke    Initial Creation             05/01/2017--%>
+<%--@since ??? version of jdk--%>
 
---%>
-<jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/column_left_admin.jsp" />
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--&ndash;%&gt;--%>
+<%--<jsp:include page="/includes/header.jsp" />--%>
+<%--<jsp:include page="/includes/column_left_admin.jsp" />--%>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 
-<!-- begin middle column -->
+<%--<!-- begin middle column -->--%>
 
-<section id="admin">
+<%--<section id="admin">--%>
 
-  <h1> THIS CODE IS NEVER USED</h1>
+  <%--<h1> THIS CODE IS NEVER USED</h1>--%>
 
-  <%--<c:if test="${unprocessedInvoices == null}">--%>
-    <%--<p>There are no invoices to process.</p>--%>
-  <%--</c:if>--%>
+  <%--&lt;%&ndash;<c:if test="${unprocessedInvoices == null}">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<p>There are no invoices to process.</p>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;</c:if>&ndash;%&gt;--%>
 
 
-  <%--<c:if test="${unprocessedInvoices != null}">--%>
-    <%--<table>--%>
+  <%--&lt;%&ndash;<c:if test="${unprocessedInvoices != null}">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<table>&ndash;%&gt;--%>
 
-      <%--<tr>--%>
-        <%--<td></td>--%>
-        <%--<td><b>Customer Name</b></td>--%>
-        <%--<td><b>Invoice Date</b></td>--%>
-      <%--</tr>--%>
+      <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<td></td>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<td><b>Customer Name</b></td>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<td><b>Invoice Date</b></td>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
 
 
-      <%--<c:forEach var="invoice" items="${unprocessedInvoices}">--%>
-        <%--<tr>--%>
-          <%--<td>--%>
-            <%--<a href="displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>--%>
-          <%--</td>--%>
-          <%--<td>${invoice.user.firstName} ${invoice.user.lastName}</td>--%>
-          <%--<td>${invoice.invoiceDateDefaultFormat}</td>--%>
-        <%--</tr>--%>
-      <%--</c:forEach>--%>
+      <%--&lt;%&ndash;<c:forEach var="invoice" items="${unprocessedInvoices}">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+          <%--&lt;%&ndash;<td>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<a href="displayInvoice?invoiceNumber=${invoice.invoiceNumber}">Click to View</a>&ndash;%&gt;--%>
+          <%--&lt;%&ndash;</td>&ndash;%&gt;--%>
+          <%--&lt;%&ndash;<td>${invoice.user.firstName} ${invoice.user.lastName}</td>&ndash;%&gt;--%>
+          <%--&lt;%&ndash;<td>${invoice.invoiceDateDefaultFormat}</td>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;</c:forEach>&ndash;%&gt;--%>
 
-    <%--</table>--%>
-  <%--</c:if>--%>
+    <%--&lt;%&ndash;</table>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;</c:if>&ndash;%&gt;--%>
 
-  <%--<form action="<c:url value='/admin'/>" method="post">--%>
-    <%--<input type=submit value="Go Back to Menu">--%>
-  <%--</form>--%>
+  <%--&lt;%&ndash;<form action="<c:url value='/admin'/>" method="post">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<input type=submit value="Go Back to Menu">&ndash;%&gt;--%>
+  <%--&lt;%&ndash;</form>&ndash;%&gt;--%>
 
-</section>
+<%--</section>--%>
 
-<!-- end middle column -->
+<%--<!-- end middle column -->--%>
 
-<jsp:include page="/includes/footer.jsp" />
+<%--<jsp:include page="/includes/footer.jsp" />--%>
 
 
 

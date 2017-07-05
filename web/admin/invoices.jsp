@@ -1,9 +1,12 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: benard
-  Date: 11/20/2016
-  Time: 6:45 AM
-  To change this template use File | Settings | File Templates.
+  File: invoices.jsp
+  Purpose:  To display all unprocessed Invoices as part of Admin Functionality
+            The user can click the "Click To View" Link beside any Invoice
+            to View the Invoice in the Invoice Detail window.
+            The "Click to View" Link initiates call to /displayInvoice
+            caught by the AdminController.
+  Author: Amy Radtke
+  Version: 1.0    Dated: 06/01/2017
 --%>
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/column_left_admin.jsp" />
@@ -39,8 +42,8 @@
           </td>
           <td class="center">${invoice.invoiceNumber}</td>
           <td>${invoice.user.firstName} ${invoice.user.lastName}</td>
-          <td class="right">${invoice.invoiceTotalCurrencyFormat}</td>
-          <td>${invoice.invoiceDateDefaultFormat}</td>
+          <td class="right">${invoice.totalCostInCurrencyFormat}</td>
+          <td>${invoice.invoiceDateInSimpleDateFormat}</td>
         </tr>
       </c:forEach>
 

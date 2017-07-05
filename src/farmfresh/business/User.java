@@ -3,106 +3,218 @@ package farmfresh.business;
 import java.util.Date;
 
 /**
- * Created by Mom and Dad on 11/4/2016.
+ * Purpose: User represents the User that is using the System
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class User {
 
-    // INSTANCE VARIABLES
+    /**
+     * User's Unique Identifier
+     */
     private Long userId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String companyName;
-    private String address1;
-    private String address2;
-    private String city;
-    private String state;
-    private String zip;
-    private boolean subscribedToNewsletter;
 
-    // GETTERS AND SETTERS
+    /**
+     * User's First Name
+     */
+    private String firstName;
+
+    /**
+     * User's Last Name
+     */
+    private String lastName;
+    /**
+     * User's Email Address
+     */
+    private String email;
+
+    /**
+     * User's Company Name
+     */
+    private String companyName;
+
+    /**
+     * The First Line of the User's Address
+     */
+    private String address1;
+
+    /**
+     * The Second Line of the User's Address
+     */
+    private String address2;
+
+    /**
+     * The User's City
+     */
+    private String city;
+
+    /**
+     * The User's State (in format VA, ME, etc)
+     */
+    private String state;
+
+    /**
+     * The User's Zip Code
+     */
+    private String zip;
+
+    /**
+     * Flag indicating that the User is Subscribed to the Newsletter
+     */
+    private boolean isSubscribedToNewsletter;
+
+    /**
+     * @return  User's Unique Identifier
+     */
     public Long getUserId() { return userId; }
 
+    /**
+     * @param userId  User's Unique Identifier
+     */
     public void setUserId(Long userId) { this.userId = userId; }
 
+    /**
+     * @return User's First Name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * @param firstName  User's First Name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * @return User's Last Name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * @param lastName  User's Last Name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * @return  User's Email Address
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @param email  User's Email Address
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return  User's Company name
+     */
     public String getCompanyName() {
         return companyName;
     }
 
+    /**
+     * @param companyName  User's Company Name
+     */
     public void setCompanyName(String companyName) { this.companyName = companyName; }
 
+    /**
+     * @return The First Line of the User's Address
+     */
     public String getAddress1() { return address1; }
 
+    /**
+     * @param address1  The First Line of the User's Address
+     */
     public void setAddress1(String address1) {
         this.address1 = address1;
     }
 
+    /**
+     * @return  The Last Line of the User's Address
+     */
     public String getAddress2() {
         return address2;
     }
 
+    /**
+     * @param address2  The Last Line of the User's Address
+     */
     public void setAddress2(String address2) {
         this.address2 = address2;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
+    /**
+     * @return  User's City
+     */
     public String getCity() {
         return city;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    /**
+     * @param city  User's City
+     */
+    public void setCity(String city) {
+        this.city = city;
     }
 
+    /**
+     * @return  User's State
+     */
     public String getState() {
         return state;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    /**
+     * @param state  User's State
+     */
+    public void setState(String state) {
+        this.state = state;
     }
 
+    /**
+     * @return  User's Zip
+     */
     public String getZip() {
         return zip;
     }
 
+    /**
+     * @param zip  User's Zip
+     */
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    /**
+     * @return  TRUE if User is Subscribed to the Newsletter, FALSE otherwise.
+     */
     public boolean isSubscribedToNewsletter() {
-        return subscribedToNewsletter;
+        return isSubscribedToNewsletter;
     }
 
-    public void setSubscribedToNewsletter(boolean subscribedToNewsletter) {
-        this.subscribedToNewsletter = subscribedToNewsletter;
+    /**
+     * @param isSubscribedToNewsletter FLAG indicating if User is Subscribed
+     * to the Newsletter
+     */
+    public void setIsSubscribedToNewsletter(boolean isSubscribedToNewsletter) {
+        this.isSubscribedToNewsletter = isSubscribedToNewsletter;
     }
 
-    //PUBLIC: SPECIALTY FUNCTIONALITY
-    public String getShipToHTMLFormat(){
+    /**
+     * @return User's "Ship To" Address in HTML Format
+     */
+    public String getShipToAddressInHTMLFormat(){
         String addressHTML = getFirstName() + " "
                             + getLastName() + "</br>"
                             + getAddress1() + "</br>";
@@ -119,4 +231,4 @@ public class User {
         return addressHTML;
     }
 
-}
+}//End - User.java

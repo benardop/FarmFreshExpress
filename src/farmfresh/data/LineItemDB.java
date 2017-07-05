@@ -8,10 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mom and Dad on 11/15/2016.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the 'lineitem' Table.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class LineItemDB {
 
+    /**
+     * Insert a LineItem into the 'lineitem' table associated with the
+     * given Invoice ID.
+     * @param invoiceId an Invoice's Unique ID
+     * @param lineItem {@link LineItem}
+     */
     public static void insert(long invoiceId, LineItem lineItem) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -36,8 +46,14 @@ public class LineItemDB {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
-    }
 
+    }//End - insert()
+
+    /**
+     * Select all Line Items that belong to the Invoice with the given Invoice ID
+     * @param invoiceID Unique Identifier for an Invoice
+     * @return List of Line Items belonging to the Invoice with the given Invoice ID
+     */
     public static List<LineItem> selectLineItems(long invoiceID){
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -71,7 +87,7 @@ public class LineItemDB {
             pool.freeConnection(connection);
         }
 
-    }
+    }//End - selectLineItems()
 
     // NOT USED - BUT KEEPING LOGIC ANYWAY
 //    public static void update(long invoiceId, LineItem lineItem) {
@@ -123,4 +139,4 @@ public class LineItemDB {
 //        }
 //    }
 
-}
+}//End - LineItemDB.java

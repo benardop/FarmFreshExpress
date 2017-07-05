@@ -13,11 +13,14 @@ import java.util.Date;
 
 /**
  * Purpose: To manage all activities the User may perform as they Checkout.
- * Activities include:  Making sure User is Logged In before Checking Out,
- * Displaying the Order, Updating the User's Address Information (optional/but available),
+ * Activities include:  Initiate Checking Out, Displaying the Order,
+ * Updating the User's Address Information (optional/but available),
  * Collecting Credit Card information, Processing Credit Card Information (In Development),
- * Saving the Invoice information to the Database thus Completing the Order.
- * Note:  When the Invoice is saved, the Cart information is removed from the Session object.
+ * Saving the Invoice information to the Database thus Completing the Order.<br>
+ * Note:  When the Invoice is saved, the Cart information is removed from the Session object.<br>
+ * Note:  /checkout (aka the CheckoutController) is secure and requires user login to
+ * access any of it's methods
+ * <br><br>
  * Future Development:  At this time - information saved in the User and Product Tables
  * are used when displaying a completed Order Invoice.  In future enhancements -
  * A snapshot of relevant user information will be saved to the Invoice - because
@@ -72,9 +75,9 @@ public class CheckOutController extends HttpServlet {
         String requestURI = request.getRequestURI();
         String url = defaultURL;
 
-//        if (requestURI.endsWith("/processUserUpdate")) {
-//            url = processUserUpdate(request, response);
-//        }
+        if (requestURI.endsWith("/processUserUpdate")) {
+            url = processUserUpdate(request, response);
+        }
 //        if (requestURI.endsWith("/checkUser")) {
 //            url = checkOut(request, response);
 //        }else if (requestURI.endsWith("/completeOrder")) {
@@ -88,31 +91,32 @@ public class CheckOutController extends HttpServlet {
     }//End - doGet()
 
     /**
-     * Verifies the user has authenticated.  If they haven not, it initiates Log In.
-     * If they have - it initiates the display of the User's Invoice (prior to Submission).
+     * The only way for a user to be able to proceed with checkOut() is if they
+     * have Logged In and been authenticated...
+     * Once the user is Logged In and Authenticated, the User and Invoice information is
+     * saved to the Session object and the email is saved to the userEmail Cookie.
+     * Then, initiates the display of the User Invoice window (prior to Submission).
      *
      * @param request
      * @param response
-     * @return  URL /login_error.jsp is returned to initiate logging in if there was
-     * an authentication error.  /checkOut/displayOrder is returned to initiate displaying
-     * the order for verification before payment - if the user has been authenticated
+     * @return  URL /checkOut/displayOrder is returned to initiate displaying of
+     * the order for verification before payment
      */
     private String checkUser(HttpServletRequest request, HttpServletResponse response) {
 
-        // The only way for a user to be able to proceed with checkOut() is if they
-        // have Logged In and been authenticated...  getRemoteUser() - Returns the
-        // login of the user making this request, if the user has been authenticated,
-        // or null if the user has not been authenticated.  If null, the user is forced
-        // login.  Else URL is returned initiating display of the Order/Invoice.
+        // getRemoteUser() - Returns the email of the person who has logged in and been authenticated
         String email = request.getRemoteUser();
-        if (email == null) {
-            return "/login_error.jsp";
-        }
 
-        // User has authenticated - display their invoice (Invoice not saved to DB Yet).
+        //  Pull user from User DB based on the email and save User to Session
         User user = UserDB.selectUser(email);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
+
+        // Set the email cookie in the user's browser
+        Cookie emailCookie = new Cookie("emailCookie", user.getEmail());
+        emailCookie.setMaxAge(60 * 60 * 24 * 365 * 2);  //TODO fix other setMax
+        emailCookie.setPath("/");  // for the entire application
+        response.addCookie(emailCookie);
 
         // Initiate display of Order window
         return "/checkOut/displayOrder";
@@ -142,7 +146,8 @@ public class CheckOutController extends HttpServlet {
 
         // Initiate the display of the invoice(pending completion) in the Order window
         return "/cart/order.jsp";
-    }
+
+    }//End - displayOrder()
 
     /**
      * Takes updated User information (populated in the User Update window)
@@ -169,13 +174,9 @@ public class CheckOutController extends HttpServlet {
         String zip = request.getParameter("zip");
 
         // Assumption:  User is in Session object - Stored there during CheckUser functionality
+        // Which also means, if user can Login, they also exist in the User DB
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-
-        // If User is not in Session object, pull user from DB.
-//        if (user == null){
-  //          user = UserDB.selectUser(email);
-    //    }
 
         // Update user information based on User input and Save it to the User DB
         user.setFirstName(firstName);
@@ -192,9 +193,9 @@ public class CheckOutController extends HttpServlet {
         session.setAttribute("user", user);
 
         //Initiate display of the Invoice window
-        return "/checkOut/displayInvoice";
+        return "/checkOut/displayOrder";
 
-    }//End - userUpdate();
+    }//End - processUserUpdate();
 
     /**
      * Submit Order - Charge Credit Card (In Development - Not Yet Available),
@@ -246,7 +247,7 @@ public class CheckOutController extends HttpServlet {
 //        User user = invoice.getUser();
 //        String emailTo = user.getEmail();
 //        String emailFrom = "amy@roofreelancing.com";
-//        String emailSubject = "Farm Fresh Express Order# " + invoice.getInvoiceNumber();
+//        String emailSubject = "Farm Fresh Express Order";
 //        String emailBody =  "Dear " + user.getFirstName() + "\n\n" +
 //                            "Thank you for shopping Farm Fresh Express.\n" +
 //                            "Your order should be arriving within 2 to 3 business days.";
@@ -264,49 +265,9 @@ public class CheckOutController extends HttpServlet {
         // Clear out user's cart
         session.setAttribute("cart", null);
 
-//        //set the email cookie in the user's browser - DO I NEED THIS?
-//        Cookie emailCookie = new Cookie("emailCookie", user.getEmail());
-//        emailCookie.setMaxAge(60 * 60 * 24 * 365 * 2);  //TODO fix other setMax
-//        emailCookie.setPath("/");  // for the entire application
-//        response.addCookie(emailCookie);
-
+        // Initiate the display of the Order Complete window
         return "/cart/complete.jsp";
-    }
 
-    //    private String checkOut(HttpServletRequest request, HttpServletResponse response) {
-//
-//        HttpSession session = request.getSession();
-//        User user = (User) session.getAttribute("user");
-//
-//        // TODO Check to make sure a User has logged in...
-//        // Once Logged in if user exists and has a populated Address1 field - skip the user input page
-//        // and display Invoice right away...
-//        String url = "/cart/user.jsp";
-//        if (user != null && !user.getAddress1().equals("")) {
-//            url = "/order/displayInvoice";
-//        } else {
-//            //If the email cookie exists - pull the user from the DB
-//            Cookie[] cookies = request.getCookies();
-//            String email = CookieUtil.getCookieValue(cookies, "emailCookie"); //why not from params
-//
-//            //if emailCookie does not exist - you need to get user to enter user information
-//            if (email.equals("")) {
-//                user = new User();
-//                url = "/register_user.jsp";
-////                url = "/cart/user.jsp";
-//            } else {
-//                user = UserDB.selectUser(email);
-//                session.setAttribute("user", user);
-//
-//                //if user exists on the DB and user address1  is populated
-//                if (user != null && !user.getAddress1().equals("")) {
-//                    url = "/order/displayInvoice";
-//                }
-//
-//            }
-//        }
-//
-//        return url;
-//    }
+    }//End - submitOrder()
 
 }//End - CheckOutController.java

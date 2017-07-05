@@ -5,10 +5,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by Mom and Dad on 11/14/2016.
+ * Database Utility Object - used to close Database Statements,
+ * Result Sets and Prepared Statements
+ *
+ * @author Benard Pacho developed the logic  Amy Radtke commented the code.
  */
 public class DBUtil {
 
+    /**
+     * Closes the given SQL Statement
+     * @param s {@link Statement}
+     */
       public static void closeStatement(Statement s) {
 
           try {
@@ -21,6 +28,10 @@ public class DBUtil {
           }
       }
 
+    /**
+     * Closes the given SQL Result Set
+     * @param rs {@link ResultSet}
+     */
     public static void closeResultSet(ResultSet rs) {
 
         try {
@@ -33,7 +44,10 @@ public class DBUtil {
         }
     }
 
-
+    /**
+     * Closes the given SQL Prepared Statement
+     * @param ps {@link Statement}
+     */
     public static void closePreparedStatement(Statement ps){
 
           try {
@@ -45,4 +59,5 @@ public class DBUtil {
               System.err.println(e);
           }
       }
-}
+
+}//End DBUtil.java

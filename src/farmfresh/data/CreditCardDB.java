@@ -12,6 +12,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the creditcard DB Table.
+ * NOT YET IMPLEMENTED - THIS IS ONLY A SHELL
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
+ */
 public class CreditCardDB {
 
     public static void insert(CreditCard creditCard) {

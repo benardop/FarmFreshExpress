@@ -5,13 +5,20 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
- * Created by Mom and Dad on 11/18/2016.
- * Return sql result set in HTML format
+ * Returns SQL Result Set in HTML format
+ * NOT CURRENTLY USED...
+ *
+ * @author Benard Pacho developed the logic  Amy Radtke commented the code.
  */
 public class SQLUtil {
 
+    /**
+     * Returns SQL Result Set in HTML format
+     * @param result {@link ResultSet}
+     * @return A String containing the Result Set in HTML format
+     * @throws SQLException
+     */
     public static String getHTMLRows(ResultSet result) throws SQLException {
-
 
         StringBuilder htmlRows = new StringBuilder();
         ResultSetMetaData metaData = result.getMetaData();
@@ -35,8 +42,10 @@ public class SQLUtil {
         }
         htmlRows.append("</tr>");
         return htmlRows.toString();
-    }
 
+    }//End - getHTMLRows()
+
+    //NOT CURRENTLY USED...
     public static String encode(String s) {
 
         if (s == null) {
@@ -54,6 +63,7 @@ public class SQLUtil {
         }
 
         return sb.toString();
-    }
 
-}
+    }//End - encode()
+
+}//End - SQLUtil.java

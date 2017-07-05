@@ -9,17 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mom and Dad on 11/11/2016.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the 'invoice' Table.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class InvoiceDB {
 
-    // Invoice is written to database at point that Order is complete and paid for
+    /**
+     * Insert Invoice into the 'invoice' table.  It is inserted at the point
+     * that the Order is submitted and paid for.  (Note:  payment does not exist
+     * in V1 - it will be an enhancements for future builds)<br>
+     * Invoices are uniquely identified by InvoiceID which also serves as the
+     * Invoice Number used when displaying the Invoice to the user.
+     * @param invoice  An Invoice that has not yet been saved to the database
+     */
     public static void insert(Invoice invoice) {
 
-        // Get a connection from the Connection Pool
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -30,7 +39,7 @@ public class InvoiceDB {
         try{
             ps = connection.prepareStatement(query);
             ps.setLong(1, invoice.getUser().getUserId());
-            ps.setDouble(2, invoice.getInvoiceTotal());
+            ps.setDouble(2, invoice.getTotalCost());
 
             ps.executeUpdate();
 
@@ -43,7 +52,7 @@ public class InvoiceDB {
             identityResultSet.close();
             identityStatement.close();
 
-            // Write line items to the database (with the InvoiceID
+            // Write the Invoice's Line Items to the database (with the InvoiceID)
             List<LineItem> lineItems = invoice.getLineItems();
             for (LineItem item: lineItems){
                 LineItemDB.insert(invoiceId, item);
@@ -56,11 +65,14 @@ public class InvoiceDB {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
-
         }
 
-    }
+    }//End - insert()
 
+    /**
+     * Set the isProcessed Flag to TRUE for the given Invoice.
+     * @param invoice {@link Invoice}
+     */
     public static void markAsProcessed(Invoice invoice) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -85,8 +97,13 @@ public class InvoiceDB {
             pool.freeConnection(connection);
         }
 
-    }
+    }//End - markAsProcessed()
 
+    /**
+     * Select all Rows from the 'invoice' table where the isUnprocessed = FALSE.
+     * An Invoice has not been processed until it has shipped.
+     * @return List of Invoices
+     */
     public static List<Invoice> selectUnprocessedInvoices(){
 
         ConnectionPool pool = ConnectionPool.getInstance();

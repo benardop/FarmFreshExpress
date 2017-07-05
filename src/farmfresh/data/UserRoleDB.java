@@ -8,10 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Mom and Dad on 11/15/2016.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * functionality involving the 'userrole' Table.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class UserRoleDB {
 
+    /**
+     * Insert a row into the 'userrole' table
+     * @param userRole contains the User's User/Login Name and Role
+     * Roles Such As:  User, Super User and Admin
+     */
     public static void insert(UserRole userRole) {
 
         ConnectionPoolAdmin pool = ConnectionPoolAdmin.getInstance();

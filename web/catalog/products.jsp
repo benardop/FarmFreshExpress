@@ -14,15 +14,15 @@
 <section id="catalog">
     <h1>${productTypeName}</h1>
 
-    <c:if test="${productsInSeason.size() == 0}">
+    <c:if test="${availableProducts.size() == 0}">
         <h3>There are no ${productTypeName} for sale at this time.</h3>
     </c:if>
 
 
-    <c:if test="${productsInSeason.size() > 0}">
+    <c:if test="${availableProducts.size() > 0}">
         <table>
             <tr></tr>
-            <c:forEach var="product" items="${productsInSeason}">
+            <c:forEach var="product" items="${availableProducts}">
                 <tr>
                     <td><a href="/catalogController/displayProduct?productId=${product.productId}">
                         <img src="${product.imageURL}"
@@ -31,7 +31,7 @@
                          height="70"/>
                     </a></td>
                     <td>${product.name} </td>
-                    <td>${product.priceCurrencyFormat} </td>
+                    <td>${product.priceInCurrencyFormat} </td>
                     <td>
                         <form action="<c:url value='/order/addItem'/>" method="post">
                             <input type="hidden" name="productId"
