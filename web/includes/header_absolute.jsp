@@ -1,6 +1,6 @@
 <%--
-  File: header.jsp
-  Purpose:  To display the Homepage's Header information.
+  File: header_absolute.jsp
+  Purpose:  To display the Homepage's Header information - Using ABSOLUTE PATH logic.
             Header information includes:  Logo, Title and Horizontal Menu Bar.
             The items on the Menu are displayed/not displayed based on
             If the User has Logged In or Not and what the User's Role is.
@@ -44,35 +44,35 @@
         <%--and will need the ability to toggle between the two--%>
             <%--DELETE COOKIES is displayed for Super Users--%>
         <c:if test="${pageContext.request.isUserInRole('super_user')}">
-            <li><a href="<c:url value='/' />">
+            <li><a href="<c:url value='${absolutePath}' />">
                 USER VIEW</a></li>
-            <li><a href="<c:url value='/adminController/displayInvoices/' />">
+            <li><a href="<c:url value='${absolutePath}/adminController/displayInvoices/' />">
                 ADMIN VIEW</a></li>
-            <li><a href="<c:url value='/user/deleteCookies' />">
-                DLT COOKIES</a></li>
+            <li><a href="<c:url value='${absolutePath}/user/deleteCookies' />">
+                DELETE COOKIES</a></li>
         </c:if>
 
         <%--eNEWSLETTER is displayed for Users that are NOT Admins--%>
         <c:if test="${!pageContext.request.isUserInRole('admin')}">
-            <li><a href="<c:url value='/eNewsletter' />">
+            <li><a href="<c:url value='${absolutePath}/eNewsletter' />">
                 eNEWSLETTER</a></li>
         </c:if>
 
         <%--HELP is always displayed--%>
-        <li><a href="<c:url value='/help' />">
+        <li><a href="<c:url value='${absolutePath}/help' />">
             HELP</a></li>
 
         <%--LOG IN and REGISTER are displayed when noone is logged in--%>
         <%--LOG OUT is displayed when someone is logged in--%>
         <c:choose>
             <c:when test="${pageContext.request.remoteUser == null}">
-                <li><a href="<c:url value='/user/login' />">
+                <li><a href="<c:url value='${absolutePath}/user/login' />">
                     LOG IN</a></li>
-                <li><a href="<c:url value='/register_user.jsp' />">
+                <li><a href="<c:url value='${absolutePath}/register_user.jsp' />">
                     REGISTER</a></li>
             </c:when>
             <c:otherwise>
-                <li><a href="<c:url value='/user/logout' />">
+                <li><a href="<c:url value='${absolutePath}/user/logout' />">
                     LOG OUT</a></li>
             </c:otherwise>
         </c:choose>
@@ -82,10 +82,10 @@
         <c:if test="${!pageContext.request.isUserInRole('admin')}">
             <c:choose>
                 <c:when test="${cart == null}">
-                    <li><a href="<c:url value='/cart/cart.jsp' />"> CART: 0 </a></li>
+                    <li><a href="<c:url value='${absolutePath}/cart/cart.jsp' />"> CART: 0 </a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="<c:url value='/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>
+                    <li><a href="<c:url value='${absolutePath}/cart/cart.jsp'/>">CART: ${cart.cartQuantity} </a></li>
                 </c:otherwise>
             </c:choose>
         </c:if>
