@@ -104,9 +104,8 @@ public class CatalogController extends HttpServlet {
      * Request object Parameters:<br>
      * "productTypeId" - the Product Type ID that uniquely identifies the Type of Product<br>
      * "productTypeName" - the Name corresponding to the Product Type ID
-     * such as Fruits, Vegetables, etc<br>
-     *
-     * <br>
+     * such as Fruits, Vegetables, etc
+     * <br><br>
      * Session object Attributes:<br>
      * "productTypeName" - the Name corresponding to the Product Type ID
      * such as Fruits, Vegetables, etc<br>

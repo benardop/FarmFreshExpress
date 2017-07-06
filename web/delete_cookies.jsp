@@ -1,6 +1,6 @@
 <%--
   File: delete_cookies.jsp
-  Purpose:  To display a message indicating that All Cookies havve been deleted.
+  Purpose:  To display a message indicating that All Cookies have been deleted.
 
   Author: Amy Radtke
   Version: 1.0    Dated: 07/01/2017

@@ -78,11 +78,6 @@ public class CheckOutController extends HttpServlet {
         if (requestURI.endsWith("/processUserUpdate")) {
             url = processUserUpdate(request, response);
         }
-//        if (requestURI.endsWith("/checkUser")) {
-//            url = checkOut(request, response);
-//        }else if (requestURI.endsWith("/completeOrder")) {
-//            url = completeOrder(request, response);
-//        }
 
         getServletContext()
                 .getRequestDispatcher(url)
@@ -96,9 +91,13 @@ public class CheckOutController extends HttpServlet {
      * Once the user is Logged In and Authenticated, the User and Invoice information is
      * saved to the Session object and the email is saved to the userEmail Cookie.
      * Then, initiates the display of the User Invoice window (prior to Submission).
+     * <br><br>
+     * Request Object Information:
+     * email - is returned by calling RemoteUser() on the request object
+     * <br><br>
+     * Session object Attributes:<br>
+     * "user" - User object
      *
-     * @param request
-     * @param response
      * @return  URL /checkOut/displayOrder is returned to initiate displaying of
      * the order for verification before payment
      */
@@ -127,9 +126,13 @@ public class CheckOutController extends HttpServlet {
      * Takes a snapshot of the Cart and stores it in an Invoice pending Order
      * Completion.  The Invoice is saved to the session object and display
      * of the Order window is initiated (displaying the Invoice)
-     * @param request
-     * @param response
-     * @return
+     * <br><br>
+     * Session object Attributes:<br>
+     * "user" - User object
+     * "cart" - User's Cart
+     * "invoice" - User's Invoice after Cart is converted to an Invoice.
+     *
+     * @return URL /cart/order.jsp is returned to initiate displaying the Order Window
      */
     private String displayOrder(HttpServletRequest request, HttpServletResponse response) {
 
@@ -139,10 +142,12 @@ public class CheckOutController extends HttpServlet {
 
         // Convert Cart into an Invoice and save it to the Session object
         // Order will display Invoice prior to being Saved.
-        Invoice invoice = new Invoice();
-        invoice.setUser(user);
-        invoice.setLineItems(cart.getLineItems());
-        session.setAttribute("invoice", invoice);
+        if (user != null && cart !=null) {
+            Invoice invoice = new Invoice();
+            invoice.setUser(user);
+            invoice.setLineItems(cart.getLineItems());
+            session.setAttribute("invoice", invoice);
+        }
 
         // Initiate the display of the invoice(pending completion) in the Order window
         return "/cart/order.jsp";
@@ -155,15 +160,19 @@ public class CheckOutController extends HttpServlet {
      *
      * Assumption:  User already exists in the DB, because User would first need
      * to be registered and saved in the User DB before User would be allowed to Checkout.
+     * <br><br>
+     * Request Object Information:
+     * all User attributes - pulled from request and used to update User object and table
+     * <br><br>
+     * Session object Attributes:<br>
+     * "user" - User object
      *
-     * @param request
-     * @param response
-     * @return  URL to /checkout/displayInvoice.jsp which displays the Invoice window at Checkout
+     * @return  URL to /checkout/displayInvoice.jsp which displays the Invoice window again
      */
     private String processUserUpdate(HttpServletRequest request, HttpServletResponse response) {
 
         // Pull user information from request
-        // Note:  User Email is never changed - it Uniquely identifies the user upon Insert
+        // Note:  Email is never changed - it Uniquely identifies the user upon Insert
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String companyName = request.getParameter("companyName");
@@ -201,10 +210,14 @@ public class CheckOutController extends HttpServlet {
      * Submit Order - Charge Credit Card (In Development - Not Yet Available),
      * Save Invoice to Database, Send User an Order Confirmation Email (In Development -
      * Not Yet Available) and Clear out the Cart from the Session object
-     *
-     * @param request
-     * @param response
-     * @return URL to /checkout/displayInvoice.jsp which displays the Invoice window at Checkout
+     * <br><br>
+     * Request Object Information:
+     * all User attributes - pulled from request and used to update User object and table
+     * <br><br>
+     * Session object Attributes:<br>
+     * "user" - User object
+     * @return URL to /cart/complete.jsp is returned to initiate the displaying
+     * of the "Your Order is Complete" message window.
      */
     private String submitOrder(HttpServletRequest request, HttpServletResponse response) {
 
@@ -230,7 +243,7 @@ public class CheckOutController extends HttpServlet {
 //        if (UserDB.emailExists(user.getEmail())) {
 //            UserDB.update(user);
 //        } else {
-//          ERROR
+//                  return "/error_info.jsp";
 //        }
 //        **************************************************************************************
 
@@ -238,8 +251,9 @@ public class CheckOutController extends HttpServlet {
         HttpSession session = request.getSession();
         Invoice invoice = (Invoice) session.getAttribute("invoice");
 
-        // Save Invoice to Invoice Database
-        InvoiceDB.insert(invoice);
+        if (invoice != null) {
+            // Save Invoice to Invoice Database
+            InvoiceDB.insert(invoice);
 
 //        **************************************************************************************
 //        * IN DEVELOPMENT - Send email to user to confirm the order
@@ -262,11 +276,16 @@ public class CheckOutController extends HttpServlet {
 //        }
 //        **************************************************************************************
 
-        // Clear out user's cart
-        session.setAttribute("cart", null);
+            // Clear out user's cart and invoice
+            session.setAttribute("cart", null);
+            session.setAttribute("invoice", null);
 
-        // Initiate the display of the Order Complete window
-        return "/cart/complete.jsp";
+            // Initiate the display of the Order Complete window
+            return "/cart/complete.jsp";
+        }else {
+            // Return error window
+            return "/error_info.jsp";
+        }
 
     }//End - submitOrder()
 

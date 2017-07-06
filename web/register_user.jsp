@@ -4,7 +4,7 @@
 
             Window Actions:
             - Clicking the "Continue" Button sends form data to
-            /register in the UserController
+            /user/register in the UserController
 
   Author:  Amy Radtke
   Version  1.0  07/01/2017

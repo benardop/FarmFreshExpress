@@ -77,7 +77,7 @@
             </c:otherwise>
         </c:choose>
 
-        <%--CART is always displayed--%>
+        <%--CART is displayed to Users and Super Users; Note Admins--%>
         <%--It displays the Number of Items in the Cart or Zero if there is not Cart--%>
         <c:if test="${!pageContext.request.isUserInRole('admin')}">
             <c:choose>

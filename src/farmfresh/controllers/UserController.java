@@ -202,9 +202,15 @@ public class UserController extends HttpServlet {
     }//End - register()
 
     /**
-     * Initiates User Login:  /user/login is a secured method - which initiates System Login.
+     * Initiates User Login:  /user/login is a secured method - which initiates System Login
      * Functionality.  Once the user is Logged In and Authenticated, the User information is
      * saved to the Session object and the email is saved to the userEmail Cookie.
+     * <br><br>
+     * Request Object Information:
+     * email - is returned by calling RemoteUser() on the request object
+     * <br><br>
+     * Session object Attributes:<br>
+     * "user" - User object
      *
      * @param request
      * @param response
@@ -395,7 +401,5 @@ public class UserController extends HttpServlet {
         return "/eNewsletter/thanks.jsp";
 
     }// End - unsubscribeFromNewsletter()
-
-
 
 }// End - UserController class
