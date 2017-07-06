@@ -55,6 +55,7 @@ public class CreditCardDB {
             creditCard.setCreditCardId(creditCardId);
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -85,6 +86,7 @@ public class CreditCardDB {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -104,6 +106,7 @@ public class CreditCardDB {
 
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
@@ -135,7 +138,7 @@ public class CreditCardDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -167,7 +170,7 @@ public class CreditCardDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);

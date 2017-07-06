@@ -13,23 +13,29 @@ import javax.servlet.http.*;
 import javax.mail.*;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mom and Dad on 11/8/2016.
  *
- * Purpose:  to manage any actions relating to Adding, Updating or Deleting Items from the Cart.
+ * Purpose:  to manage any actions relating to Adding, Updating or Deleting Items
+ * from the Cart.
  *
- * OUTSTANDING QUESTIONS:
- * could order controller functionality be merged into checkoutcontroller functionality or
- * do they need to be seperate due to something relating to security (securing the OrderController
- * logic - to make certain the user has logged in before having any access to Order logic.
+ * NOTE:  The Cart object and it's LineItems are logical not physical - Meaning
+ * they exist in memory and are not persisted to the Database.  When a user Checkouts
+ * their cart, pays and completes their Order - the Order and it's Line Items will
+ * be saved to the Database.
+ *
+ * @author Amy Radtke
+ * @version 1.0  07/01/2017
  */
 public class OrderController extends HttpServlet {
 
     private static final String defaultURL = "/cart/cart.jsp";
-//        private static final String defaultURL = "";
 
-
+    /**
+     *  Handles no URLs at this time
+     */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws IOException, ServletException {
@@ -37,17 +43,15 @@ public class OrderController extends HttpServlet {
         String requestURI = request.getRequestURI();
         String url = defaultURL;
 
-//        if (requestURI.endsWith("/showCart")){
-//            url = showCart(request, response);
-//        }else if (requestURI.endsWith("/checkUser")){
-////            url = checkOut(request, response);
-//        }
-
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
 
-    }
+    }//End - doGet()
+
+    /**
+     *  Handles URLs ending in /addItem, /updateItem, and /removeItem
+     */
     @Override
     public void doPost(HttpServletRequest request,
                       HttpServletResponse response) throws IOException, ServletException {
@@ -63,33 +67,35 @@ public class OrderController extends HttpServlet {
             url = removeItem(request, response);
         }
 
-// DELETE THIS - ITS IN THE CHECKOUT CONTROLLER
-// else if (requestURI.endsWith("/checkOut")){
-////            url = checkOut(request, response);
-//        }else
-//
-//
-//        if (requestURI.endsWith("/displayInvoice")){
-//            url = displayInvoice(request, response);
-//        }else if (requestURI.endsWith("/displayUser")){
-//            url = "/cart/user.jsp";
-//        }else if (requestURI.endsWith("/processUser")) {
-//            url = processUser(request, response);
-//        }else if (requestURI.endsWith("/displayCreditCard")){
-//            url = "/cart/credit_card.jsp";
-//        }else if (requestURI.endsWith("/completeOrder")){
-//            url = completeOrder(request, response);
-//        }
-
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);
-    }
 
+    }//End - doPost
 
-
+    /**
+     * <br>
+     * Adds the given number of Products to the Cart
+     * <br><br>
+     *  If a Line Item for that Product already exists in the Cart
+     *  its Quantity is increased based on the Quantity given.
+     *  If the Line Item for that Product doesn't already exist
+     *  a Line Item is created for that Product and Quantity is set
+     *  The URL for the Products page is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "productId" - the Product's Unique ID
+     * "productQuantity" - the number of items (of that product) to add to the cart
+     * <br><br>
+     * Session object Attributes:<br>
+     * "cart" - Cart object
+     *
+     * @return  URL to /catalog/products.jsp which displays the Products page
+     */
     private String addItem(HttpServletRequest request, HttpServletResponse response){
+
         HttpSession session = request.getSession();
+
         Cart cart =(Cart)session.getAttribute("cart");
 
         if (cart == null)
@@ -115,10 +121,25 @@ public class OrderController extends HttpServlet {
             }
         }
         session.setAttribute("cart", cart);
-//        return defaultURL;  //defaultURL = "/cart/cart.jsp"
+
         return "/catalog/products.jsp";
     }
 
+    /**
+     * <br>
+     * Update the Quantity of the given Product's LineItem
+     * If the Quantity is Zero - Delete the LineItem from the Cart
+     * The URL for the Cart page is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "productId" - the Product's Unique ID
+     * "updateQuantity" - the number of items (of that product) to add to the cart
+     * <br><br>
+     * Session object Attributes:<br>
+     * "cart" - Cart object
+     *
+     * @return  URL to /cart/cart.jsp which displays the Cart page
+     */
     private String updateItem(HttpServletRequest request, HttpServletResponse response){
 
         String productId = request.getParameter("productId");
@@ -145,8 +166,23 @@ public class OrderController extends HttpServlet {
                 cart.removeLineItem(lineItem);
         }
         return "/cart/cart.jsp";
-    }
 
+    }//End - updateItem()
+
+    /**
+     * <br>
+     * Remove a Product's LineItem from the Cart
+     * The URL for the Cart page is returned - initiating display of that window.
+     * <br><br>
+     * Request object Parameters:<br>
+     * "cart" - the Product's Unique ID
+     * "productId" - the number of items (of that product) to add to the cart
+     * <br><br>
+     * Session object Attributes:<br>
+     * "cart" - Cart object
+     *
+     * @return  URL to /cart/cart.jsp which displays the Cart page
+     */
     private String removeItem(HttpServletRequest request, HttpServletResponse response){
 
         HttpSession session = request.getSession();
@@ -157,20 +193,7 @@ public class OrderController extends HttpServlet {
                 cart.removeLineItem(lineItem);
        }
         return "/cart/cart.jsp";
-    }
 
+    }//End - removeItem()
 
-
-////    private String showCart(HttpServletRequest request, HttpServletResponse response){
-////        HttpSession session = request.getSession();
-////        Cart cart =(Cart)session.getAttribute("cart");
-////
-////        if (cart == null || cart.getCount() == 0){
-////            request.setAttribute("emptyCart", "Your cart is empty.");
-////        }else {
-////            request.getSession().setAttribute("cart", cart);
-////        }
-////        return defaultURL;  //defaultURL = "/cart/cart.jsp"
-////    }
-
-}
+}//End - OrderController.java

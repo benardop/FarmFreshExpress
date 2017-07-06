@@ -60,7 +60,7 @@ public class InvoiceDB {
 
         }catch(SQLException e){
             System.err.println(e);
-
+            throw new RuntimeException(e);
         }finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -90,7 +90,7 @@ public class InvoiceDB {
 
         }catch(SQLException e){
             System.err.println(e);
-
+            throw new RuntimeException(e);
         }finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -136,7 +136,7 @@ public class InvoiceDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         }finally{
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);

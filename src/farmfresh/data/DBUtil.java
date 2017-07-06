@@ -8,7 +8,8 @@ import java.sql.Statement;
  * Database Utility Object - used to close Database Statements,
  * Result Sets and Prepared Statements
  *
- * @author Benard Pacho developed the logic  Amy Radtke commented the code.
+ * @author Benard Pacho developed the logic
+ *         Amy Radtke commented the code and added the RuntimeException logic.
  */
 public class DBUtil {
 
@@ -25,6 +26,7 @@ public class DBUtil {
 
           } catch (SQLException e) {
               System.err.println(e);
+              throw new RuntimeException(e);
           }
       }
 
@@ -41,6 +43,7 @@ public class DBUtil {
 
         } catch (SQLException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -57,6 +60,7 @@ public class DBUtil {
 
           } catch (SQLException e) {
               System.err.println(e);
+              throw new RuntimeException(e);
           }
       }
 

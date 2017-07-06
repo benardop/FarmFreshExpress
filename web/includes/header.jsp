@@ -36,10 +36,20 @@
 <%--Prepare the Horizontal Menu Bar--%>
 <nav id="nav_bar">
     <ul>
-        <%--CATEGORIES is displayed for Super Users--%>
+
+        <%--USER VIEW, ADMIN VIEW and DELETE COOKIES are displayed--%>
+        <%-- Only for Super Users--%>
+        <%--Admins are already in ADMIN VIEW and Users are already in USER VIEW--%>
+        <%--But Super Users may be in Admin or User view--%>
+        <%--and will need the ability to toggle between the two--%>
+            <%--DELETE COOKIES is displayed for Super Users--%>
         <c:if test="${pageContext.request.isUserInRole('super_user')}">
             <li><a href="<c:url value='/' />">
-                CATEGORIES</a></li>
+                USER VIEW</a></li>
+            <li><a href="<c:url value='/adminController/displayInvoices/' />">
+                ADMIN VIEW</a></li>
+            <li><a href="<c:url value='/user/deleteCookies' />">
+                DELETE COOKIES</a></li>
         </c:if>
 
         <%--eNEWSLETTER is displayed for Users that are NOT Admins--%>
@@ -66,21 +76,6 @@
                     LOG OUT</a></li>
             </c:otherwise>
         </c:choose>
-
-        <%--ADMIN is displayed for Super Users--%>
-        <%--ADMIN is not needed for Admins because they are already--%>
-        <%--in Admin view, Super Users may be in Admin or User view--%>
-        <%--and will need to toggle between the two--%>
-        <c:if test="${pageContext.request.isUserInRole('super_user')}">
-            <li><a href="<c:url value='/adminController/displayInvoices/' />">
-                ADMIN</a></li>
-        </c:if>
-
-        <%--DELETE COOKIES is displayed for Super Users--%>
-        <c:if test="${pageContext.request.isUserInRole('super_user')}">
-            <li><a href="<c:url value='/user/deleteCookies' />">
-                DELETE COOKIES</a></li>
-        </c:if>
 
         <%--CART is always displayed--%>
         <%--It displays the Number of Items in the Cart or Zero if there is not Cart--%>

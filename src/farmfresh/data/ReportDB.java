@@ -88,7 +88,7 @@ public class ReportDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closeStatement(statement);

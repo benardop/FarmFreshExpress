@@ -27,6 +27,6 @@
 </form>
 <br>
 <br>
-<p><a href="/password_reset.jsp">Reset Your Password</a></p>
+<p><a href>Reset Your Password - Not Yet Available</a></p>
 <br>
-<p><a href="/register_user.jsp">Register For A New Account</a></p>
+<p><a href="/register_user.jsp">Register For A New User Account</a></p>

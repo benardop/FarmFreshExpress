@@ -46,7 +46,7 @@ public class ProductTypeDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);

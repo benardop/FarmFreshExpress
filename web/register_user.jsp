@@ -40,7 +40,7 @@
     <input type="password" name="password1" required>
     <p class="required">*</p><br>
 
-    <label>Re-enter Password</label>
+    <label>Re-Enter Password</label>
     <input type="password" name="password2" required>
     <p class="required">*</p><br>
 

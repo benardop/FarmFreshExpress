@@ -67,7 +67,7 @@ public class ProductDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -87,7 +87,6 @@ public class ProductDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-
 
         String query =  "SELECT Product.ProductID," +
                         " Product.ProductTypeID," +
@@ -125,7 +124,7 @@ public class ProductDB {
 
         } catch (SQLException e) {
             System.err.println(e);
-            return null;
+            throw new RuntimeException(e);
         } finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
@@ -169,7 +168,7 @@ public class ProductDB {
 //
 //        } catch (SQLException e) {
 //            System.err.println(e);
-//
+//            throw new RuntimeException(e);
 //        } finally {
 //            DBUtil.closeResultSet(rs);
 //            DBUtil.closePreparedStatement(ps);
@@ -202,7 +201,7 @@ public class ProductDB {
 //
 //        } catch (SQLException e) {
 //            System.err.println(e);
-//
+//            throw new RuntimeException(e);
 //        } finally {
 //            DBUtil.closeResultSet(rs);
 //            DBUtil.closePreparedStatement(ps);

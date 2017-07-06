@@ -17,7 +17,8 @@ import java.sql.SQLException;
  * data such as User, Cart, Invoice, etc. See the context.xml file for
  * additional details
  *
- * @author Benard Pacho developed the logic  Amy Radtke commented the code.
+ * @author Benard Pacho developed the logic
+ *         Amy Radtke commented the code and added RunTimeException logic
  */
 public class ConnectionPool {
 
@@ -55,6 +56,7 @@ public class ConnectionPool {
             dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/farmFreshDB");
         } catch (NamingException e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -66,7 +68,7 @@ public class ConnectionPool {
             return dataSource.getConnection();
         } catch (SQLException sqle) {
             System.err.println(sqle);
-            return null;
+            throw new RuntimeException(sqle);
         }
     }
 
@@ -79,6 +81,7 @@ public class ConnectionPool {
             c.close();
         } catch (SQLException sqle) {
             System.err.println(sqle);
+            throw new RuntimeException(sqle);
         }
     }
 

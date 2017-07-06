@@ -9,8 +9,8 @@ import farmfresh.business.User;
 import java.sql.*;
 
 /**
- * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete Functionality
- * involving the 'user' Table.
+ * Purpose: To  provide all CRUD - Create, Read(Select), Update and Delete
+ * Functionality involving the 'user' Table.
  *
  * @author Amy Radtke
  * @version 1.0  07/01/2017

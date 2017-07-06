@@ -20,7 +20,7 @@
     <p>Please enter your email - so we can help you reset it.</p>
     <form action="/" method="post">
         <label>Email</label>
-        <input type="text" name="j_username"><br>
+        <input type="text" name="j_username" maxlength="254"><br>
         <label>&nbsp;</label>
         <input type="submit" value="Reset Password">
     </form>

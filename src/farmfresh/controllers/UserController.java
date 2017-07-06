@@ -90,7 +90,7 @@ public class UserController extends HttpServlet {
      * - If User subscribed to the eNewsletter, but has not yet Registered - all User's
      *   information will be updated in the User table.<br>
      * - If full User information exists (User has been registered) and Email already exists
-     *   in the User table - then the user cannot re-register.  They are directed to login instead. <br>
+     *   in the User table - then the user cannot re-register.  They are asked to login instead. <br>
      *   Else --- <br>
      *   A row is inserted into the user table containing all User information entered <br>
      *   A row is inserted in the userpass table containing the User's password <br>
@@ -152,17 +152,17 @@ public class UserController extends HttpServlet {
         // - Else --- A row is inserted into the User DB containing all User information entered
         if (password1.equals(password2) == false){
             // The two passwords entered do not match.
-            String message = "The two passwords entered do not match.  ";
-            message += "Please re-enter the passwords.";
+            String message = "The two Passwords entered do not Match.<br>";
+            message += "Please Re-Enter Them.";
             request.setAttribute("message", message);
-            return "/user/register_user.jsp";
+            return "/register_user.jsp";
         }else if (UserDB.userIsOnlySubcribedToNewsletterAndNotRegistered(email)){
             UserDB.update(user);
         }else if (UserDB.emailExists(email)) {
-            String message = "A User has already registered with email address " + email + ".<br>";
-            message += "Please Log In instead.";
+            String message = "A User with the Email " + email + " already exists.<br>";
+            message += "Please Log In Instead.";
             request.setAttribute("message", message);
-            return "/user/register_user.jsp";
+            return "/register_user.jsp";
         }else {
             UserDB.insert(user);
         }
@@ -196,8 +196,8 @@ public class UserController extends HttpServlet {
                     + e.getMessage());
         }
 
-        // Initiate display of Home Page
-        return "/index.jsp";
+        // Initiate display of Home Page index.jsp
+        return "/";
 
     }//End - register()
 

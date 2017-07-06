@@ -8,7 +8,8 @@ import java.sql.SQLException;
  * Returns SQL Result Set in HTML format
  * NOT CURRENTLY USED...
  *
- * @author Benard Pacho developed the logic  Amy Radtke commented the code.
+ * @author Benard Pacho developed the logic
+ *         Amy Radtke commented the code.
  */
 public class SQLUtil {
 
@@ -59,7 +60,6 @@ public class SQLUtil {
             if (ch == 39) {  // ASCII Code for apostrophe
                 sb.insert(i++, " '");
             }
-
         }
 
         return sb.toString();
