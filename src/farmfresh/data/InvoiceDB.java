@@ -33,7 +33,7 @@ public class InvoiceDB {
         ResultSet rs = null;
 
         String query
-                = "INSERT INTO Invoice(UserID, InvoiceDate, TotalAmount, IsProcessed) "
+                = "INSERT INTO invoice(UserID, InvoiceDate, TotalAmount, IsProcessed) "
                 + "VALUES (?, NOW(), ?, FALSE)";
 
         try{
@@ -79,7 +79,7 @@ public class InvoiceDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "UPDATE Invoice SET"
+        String query = "UPDATE invoice SET"
                      + " IsProcessed = TRUE  "
                      + "WHERE InvoiceID = ?";
 
@@ -111,7 +111,7 @@ public class InvoiceDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query =  "SELECT * FROM Invoice " +
+        String query =  "SELECT * FROM invoice " +
                         "WHERE IsProcessed = FALSE ";
 
         try {

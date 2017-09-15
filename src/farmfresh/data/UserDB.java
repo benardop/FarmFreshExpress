@@ -80,7 +80,7 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "UPDATE User SET "
+        String query = "UPDATE user SET "
                 + "FirstName = ?, "
                 + "LastName = ?, "
                 + "CompanyName = ?, "
@@ -125,7 +125,7 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "UPDATE User SET "
+        String query = "UPDATE user SET "
                 + "IsSubscribedToNewsletter = TRUE "
                 + "WHERE Email = ?";
         try {
@@ -154,7 +154,7 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "UPDATE User SET "
+        String query = "UPDATE user SET "
                 + "IsSubscribedToNewsletter = FALSE "
                 + "WHERE Email = ?";
         try {
@@ -192,7 +192,7 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "DELETE FROM User WHERE Email = ?";
+        String query = "DELETE FROM user WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
@@ -221,7 +221,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM User "
+        String query = "SELECT * FROM user "
                 + "WHERE UserID = ?";
         try {
             ps = connection.prepareStatement(query);
@@ -258,7 +258,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM User "
+        String query = "SELECT * FROM user "
                 + "WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
@@ -320,7 +320,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT Email FROM User "
+        String query = "SELECT Email FROM user "
                 + "WHERE Email = ?";
         try {
             ps = connection.prepareStatement(query);
@@ -350,7 +350,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT Email FROM User "
+        String query = "SELECT Email FROM user "
                 + "WHERE Email = ? "
                 + "AND LastName IS NULL "
                 + "AND IsSubscribedToNewsletter IS TRUE";

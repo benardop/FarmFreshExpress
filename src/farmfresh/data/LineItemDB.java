@@ -29,7 +29,7 @@ public class LineItemDB {
         ResultSet rs = null;
 
         String query
-                = "INSERT INTO LineItem (InvoiceID, ProductID, Quantity) "
+                = "INSERT INTO lineitem (InvoiceID, ProductID, Quantity) "
                 + "VALUES (?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
@@ -61,7 +61,7 @@ public class LineItemDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM LineItem WHERE InvoiceID = ?";
+        String query = "SELECT * FROM lineitem WHERE InvoiceID = ?";
 
         try {
             ps = connection.prepareStatement(query);
@@ -97,7 +97,7 @@ public class LineItemDB {
 //        PreparedStatement ps = null;
 //        ResultSet rs = null;
 //
-//        String query = "UPDATE LineItem SET Quantity = ? "
+//        String query = "UPDATE lineitem SET Quantity = ? "
 //                     + "WHERE InvoiceId = ? AND ProductId = ?";
 //        try {
 //            ps = connection.prepareStatement(query);
@@ -123,7 +123,7 @@ public class LineItemDB {
 //        PreparedStatement ps = null;
 //        ResultSet rs = null;
 //
-//        String query = "DELETE LineItem "
+//        String query = "DELETE lineitem "
 //                + "WHERE InvoiceId = ? AND ProductId = ?";
 //        try {
 //            ps = connection.prepareStatement(query);

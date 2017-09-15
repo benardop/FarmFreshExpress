@@ -28,7 +28,7 @@ public class ProductTypeDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM ProductType ORDER BY SortOrder";
+        String query = "SELECT * FROM producttype ORDER BY SortOrder";
 
         try {
             ps = connection.prepareStatement(query);

@@ -28,20 +28,20 @@ public class ProductDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query =  "SELECT Product.ProductID," +
-                " Product.ProductTypeID," +
-                " Product.ProductCode," +
-                " Product.Name," +
-                " Product.Description," +
-                " Product.ImageID," +
-                " Product.Price," +
-                " Product.IsAvailable," +
-                " ProductType.ProductTypeName" +
-                " FROM ProductType, Product" +
-                " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
-                " AND Product.ProductTypeID = ?" +
-                " AND Product.IsAvailable = TRUE" +
-                " ORDER BY Product.Name;";
+        String query =  "SELECT product.ProductID," +
+                " product.ProductTypeID," +
+                " product.ProductCode," +
+                " product.Name," +
+                " product.Description," +
+                " product.ImageID," +
+                " product.Price," +
+                " product.IsAvailable," +
+                " producttype.ProductTypeName" +
+                " FROM producttype, product" +
+                " WHERE producttype.ProductTypeID = product.ProductTypeID" +
+                " AND product.ProductTypeID = ?" +
+                " AND product.IsAvailable = TRUE" +
+                " ORDER BY product.Name;";
 
         try {
             ps = connection.prepareStatement(query);
@@ -88,18 +88,18 @@ public class ProductDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query =  "SELECT Product.ProductID," +
-                        " Product.ProductTypeID," +
-                        " Product.ProductCode," +
-                        " Product.Name," +
-                        " Product.Description," +
-                        " Product.ImageID," +
-                        " Product.Price," +
-                        " Product.IsAvailable," +
-                        " ProductType.ProductTypeName" +
-                        " FROM ProductType, Product" +
-                        " WHERE ProductType.ProductTypeID = Product.ProductTypeID" +
-                        " AND Product.ProductID = ?;";
+        String query =  "SELECT product.ProductID," +
+                        " product.ProductTypeID," +
+                        " product.ProductCode," +
+                        " product.Name," +
+                        " product.Description," +
+                        " product.ImageID," +
+                        " product.Price," +
+                        " product.IsAvailable," +
+                        " producttype.ProductTypeName" +
+                        " FROM producttype, product" +
+                        " WHERE producttype.ProductTypeID = product.ProductTypeID" +
+                        " AND product.ProductID = ?;";
 
         try {
             ps = connection.prepareStatement(query);
@@ -141,7 +141,7 @@ public class ProductDB {
 //        ResultSet rs = null;
 //
 //        String query
-//                = "INSERT INTO Product(ProductID, Description, Price) "
+//                = "INSERT INTO product(ProductID, Description, Price) "
 //                + "VALUES (?, ?, ?)";
 //
 //        try {
@@ -184,7 +184,7 @@ public class ProductDB {
 //        PreparedStatement ps = null;
 //        ResultSet rs = null;
 //
-//        String query = "UPDATE Products SET "
+//        String query = "UPDATE product SET "
 //                + "product_code = ?, "
 //                + "description = ?,  "
 //                + "price = ? "

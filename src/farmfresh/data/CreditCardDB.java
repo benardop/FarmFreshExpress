@@ -28,7 +28,7 @@ public class CreditCardDB {
         PreparedStatement ps = null;
 
         String query
-                = "INSERT INTO CreditCard (UserID, CreditCardType, CreditCardNumber, " +
+                = "INSERT INTO creditcard (UserID, CreditCardType, CreditCardNumber, " +
                     "CreditCardExpMonth, CreditCardExpYear, Primary)"
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
@@ -67,7 +67,7 @@ public class CreditCardDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "UPDATE CreditCard SET "
+        String query = "UPDATE creditcard SET "
                 + "CreditCardType = ?, "
                 + "CreditCardNumber = ?, "
                 + "CreditCardExpMonth = ?, "
@@ -98,7 +98,7 @@ public class CreditCardDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "DELETE FROM CreditCard WHERE CreditCardID = ?";
+        String query = "DELETE FROM creditcard WHERE CreditCardID = ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setLong(1, creditCardId);
@@ -119,7 +119,7 @@ public class CreditCardDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query =  "SELECT * FROM CreditCard " +
+        String query =  "SELECT * FROM creditcard " +
                         "WHERE UserID = ? " +
                         " ORDER BY Primary DESC;";
 
@@ -154,7 +154,7 @@ public class CreditCardDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query =  "SELECT * FROM CreditCard" +
+        String query =  "SELECT * FROM creditcard" +
                 " WHERE CreditCardID = ?;";
 
         try {
