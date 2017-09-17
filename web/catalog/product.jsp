@@ -17,11 +17,8 @@
 
 <!-- start the middle column -->
 <section>
-  <img src="${product.imageURL}"
-       alt="Unable to display Image"
-       width="250"
-       height="250"
-  />
+  <img src="<c:url value="${product.imageURL}"/>"
+       alt="Unable to display Image" width="250" height="250">
   <h2>${product.name}</h2>
   <h3>${product.priceInCurrencyFormat}</h3>
   <h3>${product.description}</h3>

@@ -23,15 +23,15 @@
   <h1>JOIN US!</h1>
 
   <form method="post">
-      <h3> Sign up for our monthly eNewsLetter to hear what's happening on the farm - <br/>
-           what's being harvested, recipes from our kitchen, and special offers.</h3>
+    <h3> Sign up for our monthly eNewsLetter to hear what's happening on the farm - <br/>
+      what's being harvested, recipes from our kitchen, and special offers.</h3>
     <label>Email</label>
     <input type="email" name="email" maxlength="254" required><br>
     <label>&nbsp;</label>
-  <button type="submit" formaction="/user/subscribeToNewsletter">Subscribe</button>
-  <button type="submit" formaction="/user/unsubscribeFromNewsletter">Unsubscribe</button>
+    <button type="submit" formaction="<c:url value='/user/subscribeToNewsletter'/>">Subscribe</button>
+    <button type="submit" formaction="<c:url value='/user/unsubscribeFromNewsletter'/>">Unsubscribe</button>
   </form>
-  </section>
+</section>
 <!-- end the middle panel -->
 
 <jsp:include page="/includes/footer.jsp" />

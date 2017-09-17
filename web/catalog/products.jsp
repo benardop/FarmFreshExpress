@@ -33,12 +33,12 @@
             <tr></tr>
             <c:forEach var="product" items="${availableProducts}">
                 <tr>
-                    <td><a href="/catalogController/displayProduct?productId=${product.productId}">
-                        <img src="${product.imageURL}"
-                         alt="Unable to display Image"
-                         width="70"
-                         height="70"/>
-                    </a></td>
+                    <td>
+                        <a href="<c:url value='/catalogController/displayProduct?productId=${product.productId}'/>">
+                        <img src="<c:url value="${product.imageURL}"/>"
+                             alt="Unable to display Image" width="70" height="70">
+                    </a>
+                    </td>
                     <td>${product.name} </td>
                     <td>${product.priceInCurrencyFormat} </td>
                     <td>
