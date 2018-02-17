@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/farmFreshExpress">
+    <!-- the farmfresh database that contains non-security Farm Fresh data -->
+    <Resource name="jdbc/farmFreshDB" type="javax.sql.DataSource" auth="Container"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://127.0.0.1:3306/farmfresh?autoReconnect=true&amp;useSSL=false"
+              username="root" password="farmfresh2017#"
+              logAbandoned="true"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              maxActive="100" maxIdle="30" maxWait="10000" />
+
+    <!-- the farmfresh database that contains usernames, passwords and roles -->
+    <Resource name="jdbc/farmDB" type="javax.sql.DataSource" auth="Container"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://127.0.0.1:3306/farmadmin?autoReconnect=true&amp;useSSL=false"
+              username="root" password="farmfresh2017#"
+              logAbandoned="true"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              maxActive="100" maxIdle="30" maxWait="10000" />
+
+    <Realm dataSourceName="jdbc/farmDB" localDataSource="true"
+           className="org.apache.catalina.realm.DataSourceRealm"
+           userTable="UserPass" userRoleTable="UserRole"
+           userNameCol="Username" roleNameCol="Rolename" userCredCol="Password"
+           debug="99" />
+
+    <ResourceLink name="jdbc/farmFreshDB"
+                  global="jdbc/farmFreshDB"
+                  type="javax.sql.DataSource" />
+</Context>

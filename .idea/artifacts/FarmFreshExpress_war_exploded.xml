@@ -27,6 +27,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/dependencies/connection-pool-2.3.5.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/dependencies/mysql-connector-java-5.1.40.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/dependencies/tomcat-jdbc-7.0.19.jar" />
+          <element id="library" level="project" name="junit-4.12" />
         </element>
       </element>
       <element id="directory" name="Resources">

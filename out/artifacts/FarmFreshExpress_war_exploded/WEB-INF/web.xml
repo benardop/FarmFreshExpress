@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <display-name>Farm Fresh Express</display-name>
+    <description>Farm Fresh Express - Farm Fresh Goods straight to your door.</description>
+
+    <!--  Define Context Initialization Parameters -->
+    <context-param>
+        <param-name>custServEmail</param-name>
+        <param-value>amy@roofreelancing.com</param-value>
+    </context-param>
+
+    <!-- Servlets Definitions(alphabetical order) -->
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>farmfresh.controllers.AdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogController</servlet-name>
+        <servlet-class>farmfresh.controllers.CatalogController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>farmfresh.controllers.OrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutController</servlet-name>
+        <servlet-class>farmfresh.controllers.CheckOutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>farmfresh.controllers.UserController</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mapppings  -->
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/adminController/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatalogController</servlet-name>
+        <url-pattern>/catalogController/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/order/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutController</servlet-name>
+        <url-pattern>/checkOut/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/user/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Define Servlet Context Listener -->
+    <listener>
+        <listener-class>farmfresh.util.FarmFreshContextListener</listener-class>
+    </listener>
+
+    <!-- Define the Welcome Files  - first page you will see entering the app -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- Enable Custom Error Pages -->
+    <error-page>
+    <error-code>404</error-code>
+    <location>/error_404.jsp</location>
+</error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error_java.jsp</location>
+    </error-page>
+    
+    <!-- Define three security roles -->
+    <security-role>
+        <description>system administrator</description>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <description>super user</description>
+        <role-name>super_user</role-name>
+    </security-role>
+    <security-role>
+        <description>user</description>
+        <role-name>user</role-name>
+    </security-role>
+
+    <!-- Secure the calls to user/login - requiring authentication before executing -->
+    <!-- This will force the User to Login through the System Login functionality -->
+    <!-- and then proceed to the login functionality Save the User in the Session -->
+    <!-- and save the userEmail cookie, etc -->
+    <security-constraint>
+        <web-resource-collection>
+
+            <web-resource-name>Login Area</web-resource-name>
+            <url-pattern>/user/login</url-pattern>
+        </web-resource-collection>
+
+        <!-- authorize all roles to Login -->
+        <auth-constraint>
+            <role-name>super_user</role-name>
+            <role-name>admin</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <!-- restrict access to the urls in the admin directory -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin Area</web-resource-name>
+            <url-pattern>/adminController/*</url-pattern>
+        </web-resource-collection>
+
+        <!-- authorize the super_user and admin roles to -->
+        <!-- perform Admin functionality-->
+        <auth-constraint>
+            <role-name>super_user</role-name>
+            <role-name>admin</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <!-- restrict access to the urls in the checkOut directory -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Check Out Area</web-resource-name>
+            <url-pattern>/checkOut/*</url-pattern>
+        </web-resource-collection>
+
+        <!-- authorize the super_user and user roles to checkout -->
+        <auth-constraint>
+            <role-name>super_user</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <!-- use FORM-based authentication to provide access to application  -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/login_error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- use cookies (not URL encoding) to track session -->
+    <session-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+</web-app>
