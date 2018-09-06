@@ -1,2 +1,2 @@
 # FarmFreshExpress
-Java e-Commerce application using Servlets and JSP
+Complete End-to-End Java e-Commerce Web Application.
